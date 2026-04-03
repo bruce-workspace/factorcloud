@@ -1,0 +1,1910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FactorCloud , Factoring Software Built by Factors</title>
+  <meta name="description" content="Dual-ledger precision, automated cash application, and 20+ integrations. FactorCloud is the factoring platform built by factors who knew what was missing.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      /* Light / editorial palette */
+      --bg:         #F4F1EB;   /* warm parchment */
+      --bg-white:   #FFFFFF;
+      --ink:        #111111;   /* near-black text */
+      --ink-2:      #555555;   /* secondary text */
+      --ink-3:      #999999;   /* tertiary */
+      --rule:       #D8D3C8;   /* horizontal rules */
+      --rule-light: rgba(0,0,0,0.06);
+
+      /* Accounting colors , the brand language */
+      --red:        #C41E3A;   /* accounting red: debits, accents, overlines */
+      --green:      #1A6B3C;   /* accounting green: credits, positives */
+      --cta:        #0070AA;   /* primary button */
+
+      /* Dark sections (nav, stat, CTA+footer) */
+      --dark:       #060D18;
+      --dark-2:     #0A1828;
+      --dark-text:  #FFFFFF;
+      --dark-sub:   #8899AA;
+      --dark-rule:  rgba(255,255,255,0.07);
+
+      /* Mockup internals (product windows , stay dark) */
+      --m-bg:       #071520;
+      --m-border:   rgba(88,187,237,0.15);
+      --m-accent:   #58BBED;
+      --m-green:    #2ECC9A;
+      --m-red:      #E05050;
+      --m-g1:       #CDD5DE;
+      --m-g2:       #8899AA;
+      --m-g3:       #4A5A68;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 15px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ─── TYPOGRAPHY ───────────────────────────────────────── */
+    .serif { font-family: 'Playfair Display', Georgia, serif; }
+    .mono  { font-family: 'IBM Plex Mono', 'Courier New', monospace; }
+
+    .overline {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--red);
+      display: block;
+      margin-bottom: 16px;
+    }
+
+    h1, h2 { font-family: 'Playfair Display', Georgia, serif; font-weight: 700; }
+    h3      { font-family: 'IBM Plex Sans', sans-serif; font-size: 17px; font-weight: 600; line-height: 1.35; }
+    p       { color: var(--ink-2); line-height: 1.8; }
+
+    .container { max-width: 1160px; margin: 0 auto; padding: 0 40px; }
+
+    /* ─── BUTTONS ──────────────────────────────────────────── */
+    .btn-primary {
+      display: inline-flex; align-items: center; justify-content: center;
+      background: var(--cta);
+      color: #fff;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 14px; font-weight: 600;
+      padding: 12px 26px;
+      border-radius: 4px;
+      text-decoration: none; border: none; cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      white-space: nowrap;
+      letter-spacing: 0.01em;
+    }
+    .btn-primary:hover { background: #005f8f; transform: translateY(-1px); }
+
+    .btn-ghost {
+      display: inline-flex; align-items: center; justify-content: center;
+      background: transparent;
+      color: var(--ink);
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 14px; font-weight: 500;
+      padding: 12px 26px;
+      border-radius: 4px;
+      text-decoration: none;
+      border: 1px solid rgba(0,0,0,0.22);
+      transition: border-color 0.2s, background 0.2s, transform 0.15s;
+      white-space: nowrap;
+    }
+    .btn-ghost:hover { border-color: rgba(0,0,0,0.5); background: rgba(0,0,0,0.03); transform: translateY(-1px); }
+
+    .btn-ghost-light {
+      display: inline-flex; align-items: center; justify-content: center;
+      background: transparent;
+      color: rgba(255,255,255,0.75);
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 14px; font-weight: 500;
+      padding: 12px 26px;
+      border-radius: 4px;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.2);
+      transition: border-color 0.2s, color 0.2s, transform 0.15s;
+      white-space: nowrap;
+    }
+    .btn-ghost-light:hover { border-color: rgba(255,255,255,0.45); color: #fff; transform: translateY(-1px); }
+
+    /* ─── NAV (DARK) ───────────────────────────────────────── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      height: 64px;
+      background: var(--dark);
+      display: flex; align-items: center;
+      border-bottom: 1px solid var(--dark-rule);
+      transition: background 0.3s;
+    }
+    .nav.scrolled {
+      background: rgba(6,13,24,0.96);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      width: 100%; max-width: 1160px; margin: 0 auto; padding: 0 40px;
+    }
+    .nav-logo img { height: 30px; display: block; }
+    .nav-links {
+      display: flex; align-items: center; gap: 2px; list-style: none;
+    }
+    .nav-links > li { position: relative; }
+    .nav-links > li > a {
+      display: flex; align-items: center; gap: 4px;
+      font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.65);
+      text-decoration: none; padding: 8px 12px; border-radius: 4px;
+      transition: color 0.15s, background 0.15s;
+    }
+    .nav-links > li > a:hover { color: #fff; background: rgba(255,255,255,0.06); }
+    .nav-links > li > a .chevron {
+      width: 10px; height: 10px;
+      stroke: currentColor; fill: none; stroke-width: 2;
+      stroke-linecap: round; stroke-linejoin: round;
+      transition: transform 0.2s;
+    }
+    .nav-links > li.open > a .chevron { transform: rotate(180deg); }
+
+    .nav-dropdown {
+      position: absolute; top: calc(100% + 8px); left: 0;
+      background: #0D1E2E;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px; padding: 6px;
+      min-width: 220px;
+      opacity: 0; pointer-events: none;
+      transform: translateY(-6px);
+      transition: opacity 0.15s, transform 0.15s;
+      box-shadow: 0 24px 48px rgba(0,0,0,0.5);
+    }
+    .nav-links > li.open .nav-dropdown { opacity: 1; pointer-events: auto; transform: translateY(0); }
+    .nav-dropdown a {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.6);
+      text-decoration: none; padding: 8px 10px; border-radius: 5px;
+      transition: background 0.12s, color 0.12s;
+    }
+    .nav-dropdown a:hover { background: rgba(255,255,255,0.06); color: #fff; }
+    .nav-dropdown a .dd-icon {
+      width: 26px; height: 26px; background: rgba(255,255,255,0.06); border-radius: 5px;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 12px;
+    }
+    .nav-right { display: flex; align-items: center; gap: 16px; }
+    .nav-demo { font-size: 13px; padding: 8px 18px; }
+
+    .nav-hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; padding: 4px; background: none; border: none;
+    }
+    .nav-hamburger span {
+      width: 22px; height: 2px; background: rgba(255,255,255,0.7); border-radius: 2px;
+      transition: transform 0.25s, opacity 0.25s;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(4px, 7px); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(4px, -7px); }
+
+    .mobile-nav {
+      display: none; position: fixed; top: 64px; left: 0; right: 0; bottom: 0;
+      background: var(--dark); padding: 24px 32px 48px; overflow-y: auto; z-index: 999;
+      border-top: 1px solid var(--dark-rule);
+    }
+    .mobile-nav.open { display: block; }
+    .mobile-nav-section { margin-bottom: 4px; }
+    .mobile-nav-toggle {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 15px; font-weight: 600; color: rgba(255,255,255,0.7);
+      padding: 14px 0; border-bottom: 1px solid var(--dark-rule);
+      cursor: pointer; background: none; border: none; width: 100%; text-align: left;
+    }
+    .mobile-nav-toggle .chevron { transition: transform 0.2s; stroke: var(--dark-sub); fill: none; stroke-width: 2; }
+    .mobile-nav-toggle.open .chevron { transform: rotate(180deg); }
+    .mobile-nav-sub { display: none; padding: 8px 0; }
+    .mobile-nav-sub.open { display: block; }
+    .mobile-nav-sub a {
+      display: block; font-size: 14px; color: var(--dark-sub);
+      text-decoration: none; padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .mobile-nav-link {
+      display: block; font-size: 15px; font-weight: 600; color: rgba(255,255,255,0.7);
+      text-decoration: none; padding: 14px 0; border-bottom: 1px solid var(--dark-rule);
+    }
+    .mobile-nav-cta { margin-top: 24px; }
+
+    /* ─── HERO (PARCHMENT + RULED LINES) ───────────────────── */
+    .hero {
+      background-color: var(--bg);
+      background-image:
+        repeating-linear-gradient(
+          transparent,
+          transparent 31px,
+          rgba(0,0,0,0.038) 31px,
+          rgba(0,0,0,0.038) 32px
+        );
+      position: relative; overflow: hidden;
+      padding: 152px 0 96px;
+      min-height: 100vh;
+      display: flex; align-items: center;
+    }
+    /* Subtle red margin line (ledger left margin) */
+    .hero::after {
+      content: '';
+      position: absolute; top: 0; bottom: 0; left: max(40px, calc((100vw - 1160px)/2 - 20px));
+      width: 1px;
+      background: rgba(196,30,58,0.12);
+      pointer-events: none;
+      transform-origin: top center;
+      animation: marginLineDraw 600ms ease-out forwards;
+    }
+    .hero-inner { position: relative; z-index: 2; width: 100%; }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 55fr 45fr;
+      gap: 72px; align-items: center;
+    }
+    .hero-overline { color: var(--red); margin-bottom: 22px; }
+    .hero-h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(48px, 6vw, 82px);
+      font-weight: 900;
+      letter-spacing: -0.025em;
+      line-height: 1.05;
+      margin-bottom: 28px;
+      opacity: 1 !important;
+    }
+    .h1-accent { color: var(--red); display: block; }
+    .h1-ink    { color: var(--ink); display: block; }
+    .hero-sub {
+      font-size: 16px; color: var(--ink-2);
+      max-width: 500px; line-height: 1.75;
+      margin-bottom: 36px;
+    }
+    .hero-props {
+      list-style: none; margin-bottom: 44px;
+      border-top: 1px solid var(--rule);
+    }
+    .hero-prop {
+      display: flex; align-items: center; gap: 16px;
+      font-size: 14px; font-weight: 500; color: var(--ink);
+      padding: 12px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .hero-prop-mark {
+      width: 20px; height: 20px; border-radius: 50%;
+      background: rgba(196,30,58,0.08); border: 1px solid rgba(196,30,58,0.25);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .hero-prop-mark svg { width: 10px; height: 10px; stroke: var(--red); fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+    .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    /* Dashboard card on light bg */
+    .hero-visual { position: relative; }
+    .dash-card {
+      background: var(--m-bg);
+      border: 1px solid rgba(88,187,237,0.2);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.22), 0 8px 24px rgba(0,0,0,0.12);
+      transform: perspective(1200px) rotateY(-4deg) rotateX(1.5deg);
+      transition: transform 0.4s ease;
+    }
+    .dash-card:hover { transform: perspective(1200px) rotateY(-1.5deg) rotateX(0.5deg); }
+    .dash-card img { width: 100%; display: block; }
+    .dash-card-bar {
+      display: flex; align-items: center; gap: 7px;
+      padding: 11px 14px;
+      background: rgba(0,0,0,0.5);
+    }
+    .dash-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .dash-dot:nth-child(1) { background: #E05050; }
+    .dash-dot:nth-child(2) { background: #FFC658; }
+    .dash-dot:nth-child(3) { background: #2ECC9A; }
+
+    /* Decorative rule below hero */
+    .hero-rule {
+      height: 1px;
+      background: var(--rule);
+    }
+
+    /* ─── STAT SECTION (DARK BREAK) ────────────────────────── */
+    .stat-section {
+      background: var(--dark);
+      padding: 100px 0;
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .stat-number {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: clamp(100px, 16vw, 160px);
+      color: var(--red);
+      line-height: 1;
+      letter-spacing: -0.04em;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+    .stat-label {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(18px, 2.5vw, 26px);
+      color: rgba(255,255,255,0.85);
+      font-weight: 400;
+      letter-spacing: -0.01em;
+    }
+
+    /* ─── PLATFORM SECTIONS (LIGHT) ───────────────────────── */
+    .platform-wrap { padding: 0; background: var(--bg); }
+    .platform-section {
+      padding: 96px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .platform-section:last-child { border-bottom: none; }
+    .platform-row {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: center;
+    }
+    .platform-row.reverse { direction: rtl; }
+    .platform-row.reverse > * { direction: ltr; }
+    .platform-copy .overline { margin-bottom: 14px; }
+    .platform-copy h2 {
+      font-size: clamp(30px, 3.5vw, 46px);
+      letter-spacing: -0.02em; line-height: 1.1;
+      color: var(--ink); margin-bottom: 20px;
+    }
+    .platform-copy p { margin-bottom: 28px; font-size: 15px; line-height: 1.8; }
+    .platform-link {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px; font-weight: 500;
+      color: var(--red); text-decoration: none;
+      display: inline-flex; align-items: center; gap: 6px;
+      letter-spacing: 0.04em;
+      border-bottom: 1px solid rgba(196,30,58,0.3);
+      padding-bottom: 2px;
+      transition: border-color 0.2s, gap 0.2s;
+    }
+    .platform-link:hover { gap: 10px; border-color: var(--red); }
+
+    /* ─── MOCKUP (DARK PRODUCT WINDOWS ON LIGHT PAGE) ──────── */
+    .mockup {
+      background: var(--m-bg);
+      border: 1px solid var(--m-border);
+      border-radius: 10px; overflow: hidden; font-size: 12px;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.2), 0 4px 16px rgba(0,0,0,0.1);
+    }
+    .mockup-bar {
+      background: rgba(0,0,0,0.5);
+      border-bottom: 1px solid rgba(88,187,237,0.08);
+      padding: 9px 12px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .m-dots { display: flex; gap: 5px; }
+    .m-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .m-dot:nth-child(1) { background: rgba(224,80,80,0.6); }
+    .m-dot:nth-child(2) { background: rgba(255,198,88,0.6); }
+    .m-dot:nth-child(3) { background: rgba(46,204,154,0.6); }
+    .m-title { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--m-g3); font-weight: 400; margin-left: 4px; letter-spacing: 0.02em; }
+
+    /* Schedule flow mockup */
+    .sched-flow { padding: 24px; }
+    .sched-flow-col { display: flex; flex-direction: column; gap: 0; }
+    .sched-node {
+      background: #0B2233;
+      border: 1px solid rgba(88,187,237,0.18);
+      border-radius: 8px; padding: 12px 14px; flex: 1; min-width: 0;
+    }
+    .sched-node-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px; font-weight: 500; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--m-g3); margin-bottom: 5px;
+    }
+    .sched-node-title { font-size: 12px; font-weight: 600; color: var(--m-g1); margin-bottom: 3px; }
+    .sched-node-sub { font-size: 11px; color: var(--m-g3); }
+    .sched-spacer { height: 8px; width: 2px; background: rgba(88,187,237,0.15); margin: 0 auto; }
+    .sched-result {
+      margin-top: 8px;
+      background: rgba(46,204,154,0.06);
+      border: 1px solid rgba(46,204,154,0.2);
+      border-radius: 8px; padding: 12px 14px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .sched-result-check {
+      width: 26px; height: 26px; border-radius: 50%;
+      background: rgba(46,204,154,0.15);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--m-green); font-size: 13px; flex-shrink: 0;
+    }
+    .sched-result-text { font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600; color: var(--m-green); }
+    .sched-result-sub { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--m-g3); margin-top: 2px; }
+    .sched-pulse-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--m-accent); animation: pulse-dot 2s ease-in-out infinite;
+      margin-left: auto; flex-shrink: 0;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.65); }
+    }
+
+    /* BrightBolt animation states */
+    .bb-step { opacity: 0.55; transition: opacity 0.4s ease, transform 0.4s ease; }
+    .bb-step.bb-active { opacity: 1; transform: scale(1.02); }
+    .bb-connector { transform-origin: top center; transform: scaleY(0); transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); }
+    .bb-connector.bb-active { transform: scaleY(1); }
+
+    /* Client record mockup */
+    .client-mockup { padding: 0; }
+    .client-tabs {
+      display: flex; gap: 0;
+      border-bottom: 1px solid rgba(88,187,237,0.1); padding: 0 14px;
+    }
+    .client-tab {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px; font-weight: 500; color: var(--m-g3);
+      padding: 9px 12px; cursor: default;
+      border-bottom: 2px solid transparent; letter-spacing: 0.04em;
+    }
+    .client-tab.active { color: var(--m-accent); border-color: var(--m-accent); }
+    .client-info { padding: 14px; }
+    .client-header {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .client-name { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 3px; }
+    .client-code { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--m-g3); }
+    .client-badges { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 5px; }
+    .badge {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px; font-weight: 500; padding: 2px 8px;
+      border-radius: 3px; letter-spacing: 0.04em;
+    }
+    .badge-green { background: rgba(46,204,154,0.1); color: var(--m-green); border: 1px solid rgba(46,204,154,0.2); }
+    .badge-blue  { background: rgba(88,187,237,0.08); color: var(--m-accent); border: 1px solid rgba(88,187,237,0.2); }
+    .badge-gray  { background: rgba(255,255,255,0.05); color: var(--m-g2); border: 1px solid rgba(255,255,255,0.08); }
+    .client-fields {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+    }
+    .client-field-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 8px; font-weight: 500; text-transform: uppercase;
+      letter-spacing: 0.1em; color: var(--m-g3); margin-bottom: 2px;
+    }
+    .client-field-val {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px; font-weight: 500; color: var(--m-g1);
+    }
+    .client-meta-row {
+      display: flex; justify-content: space-between; align-items: center;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding-top: 10px; margin-top: 10px;
+    }
+    .client-meta-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px; color: var(--m-g3); letter-spacing: 0.06em; text-transform: uppercase;
+    }
+    .client-meta-val {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 13px; font-weight: 600; color: #fff;
+    }
+
+    /* Integration pills */
+    .int-grid-mockup { padding: 22px; }
+    .int-grid-title {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px; font-weight: 500; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--m-g3); margin-bottom: 16px;
+    }
+    .int-pills { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+    .int-pill {
+      background: rgba(88,187,237,0.04); border: 1px solid rgba(88,187,237,0.1);
+      border-radius: 6px; padding: 10px 12px; text-align: center;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .int-pill:hover { background: rgba(88,187,237,0.08); border-color: rgba(88,187,237,0.22); }
+    .int-pill-name { font-size: 11px; font-weight: 600; color: var(--m-g1); }
+    .int-pill-cat  {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px; color: var(--m-g3); margin-top: 2px; letter-spacing: 0.04em;
+    }
+    .int-more {
+      margin-top: 14px; text-align: center;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px; color: var(--m-g3); font-weight: 400;
+    }
+
+    /* Client portal mockup */
+    .portal-mockup { padding: 0; }
+    .portal-list { padding: 0 14px 14px; }
+    .portal-header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 11px 0; border-bottom: 1px solid rgba(255,255,255,0.06); margin-bottom: 6px;
+    }
+    .portal-header-title { font-size: 12px; font-weight: 700; color: #fff; }
+    .portal-header-count {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px; color: var(--m-g3);
+    }
+    .portal-row {
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 11px;
+    }
+    .portal-row:last-child { border-bottom: none; }
+    .portal-inv-num {
+      font-family: 'IBM Plex Mono', monospace;
+      font-weight: 500; color: var(--m-g2); width: 70px; flex-shrink: 0;
+    }
+    .portal-debtor { flex: 1; color: var(--m-g1); font-weight: 500; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .portal-amount {
+      font-family: 'IBM Plex Mono', monospace;
+      font-weight: 600; color: #fff; font-size: 11px; flex-shrink: 0;
+    }
+    .portal-status { flex-shrink: 0; }
+    .s-funded  { background: rgba(46,204,154,0.1);  color: var(--m-green); border: 1px solid rgba(46,204,154,0.2); }
+    .s-pending { background: rgba(88,187,237,0.08); color: var(--m-accent); border: 1px solid rgba(88,187,237,0.2); }
+    .s-review  { background: rgba(255,198,88,0.08); color: #FFC658; border: 1px solid rgba(255,198,88,0.2); }
+    .portal-thread {
+      margin: 0 14px 14px;
+      background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 6px; padding: 10px;
+    }
+    .portal-thread-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 8px; font-weight: 500; text-transform: uppercase;
+      letter-spacing: 0.1em; color: var(--m-g3); margin-bottom: 7px;
+    }
+    .thread-msg { display: flex; gap: 8px; margin-bottom: 7px; font-size: 11px; }
+    .thread-msg:last-child { margin-bottom: 0; }
+    .thread-avatar {
+      width: 20px; height: 20px; border-radius: 50%;
+      background: rgba(88,187,237,0.12); flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 8px; font-weight: 600; color: var(--m-accent);
+    }
+    .thread-body { flex: 1; }
+    .thread-sender { font-weight: 600; color: var(--m-g2); margin-bottom: 2px; font-size: 10px; }
+    .thread-text { color: var(--m-g3); line-height: 1.4; font-size: 10px; }
+
+    /* Ledger mockup */
+    .ledger-mockup { padding: 0; }
+    .ledger-head {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 8px;
+      padding: 9px 14px;
+      background: rgba(0,0,0,0.35); border-bottom: 1px solid rgba(88,187,237,0.08);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 8px; font-weight: 500; text-transform: uppercase;
+      letter-spacing: 0.1em; color: var(--m-g3);
+    }
+    .ledger-row {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 8px;
+      padding: 9px 14px; border-bottom: 1px solid rgba(255,255,255,0.04);
+      font-size: 11px; align-items: center;
+    }
+    .ledger-row:last-of-type { border-bottom: none; }
+    .ledger-desc   { color: var(--m-g1); font-weight: 500; }
+    .ledger-type   { font-family: 'IBM Plex Mono', monospace; color: var(--m-g3); font-size: 10px; }
+    .ledger-debit  { font-family: 'IBM Plex Mono', monospace; color: var(--m-red); font-weight: 600; font-size: 11px; }
+    .ledger-credit { font-family: 'IBM Plex Mono', monospace; color: var(--m-green); font-weight: 600; font-size: 11px; }
+    .ledger-footer {
+      padding: 9px 14px;
+      background: rgba(46,204,154,0.04);
+      border-top: 1px solid rgba(46,204,154,0.12);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .ledger-footer-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 8px; font-weight: 500; text-transform: uppercase;
+      letter-spacing: 0.1em; color: var(--m-g3);
+    }
+    .ledger-balanced {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px; color: var(--m-green); font-weight: 600;
+      display: flex; align-items: center; gap: 4px;
+    }
+    .ledger-footer-val {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 13px; font-weight: 600; color: var(--m-green);
+    }
+
+    /* ─── COMPARISON TABLE (REPORT STYLE) ──────────────────── */
+    .compare-section {
+      background: var(--bg-white);
+      padding: 96px 0;
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+    }
+    .section-header { margin-bottom: 56px; }
+    .section-header h2 {
+      font-size: clamp(32px, 4vw, 52px);
+      letter-spacing: -0.025em; line-height: 1.1; color: var(--ink);
+      margin-top: 8px;
+    }
+
+    /* Report-style table */
+    .comp-table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid var(--rule);
+      border-radius: 8px;
+      overflow: hidden;
+      font-size: 13px;
+    }
+    .comp-table thead tr { border-bottom: 2px solid var(--rule); }
+    .comp-th-feature {
+      background: #F9F8F4;
+      padding: 16px 20px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px; font-weight: 500; text-transform: uppercase;
+      letter-spacing: 0.12em; color: var(--ink-3);
+      text-align: left; width: 28%;
+      border-right: 1px solid var(--rule);
+    }
+    .comp-th-legacy {
+      background: #FFF5F5;
+      padding: 16px 20px;
+      font-weight: 700; color: #B01030;
+      text-align: left; width: 36%;
+      border-right: 1px solid var(--rule);
+    }
+    .comp-th-legacy-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px; font-weight: 500; text-transform: uppercase;
+      letter-spacing: 0.1em; color: rgba(196,30,58,0.5);
+      display: block; margin-bottom: 4px;
+    }
+    .comp-th-fc {
+      background: #F0FBF4;
+      padding: 16px 20px;
+      font-weight: 700; color: #1A6B3C;
+      text-align: left; width: 36%;
+    }
+    .comp-th-fc-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px; font-weight: 500; text-transform: uppercase;
+      letter-spacing: 0.1em; color: rgba(26,107,60,0.5);
+      display: block; margin-bottom: 4px;
+    }
+    .comp-table tbody tr {
+      border-bottom: 1px solid var(--rule);
+      transition: background 0.12s;
+    }
+    .comp-table tbody tr:last-child { border-bottom: none; }
+    .comp-table tbody tr:hover .comp-td-feature { background: #F3F1EA; }
+    .comp-td-feature {
+      padding: 14px 20px;
+      font-weight: 600; color: var(--ink-2);
+      border-right: 1px solid var(--rule);
+      background: #F9F8F4;
+      vertical-align: middle;
+    }
+    .comp-td-legacy {
+      padding: 14px 20px;
+      color: var(--ink-2);
+      border-right: 1px solid var(--rule);
+      background: rgba(196,30,58,0.02);
+      vertical-align: middle;
+    }
+    .comp-td-fc {
+      padding: 14px 20px;
+      color: var(--ink);
+      background: rgba(26,107,60,0.02);
+      vertical-align: middle;
+    }
+    .x-mark { color: var(--red); font-weight: 700; margin-right: 6px; }
+    .check-mark { color: var(--green); font-weight: 700; margin-right: 6px; }
+
+    /* ─── STEPS SECTION ────────────────────────────────────── */
+    .steps-section {
+      padding: 96px 0;
+      background: var(--bg);
+      border-bottom: 1px solid var(--rule);
+    }
+    .steps-row {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 0; position: relative; margin-top: 64px;
+    }
+    .step { padding: 0 48px 0 0; border-right: 1px solid var(--rule); }
+    .step:last-child { padding: 0 0 0 48px; border-right: none; border-left: 1px solid var(--rule); }
+    .step:nth-child(2) { padding: 0 48px 0 48px; }
+    .step-number {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 56px; font-weight: 600;
+      color: rgba(196,30,58,0.15);
+      line-height: 1; margin-bottom: 20px;
+      letter-spacing: -0.03em;
+    }
+    .step-title { font-size: 16px; font-weight: 700; color: var(--ink); margin-bottom: 10px; }
+    .step-desc { font-size: 14px; color: var(--ink-2); line-height: 1.7; }
+
+    /* ─── FAQ ──────────────────────────────────────────────── */
+    .faq-section { padding: 96px 0; background: var(--bg-white); border-top: 1px solid var(--rule); }
+    .faq-list { margin-top: 56px; border-top: 1px solid var(--rule); }
+    .faq-item { border-bottom: 1px solid var(--rule); }
+    .faq-q {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 22px 0; cursor: pointer;
+      font-size: 15px; font-weight: 600; color: var(--ink-2);
+      transition: color 0.2s; user-select: none;
+    }
+    .faq-q:hover { color: var(--ink); }
+    .faq-q.open { color: var(--ink); }
+    .faq-chevron {
+      width: 16px; height: 16px; flex-shrink: 0;
+      stroke: var(--ink-3); fill: none; stroke-width: 2;
+      stroke-linecap: round; stroke-linejoin: round;
+      transition: transform 0.25s, stroke 0.2s;
+    }
+    .faq-q.open .faq-chevron { transform: rotate(180deg); stroke: var(--red); }
+    .faq-a {
+      display: none; padding: 0 0 22px;
+      font-size: 15px; color: var(--ink-2); line-height: 1.8;
+      max-width: 640px;
+    }
+    .faq-a.open { display: block; }
+
+    /* ─── DEMO CTA + FOOTER (DARK) ─────────────────────────── */
+    .demo-section {
+      background: var(--dark);
+      padding: 112px 0 80px;
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .demo-section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(36px, 5vw, 60px);
+      color: #fff; margin-bottom: 18px;
+      letter-spacing: -0.02em;
+    }
+    .demo-section p {
+      font-size: 16px; color: var(--dark-sub);
+      max-width: 460px; margin: 0 auto 40px; line-height: 1.75;
+    }
+    .demo-trust {
+      display: flex; flex-wrap: wrap; gap: 24px;
+      justify-content: center; margin-top: 40px;
+    }
+    .trust-item {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px; font-weight: 500;
+      color: rgba(255,255,255,0.3); letter-spacing: 0.1em; text-transform: uppercase;
+    }
+    .trust-sep { color: rgba(255,255,255,0.12); }
+
+    /* Footer */
+    .footer {
+      background: var(--dark-2);
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding: 72px 0 44px;
+    }
+    .footer-grid {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+      gap: 48px; margin-bottom: 56px;
+    }
+    .footer-brand img { height: 26px; margin-bottom: 14px; display: block; }
+    .footer-brand p { font-size: 13px; color: rgba(255,255,255,0.3); line-height: 1.65; max-width: 200px; }
+    .footer-col-title {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px; font-weight: 500; text-transform: uppercase;
+      letter-spacing: 0.12em; color: rgba(255,255,255,0.35); margin-bottom: 16px;
+    }
+    .footer-links { list-style: none; }
+    .footer-links li { margin-bottom: 9px; }
+    .footer-links a {
+      font-size: 13px; color: rgba(255,255,255,0.35);
+      text-decoration: none; transition: color 0.15s;
+    }
+    .footer-links a:hover { color: rgba(255,255,255,0.7); }
+    .footer-bottom {
+      display: flex; justify-content: space-between; align-items: center;
+      border-top: 1px solid rgba(255,255,255,0.06); padding-top: 28px;
+    }
+    .footer-copy { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: rgba(255,255,255,0.25); }
+    .footer-address { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: rgba(255,255,255,0.2); }
+    .footer-social { display: flex; gap: 10px; align-items: center; }
+    .footer-social a {
+      display: flex; align-items: center; justify-content: center;
+      width: 30px; height: 30px;
+      border: 1px solid rgba(255,255,255,0.1); border-radius: 4px;
+      color: rgba(255,255,255,0.3); text-decoration: none;
+      transition: border-color 0.15s, color 0.15s;
+    }
+    .footer-social a:hover { border-color: rgba(255,255,255,0.3); color: rgba(255,255,255,0.8); }
+
+    /* ─── SECTION CAPTION (BELOW MOCKUPS) ─────────────────── */
+    .mockup-caption {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px; color: var(--ink-3);
+      margin-top: 12px; text-align: center; letter-spacing: 0.02em;
+    }
+
+    /* ─── REVEAL ANIMATIONS ────────────────────────────────── */
+    .reveal {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1),
+                  transform 0.7s cubic-bezier(0.16,1,0.3,1);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ─── FLOAT ANIMATION (DASHBOARD) ─────────────────────── */
+    @keyframes float {
+      0%, 100% { transform: perspective(1200px) rotateY(-4deg) rotateX(1.5deg) translateY(0px); }
+      50%       { transform: perspective(1200px) rotateY(-4deg) rotateX(1.5deg) translateY(-8px); }
+    }
+    .dash-card-floating { animation: float 5s ease-in-out infinite; }
+
+    /* ─── CTA PULSE ────────────────────────────────────────── */
+    @keyframes ctaPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(0,112,170,0.4); }
+      50%       { box-shadow: 0 0 0 12px rgba(0,112,170,0); }
+    }
+    .cta-pulse { animation: ctaPulse 2s ease-out; }
+
+    /* ─── HERO ENTRANCE ─────────────────────────────────────── */
+    @keyframes heroFadeUp {
+      0%   { opacity: 0; transform: translateY(16px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    .hero-anim {
+      opacity: 1 !important;
+      animation: heroFadeUp 700ms cubic-bezier(0.16,1,0.3,1) both;
+    }
+
+    /* ─── COMPARISON TABLE ROW ANIMATION ───────────────────── */
+    .comp-row-animate td.comp-td-legacy,
+    .comp-row-animate td.comp-td-fc {
+      opacity: 0; transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .comp-row-animate td.comp-td-legacy { transform: translateX(-16px); }
+    .comp-row-animate td.comp-td-fc     { transform: translateX(16px); }
+
+    /* ─── MARGIN LINE DRAW ─────────────────────────────────── */
+    @keyframes marginLineDraw {
+      0%   { transform: scaleY(0); }
+      100% { transform: scaleY(1); }
+    }
+
+    /* ─── LEDGER NUMBER HOVER HIGHLIGHT ────────────────────── */
+    .ledger-debit, .ledger-credit {
+      font-variant-numeric: tabular-nums;
+      border-radius: 3px;
+      padding: 1px 4px;
+      transition: background 0.2s ease;
+    }
+    .ledger-debit:hover  { background: rgba(224,80,80,0.12); }
+    .ledger-credit:hover { background: rgba(46,204,154,0.12); }
+
+    /* ─── REDUCED MOTION ───────────────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+    }
+
+    /* ─── RESPONSIVE ───────────────────────────────────────── */
+    .hero-visual-mobile { display: none; margin-top: 40px; }
+
+    @media (max-width: 1024px) {
+      .hero-grid        { grid-template-columns: 1fr; gap: 48px; }
+      .hero-visual      { display: none; }
+      .hero-visual-mobile { display: block !important; }
+      .platform-row     { grid-template-columns: 1fr; gap: 48px; }
+      .platform-row.reverse { direction: ltr; }
+      .footer-grid      { grid-template-columns: 1fr 1fr; gap: 36px; }
+      .hero::after      { display: none; }
+    }
+    @media (max-width: 768px) {
+      .nav-links, .nav-right { display: none; }
+      .nav-hamburger    { display: flex; }
+      .hero             { padding: 112px 0 72px; min-height: auto; }
+      .stat-section     { padding: 72px 0; }
+      .platform-section { padding: 72px 0; }
+      .compare-section  { padding: 72px 0; overflow-x: auto; }
+      .comp-table       { min-width: 600px; }
+      .steps-section    { padding: 72px 0; }
+      .steps-row        { grid-template-columns: 1fr; gap: 40px; }
+      .step, .step:last-child, .step:nth-child(2) {
+        padding: 0 0 32px; border-right: none; border-left: none;
+        border-bottom: 1px solid var(--rule);
+      }
+      .step:last-child  { border-bottom: none; padding-bottom: 0; }
+      .faq-section      { padding: 72px 0; }
+      .demo-section     { padding: 80px 0 60px; }
+      .footer-grid      { grid-template-columns: 1fr 1fr; gap: 28px; }
+      .footer-bottom    { flex-direction: column; gap: 14px; text-align: center; }
+      .demo-trust       { gap: 16px; }
+      .int-pills        { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) {
+      .container        { padding: 0 20px; }
+      .footer-grid      { grid-template-columns: 1fr; }
+      .hero-ctas        { flex-direction: column; }
+      .hero-ctas .btn-primary, .hero-ctas .btn-ghost { width: 100%; text-align: center; }
+      .nav-inner        { padding: 0 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!--  NAVIGATION (DARK)                                      -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<nav class="nav" id="main-nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <img src="/assets/logo-white.png" alt="FactorCloud" />
+    </a>
+
+    <ul class="nav-links">
+      <li>
+        <a href="#" class="nav-link-toggle" data-dropdown="platform">
+          Platform
+          <svg class="chevron" viewBox="0 0 10 6"><polyline points="1 1 5 5 9 1"/></svg>
+        </a>
+        <div class="nav-dropdown" id="dd-platform">
+          <a href="/features/automation.html"><span class="dd-icon">⚡</span>Automation</a>
+          <a href="/features/client-management.html"><span class="dd-icon">🏢</span>Client Management</a>
+          <a href="/features/operations.html"><span class="dd-icon">⚙️</span>Operations</a>
+          <a href="/features/client-portal.html"><span class="dd-icon">🖥️</span>Client Portal</a>
+          <a href="/features/brightbolt.html"><span class="dd-icon">🔍</span>BrightBolt OCR</a>
+          <a href="/features/api.html"><span class="dd-icon">🔗</span>Open API</a>
+        </div>
+      </li>
+      <li>
+        <a href="#" class="nav-link-toggle" data-dropdown="integrations">
+          Integrations
+          <svg class="chevron" viewBox="0 0 10 6"><polyline points="1 1 5 5 9 1"/></svg>
+        </a>
+        <div class="nav-dropdown" id="dd-integrations" style="min-width: 200px;">
+          <a href="/integrations/truckercloud.html"><span class="dd-icon">🚛</span>TruckerCloud</a>
+          <a href="/integrations/quickbooks.html"><span class="dd-icon">📒</span>QuickBooks</a>
+          <a href="/integrations/ansonia.html"><span class="dd-icon">📈</span>Ansonia</a>
+          <a href="/integrations/rox.html"><span class="dd-icon">🤖</span>ROX</a>
+          <a href="/integrations/bill360.html"><span class="dd-icon">💰</span>Bill360</a>
+          <a href="/integrations/index.html"><span class="dd-icon">+</span>All Integrations</a>
+        </div>
+      </li>
+      <li><a href="/pricing.html">Pricing</a></li>
+      <li><a href="/resources/index.html">Resources</a></li>
+      <li><a href="/about/index.html">About</a></li>
+    </ul>
+
+    <div class="nav-right">
+      <a href="/get-demo.html" class="btn-primary nav-demo">Get a Demo</a>
+      <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Nav -->
+<div class="mobile-nav" id="mobile-nav">
+  <div class="mobile-nav-section">
+    <button class="mobile-nav-toggle" data-target="m-platform">
+      Platform
+      <svg class="chevron" width="16" height="16" viewBox="0 0 10 6"><polyline points="1 1 5 5 9 1"/></svg>
+    </button>
+    <div class="mobile-nav-sub" id="m-platform">
+      <a href="/features/automation.html">Automation</a>
+      <a href="/features/client-management.html">Client Management</a>
+      <a href="/features/operations.html">Operations</a>
+      <a href="/features/client-portal.html">Client Portal</a>
+      <a href="/features/brightbolt.html">BrightBolt OCR</a>
+      <a href="/features/api.html">Open API</a>
+    </div>
+  </div>
+  <div class="mobile-nav-section">
+    <button class="mobile-nav-toggle" data-target="m-integrations">
+      Integrations
+      <svg class="chevron" width="16" height="16" viewBox="0 0 10 6"><polyline points="1 1 5 5 9 1"/></svg>
+    </button>
+    <div class="mobile-nav-sub" id="m-integrations">
+      <a href="/integrations/truckercloud.html">TruckerCloud</a>
+      <a href="/integrations/quickbooks.html">QuickBooks</a>
+      <a href="/integrations/ansonia.html">Ansonia</a>
+      <a href="/integrations/rox.html">ROX</a>
+      <a href="/integrations/bill360.html">Bill360</a>
+      <a href="/integrations/index.html">All Integrations</a>
+    </div>
+  </div>
+  <a href="/pricing.html" class="mobile-nav-link">Pricing</a>
+  <a href="/resources/index.html" class="mobile-nav-link">Resources</a>
+  <a href="/about/index.html" class="mobile-nav-link">About</a>
+  <div class="mobile-nav-cta">
+    <a href="/get-demo.html" class="btn-primary" style="width:100%;justify-content:center;">Get a Demo</a>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!--  HERO (PARCHMENT / RULED PAPER)                        -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="container">
+      <div class="hero-grid">
+
+        <!-- Left: Copy -->
+        <div class="hero-copy">
+          <span class="hero-overline overline hero-anim" style="animation-delay:0ms;">Built by operators</span>
+          <h1 class="hero-h1">
+            <span class="h1-accent hero-anim" style="animation-delay:150ms;opacity:1 !important;">Factor More Invoices.</span>
+            <span class="h1-ink hero-anim" style="animation-delay:250ms;opacity:1 !important;">Hire Fewer People.</span>
+          </h1>
+          <p class="hero-sub hero-anim" style="animation-delay:350ms;">Dual-ledger precision. Automated cash application. Free onboarding. Built by a team that processed 60,000 invoices a month and needed better software.</p>
+          <ul class="hero-props">
+            <li class="hero-prop hero-anim" style="animation-delay:450ms;">
+              <span class="hero-prop-mark">
+                <svg viewBox="0 0 12 10"><polyline points="1 5 4 8 11 1"/></svg>
+              </span>
+              BrightBolt automates schedule creation. Cash applies itself.
+            </li>
+            <li class="hero-prop hero-anim" style="animation-delay:500ms;">
+              <span class="hero-prop-mark">
+                <svg viewBox="0 0 12 10"><polyline points="1 5 4 8 11 1"/></svg>
+              </span>
+              Clients, debtors, vendors , one system, one source of truth.
+            </li>
+            <li class="hero-prop hero-anim" style="animation-delay:550ms;">
+              <span class="hero-prop-mark">
+                <svg viewBox="0 0 12 10"><polyline points="1 5 4 8 11 1"/></svg>
+              </span>
+              Give clients a portal they'll actually use.
+            </li>
+          </ul>
+          <div class="hero-ctas hero-anim" style="animation-delay:650ms;">
+            <a href="/get-demo.html" class="btn-primary" id="hero-cta-btn" style="font-size:15px;padding:14px 30px;">Get a Demo</a>
+            <a href="/features/index.html" class="btn-ghost" style="font-size:15px;padding:14px 30px;">See the Platform</a>
+          </div>
+        </div>
+
+        <!-- Right: Dashboard (dark product window on light page) -->
+        <div class="hero-visual">
+          <div class="dash-card dash-card-floating">
+            <div class="dash-card-bar">
+              <span class="dash-dot"></span>
+              <span class="dash-dot"></span>
+              <span class="dash-dot"></span>
+            </div>
+            <img src="/assets/dash-2.png" alt="FactorCloud dashboard , Quick Peek invoice view" loading="eager" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile visual -->
+      <div class="hero-visual-mobile">
+        <div class="dash-card">
+          <div class="dash-card-bar">
+            <span class="dash-dot"></span><span class="dash-dot"></span><span class="dash-dot"></span>
+          </div>
+          <img src="/assets/dash-2.png" alt="FactorCloud dashboard" loading="eager" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="hero-rule"></div>
+
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!--  94% STAT (DARK BREAK)                                 -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="stat-section reveal" id="stat-section">
+  <div class="container">
+    <div class="stat-number"><span id="stat-counter" data-target="94">94</span>%</div>
+    <p class="stat-label">of teams that see FactorCloud make the switch.</p>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!--  PLATFORM SECTIONS (ZIGZAG, LIGHT)                     -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="platform-wrap">
+
+  <!-- 1. Automation -->
+  <section class="platform-section">
+    <div class="container">
+      <div class="platform-row">
+        <!-- Copy -->
+        <div class="platform-copy reveal">
+          <span class="overline">Automation</span>
+          <h2>Stop Doing What Software Should Be Doing For You</h2>
+          <p>FactorCloud automates schedule creation, payment application, and credit checks. Your team focuses on clients. The platform handles the rest.</p>
+          <p>Most factoring platforms automate schedule creation. FactorCloud automates schedule creation AND cash application. Your payments match themselves. Your team stops chasing pennies.</p>
+          <a href="/features/automation.html" class="platform-link">Explore Automation &rarr;</a>
+        </div>
+        <!-- Visual: BrightBolt flow -->
+        <div class="reveal">
+          <div class="mockup">
+            <div class="mockup-bar">
+              <div class="m-dots"><span class="m-dot"></span><span class="m-dot"></span><span class="m-dot"></span></div>
+              <span class="m-title">Schedule Creation , BrightBolt Automation</span>
+            </div>
+            <div class="sched-flow" id="brightbolt-flow">
+              <div class="sched-flow-col">
+                <div class="sched-node bb-step" data-bb-step="0">
+                  <div class="sched-node-label">Step 1 , Received</div>
+                  <div class="sched-node-title">&#128231; Email with Invoice</div>
+                  <div class="sched-node-sub">apex@acmecarriers.com &middot; 3 attachments</div>
+                </div>
+                <div class="sched-spacer bb-connector" data-bb-connector="0"></div>
+                <div class="sched-node bb-step" data-bb-step="1">
+                  <div class="sched-node-label">Step 2 , OCR Extraction</div>
+                  <div class="sched-node-title">&#128269; BrightBolt Processing</div>
+                  <div class="sched-node-sub">Invoice # &middot; Debtor &middot; Amount &middot; Date extracted</div>
+                </div>
+                <div class="sched-spacer bb-connector" data-bb-connector="1"></div>
+                <div class="sched-node bb-step" data-bb-step="2">
+                  <div class="sched-node-label">Step 3 , Credit Check</div>
+                  <div class="sched-node-title">&#10003; Debtor Verified</div>
+                  <div class="sched-node-sub">Ansonia &middot; Limit $500k &middot; Current balance $291k</div>
+                </div>
+                <div class="sched-spacer bb-connector" data-bb-connector="2"></div>
+                <div class="sched-result bb-step" data-bb-step="3">
+                  <div class="sched-result-check">&#10003;</div>
+                  <div>
+                    <div class="sched-result-text">Schedule INV-20480 Created</div>
+                    <div class="sched-result-sub">$84,200.00 &middot; Apex Logistics &middot; Ready to fund</div>
+                  </div>
+                  <div class="sched-pulse-dot"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="mockup-caption">BrightBolt saves thousands of hours annually across the factors running on FactorCloud.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Client Management -->
+  <section class="platform-section">
+    <div class="container">
+      <div class="platform-row reverse">
+        <!-- Visual: Client record -->
+        <div class="reveal">
+          <div class="mockup">
+            <div class="mockup-bar">
+              <div class="m-dots"><span class="m-dot"></span><span class="m-dot"></span><span class="m-dot"></span></div>
+              <span class="m-title">Companies / ACME Carrier, Inc.</span>
+            </div>
+            <div class="client-mockup">
+              <div class="client-tabs">
+                <div class="client-tab active">Details</div>
+                <div class="client-tab">Invoices</div>
+                <div class="client-tab">Disbursements</div>
+                <div class="client-tab">Collections</div>
+                <div class="client-tab">Reports</div>
+              </div>
+              <div class="client-info">
+                <div class="client-header">
+                  <div>
+                    <div class="client-name">ACME Carrier, Inc.</div>
+                    <div class="client-code">ID: 234123424534</div>
+                    <div class="client-badges">
+                      <span class="badge badge-green">Active Client</span>
+                      <span class="badge badge-blue">Transport</span>
+                      <span class="badge badge-gray">3% Fixed</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="client-fields">
+                  <div>
+                    <div class="client-field-label">Primary Contact</div>
+                    <div class="client-field-val">David Martinez</div>
+                  </div>
+                  <div>
+                    <div class="client-field-label">Currency</div>
+                    <div class="client-field-val">USD</div>
+                  </div>
+                  <div>
+                    <div class="client-field-label">Fed Tax ID</div>
+                    <div class="client-field-val">23-494xxxx</div>
+                  </div>
+                  <div>
+                    <div class="client-field-label">MC / DOT</div>
+                    <div class="client-field-val">MC-3234 &middot; DOT-42484</div>
+                  </div>
+                </div>
+                <div class="client-meta-row">
+                  <div>
+                    <div class="client-meta-label">Open Invoices</div>
+                    <div class="client-meta-val">24</div>
+                  </div>
+                  <div>
+                    <div class="client-meta-label">Outstanding</div>
+                    <div class="client-meta-val">$1,240,800</div>
+                  </div>
+                  <div>
+                    <div class="client-meta-label">Credit Limit</div>
+                    <div class="client-meta-val">$500,000</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Copy -->
+        <div class="platform-copy reveal">
+          <span class="overline">Client Management</span>
+          <h2>Your Entire Book of Business. One System.</h2>
+          <p>Clients, debtors, and vendors in one place. Full CRM-style tracking without the complexity. Factors have scaled their NFE by <span class="inline-counter" data-target="80" data-suffix="%">80%</span> on FactorCloud without adding headcount.</p>
+          <a href="/features/client-management.html" class="platform-link">Explore Client Management &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Integrations -->
+  <section class="platform-section">
+    <div class="container">
+      <div class="platform-row">
+        <!-- Copy -->
+        <div class="platform-copy reveal">
+          <span class="overline">Integrations</span>
+          <h2><span class="inline-counter" data-target="20" data-suffix="+">20+</span> Integrations. Zero Setup.</h2>
+          <p>From credit and underwriting to transportation data and accounting, every integration in FactorCloud works out of the box. No bolt-on modules. No professional services fees. Every integration ships included with your subscription.</p>
+          <a href="/integrations/index.html" class="platform-link">See All Integrations &rarr;</a>
+        </div>
+        <!-- Visual: Partner pills -->
+        <div class="reveal">
+          <div class="mockup">
+            <div class="mockup-bar">
+              <div class="m-dots"><span class="m-dot"></span><span class="m-dot"></span><span class="m-dot"></span></div>
+              <span class="m-title">Connected Partners</span>
+            </div>
+            <div class="int-grid-mockup">
+              <div class="int-grid-title">Active Integrations</div>
+              <div class="int-pills">
+                <div class="int-pill">
+                  <div class="int-pill-name">TruckerCloud</div>
+                  <div class="int-pill-cat">Freight Data</div>
+                </div>
+                <div class="int-pill">
+                  <div class="int-pill-name">QuickBooks</div>
+                  <div class="int-pill-cat">Accounting</div>
+                </div>
+                <div class="int-pill">
+                  <div class="int-pill-name">Ansonia</div>
+                  <div class="int-pill-cat">Credit</div>
+                </div>
+                <div class="int-pill">
+                  <div class="int-pill-name">ROX</div>
+                  <div class="int-pill-cat">Underwriting</div>
+                </div>
+                <div class="int-pill">
+                  <div class="int-pill-name">Bill360</div>
+                  <div class="int-pill-cat">Collections</div>
+                </div>
+                <div class="int-pill">
+                  <div class="int-pill-name">BrightBolt</div>
+                  <div class="int-pill-cat">OCR</div>
+                </div>
+              </div>
+              <div class="int-more">+ 14 more partners &middot; Open REST API</div>
+              <div class="int-more" style="margin-top:6px;color:#8899AA;">Don't see your tool? Our REST API means you can connect anything.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Client Portal -->
+  <section class="platform-section">
+    <div class="container">
+      <div class="platform-row reverse">
+        <!-- Visual: Portal view -->
+        <div class="reveal">
+          <div class="mockup">
+            <div class="mockup-bar">
+              <div class="m-dots"><span class="m-dot"></span><span class="m-dot"></span><span class="m-dot"></span></div>
+              <span class="m-title">Client Portal , Acme Carrier</span>
+            </div>
+            <div class="portal-mockup">
+              <div class="portal-list">
+                <div class="portal-header">
+                  <span class="portal-header-title">My Invoices</span>
+                  <span class="portal-header-count">24 open &middot; $1.24M</span>
+                </div>
+                <div class="portal-row">
+                  <span class="portal-inv-num">INV-2345</span>
+                  <span class="portal-debtor">Wal-Mart Stores</span>
+                  <span class="portal-amount">$245,002</span>
+                  <span class="portal-status badge badge-green s-funded">Funded</span>
+                </div>
+                <div class="portal-row">
+                  <span class="portal-inv-num">INV-2346</span>
+                  <span class="portal-debtor">CocaCola Enterprises</span>
+                  <span class="portal-amount">$12,310</span>
+                  <span class="portal-status badge badge-blue s-pending">Pending</span>
+                </div>
+                <div class="portal-row">
+                  <span class="portal-inv-num">INV-2347</span>
+                  <span class="portal-debtor">Houdini's Hallow LLC</span>
+                  <span class="portal-amount">$810</span>
+                  <span class="portal-status badge s-review">Review</span>
+                </div>
+                <div class="portal-row">
+                  <span class="portal-inv-num">INV-2348</span>
+                  <span class="portal-debtor">Schwin Logistics</span>
+                  <span class="portal-amount">$12,310</span>
+                  <span class="portal-status badge badge-green s-funded">Funded</span>
+                </div>
+              </div>
+              <div class="portal-thread">
+                <div class="portal-thread-label">Messages</div>
+                <div class="thread-msg">
+                  <div class="thread-avatar">FC</div>
+                  <div class="thread-body">
+                    <div class="thread-sender">FactorCloud Support</div>
+                    <div class="thread-text">INV-2347 is under review. We'll update you within 2 hours.</div>
+                  </div>
+                </div>
+                <div class="thread-msg">
+                  <div class="thread-avatar" style="background:rgba(255,255,255,0.06);color:#8899AA;">AC</div>
+                  <div class="thread-body">
+                    <div class="thread-sender">ACME Carrier</div>
+                    <div class="thread-text">Thanks, I'll check back this afternoon.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Copy -->
+        <div class="platform-copy reveal">
+          <span class="overline">Client Portal</span>
+          <h2>Give Your Clients a View They Actually Want to Use</h2>
+          <p>The FactorCloud client portal mirrors your back office exactly. Clients see what they need. They stop calling. Because the portal mirrors your back office, training takes minutes. Your account executives get their time back.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Dual-Ledger Accounting -->
+  <section class="platform-section">
+    <div class="container">
+      <div class="platform-row">
+        <!-- Copy -->
+        <div class="platform-copy reveal">
+          <span class="overline">Accounting</span>
+          <h2>Dual-Ledger Precision. No Reconciliation Nightmares.</h2>
+          <p>FactorCloud records every transaction twice , debits and credits, always balanced. No month-end reconciliation scrambles. No penny-chasing across spreadsheets. Your auditors will thank you.</p>
+          <p style="margin-top: -8px;">Single-ledger systems force you to reconcile manually. Dual-ledger means the math is always right and you can prove it to any auditor, any time.</p>
+        </div>
+        <!-- Visual: Ledger entries -->
+        <div class="reveal">
+          <div class="mockup">
+            <div class="mockup-bar">
+              <div class="m-dots"><span class="m-dot"></span><span class="m-dot"></span><span class="m-dot"></span></div>
+              <span class="m-title">General Ledger , INV-20480 Funding Event</span>
+            </div>
+            <div class="ledger-mockup">
+              <div class="ledger-head">
+                <span>Description</span>
+                <span>Type</span>
+                <span>Debit</span>
+                <span>Credit</span>
+              </div>
+              <div class="ledger-row">
+                <span class="ledger-desc">Accounts Receivable , Apex Logistics</span>
+                <span class="ledger-type">AR</span>
+                <span class="ledger-debit">$84,200</span>
+                <span></span>
+              </div>
+              <div class="ledger-row">
+                <span class="ledger-desc">Factoring Fee Revenue</span>
+                <span class="ledger-type">Revenue</span>
+                <span></span>
+                <span class="ledger-credit">$2,526</span>
+              </div>
+              <div class="ledger-row">
+                <span class="ledger-desc">Advance to Client , ACME Carrier</span>
+                <span class="ledger-type">Advance</span>
+                <span></span>
+                <span class="ledger-credit">$75,780</span>
+              </div>
+              <div class="ledger-row">
+                <span class="ledger-desc">Reserve Holdback</span>
+                <span class="ledger-type">Reserve</span>
+                <span></span>
+                <span class="ledger-credit">$5,894</span>
+              </div>
+              <div class="ledger-footer">
+                <span class="ledger-footer-label">Status</span>
+                <span class="ledger-balanced">&#10003; Balanced. $84,200 = $84,200</span>
+                <span class="ledger-footer-val">$84,200</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /platform-wrap -->
+
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!--  COMPARISON TABLE (REPORT STYLE)                       -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="compare-section">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="overline">Why Switch</span>
+      <h2>The Difference Is Clear</h2>
+    </div>
+    <div class="reveal" id="comp-grid">
+      <table class="comp-table">
+        <thead>
+          <tr>
+            <th class="comp-th-feature">Feature</th>
+            <th class="comp-th-legacy">
+              <span class="comp-th-legacy-label">The old way</span>
+              Legacy Software
+            </th>
+            <th class="comp-th-fc">
+              <span class="comp-th-fc-label">Built by factors</span>
+              FactorCloud
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="comp-row-animate">
+            <td class="comp-td-feature">Funding Process</td>
+            <td class="comp-td-legacy"><span class="x-mark">&#10007;</span> Manual PDF uploads, data entry, and verification</td>
+            <td class="comp-td-fc"><span class="check-mark">&#10003;</span> Automated via BrightBolt</td>
+          </tr>
+          <tr class="comp-row-animate">
+            <td class="comp-td-feature">Ledger Accounting</td>
+            <td class="comp-td-legacy"><span class="x-mark">&#10007;</span> Single-ledger. Month-end reconciliation required.</td>
+            <td class="comp-td-fc"><span class="check-mark">&#10003;</span> Dual-ledger, always balanced</td>
+          </tr>
+          <tr class="comp-row-animate">
+            <td class="comp-td-feature">Integration Ecosystem</td>
+            <td class="comp-td-legacy"><span class="x-mark">&#10007;</span> Limited integrations. Professional services for custom connections.</td>
+            <td class="comp-td-fc"><span class="check-mark">&#10003;</span> 20+ out-of-the-box</td>
+          </tr>
+          <tr class="comp-row-animate">
+            <td class="comp-td-feature">Client Portal</td>
+            <td class="comp-td-legacy"><span class="x-mark">&#10007;</span> No portal, or a basic view that generates more phone calls</td>
+            <td class="comp-td-fc"><span class="check-mark">&#10003;</span> Full mirror-view portal</td>
+          </tr>
+          <tr class="comp-row-animate">
+            <td class="comp-td-feature">User Interface</td>
+            <td class="comp-td-legacy"><span class="x-mark">&#10007;</span> Desktop-first. Weeks of training for new hires.</td>
+            <td class="comp-td-fc"><span class="check-mark">&#10003;</span> Modern, 80% faster onboarding</td>
+          </tr>
+          <tr class="comp-row-animate">
+            <td class="comp-td-feature">Support Response</td>
+            <td class="comp-td-legacy"><span class="x-mark">&#10007;</span> Ticket queue. Days or weeks for resolution.</td>
+            <td class="comp-td-fc"><span class="check-mark">&#10003;</span> Real engineers, 24hr SLA</td>
+          </tr>
+          <tr class="comp-row-animate">
+            <td class="comp-td-feature">Cash Application</td>
+            <td class="comp-td-legacy"><span class="x-mark">&#10007;</span> Manual lockbox import and matching</td>
+            <td class="comp-td-fc"><span class="check-mark">&#10003;</span> Automated , payments match themselves</td>
+          </tr>
+          <tr class="comp-row-animate">
+            <td class="comp-td-feature">Migration Cost</td>
+            <td class="comp-td-legacy"><span class="x-mark">&#10007;</span> Paid professional services</td>
+            <td class="comp-td-fc"><span class="check-mark">&#10003;</span> Free. We handle everything.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!--  GETTING STARTED (STEPS)                               -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="steps-section">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="overline">Getting Started</span>
+      <h2>Getting Started Takes Three Steps</h2>
+    </div>
+    <div class="steps-row">
+      <div class="step reveal">
+        <div class="step-number">01</div>
+        <div class="step-title">Schedule a Demo</div>
+        <p class="step-desc">See the platform running on your actual use case. Most demos last under an hour and answer every question your team has.</p>
+      </div>
+      <div class="step reveal" style="transition-delay:0.1s;">
+        <div class="step-number">02</div>
+        <div class="step-title">Onboard Your Book , Free</div>
+        <p class="step-desc">Three-step setup with dedicated onboarding support at no cost. We migrate your data, configure the platform, and run it in parallel with your current software until you're ready.</p>
+      </div>
+      <div class="step reveal" style="transition-delay:0.2s;">
+        <div class="step-number">03</div>
+        <div class="step-title">Go Live , Days, Not Months</div>
+        <p class="step-desc">Close business in your old software tonight. Open in FactorCloud tomorrow.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!--  FAQ                                                   -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="faq-section">
+  <div class="container" style="max-width:800px;">
+    <div class="section-header reveal">
+      <span class="overline">Questions</span>
+      <h2>Common Questions</h2>
+    </div>
+    <div class="faq-list reveal">
+      <div class="faq-item">
+        <div class="faq-q" tabindex="0">
+          What makes FactorCloud different?
+          <svg class="faq-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-a">
+          Three things nobody else can say: automated cash application that matches payments without human intervention, dual-ledger accounting accurate to the penny on every transaction, and free onboarding where we migrate your entire book. We built this because we ran a factor processing 60,000 invoices a month and the existing software couldn't keep up.
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" tabindex="0">
+          How long does onboarding take?
+          <svg class="faq-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-a">
+          Most teams are fully operational within days. Onboarding is free , we handle the migration, configuration, and parallel testing. We have never charged a setup fee.
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" tabindex="0">
+          What integrations do you support?
+          <svg class="faq-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-a">
+          TruckerCloud, Ansonia, QuickBooks, ROX, BankShot, Bill360, and 15 more. Open API for custom connections. No surcharges, no add-on tiers. Every integration is included with your subscription.
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" tabindex="0">
+          How secure is FactorCloud?
+          <svg class="faq-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-a">
+          SOC2 compliant. Cloud-hosted with 45+ developers maintaining uptime, security, and continuous improvement. Every user action is logged. Every change is tracked. You're always audit-ready.
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" tabindex="0">
+          Can I see it before committing?
+          <svg class="faq-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-a">
+          Yes. Schedule a demo and we'll show you the platform on a live environment in under an hour. Bring your team, bring your questions, bring a real use case. We'll walk through it.
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" tabindex="0">
+          What types of factors use FactorCloud?
+          <svg class="faq-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-a">
+          Transportation, staffing, construction, general factoring, freight brokers , we serve them all. Unlike platforms built for a single vertical, FactorCloud's configurable terms and workflows adapt to any factoring specialty.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!--  DEMO CTA + FOOTER (DARK)                              -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="demo-section">
+  <div class="container">
+    <div class="reveal">
+      <h2>Ready to See It in Action?</h2>
+      <p>Schedule a demo and see FactorCloud running on your actual use case. If you like what you see, we'll migrate your entire book. Free.</p>
+      <a href="/get-demo.html" class="btn-primary" style="font-size:16px;padding:16px 40px;">Get a Demo</a>
+      <div class="demo-trust">
+        <span class="trust-item">SOC2 Compliant</span>
+        <span class="trust-sep">&middot;</span>
+        <span class="trust-item">45+ Developers</span>
+        <span class="trust-sep">&middot;</span>
+        <span class="trust-item">94% Close Rate</span>
+        <span class="trust-sep">&middot;</span>
+        <span class="trust-item">Atlanta, GA</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="/assets/logo-white.png" alt="FactorCloud" />
+        <p>The factoring platform built by factors who knew what was missing.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Platform</div>
+        <ul class="footer-links">
+          <li><a href="/features/automation.html">Automation</a></li>
+          <li><a href="/features/client-management.html">Client Management</a></li>
+          <li><a href="/features/operations.html">Operations</a></li>
+          <li><a href="/features/client-portal.html">Client Portal</a></li>
+          <li><a href="/features/brightbolt.html">BrightBolt OCR</a></li>
+          <li><a href="/features/api.html">Open API</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Integrations</div>
+        <ul class="footer-links">
+          <li><a href="/integrations/truckercloud.html">TruckerCloud</a></li>
+          <li><a href="/integrations/quickbooks.html">QuickBooks</a></li>
+          <li><a href="/integrations/ansonia.html">Ansonia</a></li>
+          <li><a href="/integrations/rox.html">ROX</a></li>
+          <li><a href="/integrations/bill360.html">Bill360</a></li>
+          <li><a href="/integrations/brightbolt.html">BrightBolt</a></li>
+          <li><a href="/integrations/bankshot.html">BankShot</a></li>
+          <li><a href="/integrations/index.html">All Integrations</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <ul class="footer-links">
+          <li><a href="/about/index.html">About</a></li>
+          <li><a href="/about/story.html">Our Story</a></li>
+          <li><a href="/about/team.html">Team</a></li>
+          <li><a href="/about/values.html">Values</a></li>
+          <li><a href="/about/security.html">Security</a></li>
+          <li><a href="/contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Legal</div>
+        <ul class="footer-links">
+          <li><a href="/legal/privacy.html">Privacy Policy</a></li>
+          <li><a href="/legal/terms.html">Terms of Service</a></li>
+          <li><a href="/legal/app-privacy.html">App Privacy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">&copy; 2025 FactorCloud. All rights reserved.</span>
+      <span class="footer-address">3490 Piedmont Rd. Suite 1350, Atlanta, GA 30305</span>
+      <div class="footer-social">
+        <a href="https://linkedin.com/company/factorcloud" aria-label="LinkedIn" target="_blank" rel="noopener">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+  // ─── NAV SCROLL + HERO PARALLAX ──────────────────────────
+  var nav = document.getElementById('main-nav');
+  var heroEl = document.querySelector('.hero');
+  window.addEventListener('scroll', function() {
+    var sy = window.scrollY;
+    // Nav scroll state
+    if (sy > 60) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+    // Ledger ruled-lines parallax (0.3x speed)
+    if (heroEl) {
+      heroEl.style.backgroundPositionY = (sy * 0.3) + 'px';
+    }
+  }, { passive: true });
+
+  // ─── NAV DROPDOWNS ───────────────────────────────────────
+  document.querySelectorAll('.nav-link-toggle').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      var li = this.parentElement;
+      var wasOpen = li.classList.contains('open');
+      document.querySelectorAll('.nav-links > li').forEach(function(l) { l.classList.remove('open'); });
+      if (!wasOpen) li.classList.add('open');
+    });
+  });
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.nav-links')) {
+      document.querySelectorAll('.nav-links > li').forEach(function(l) { l.classList.remove('open'); });
+    }
+  });
+
+  // ─── HAMBURGER ───────────────────────────────────────────
+  var hamburger = document.getElementById('hamburger');
+  var mobileNav = document.getElementById('mobile-nav');
+  hamburger.addEventListener('click', function() {
+    this.classList.toggle('open');
+    mobileNav.classList.toggle('open');
+    document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
+  });
+  document.querySelectorAll('.mobile-nav-toggle').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var sub = document.getElementById(this.dataset.target);
+      this.classList.toggle('open');
+      sub.classList.toggle('open');
+    });
+  });
+
+  // ─── SCROLL REVEAL ───────────────────────────────────────
+  var reveals = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          var el = entry.target;
+          var siblings = Array.from(el.parentElement ? el.parentElement.querySelectorAll('.reveal') : []);
+          var idx = siblings.indexOf(el);
+          if (idx > 0) el.style.transitionDelay = (idx * 100) + 'ms';
+          el.classList.add('visible');
+          io.unobserve(el);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(function(el) { io.observe(el); });
+  } else {
+    reveals.forEach(function(el) { el.classList.add('visible'); });
+  }
+  // Fallback: ensure all reveals visible after 800ms
+  setTimeout(function() {
+    document.querySelectorAll('.reveal').forEach(function(el) { el.classList.add('visible'); });
+  }, 800);
+
+  // ─── FAQ ACCORDION ────────────────────────────────────────
+  document.querySelectorAll('.faq-q').forEach(function(q) {
+    q.addEventListener('click', function() {
+      var a = this.nextElementSibling;
+      var isOpen = this.classList.contains('open');
+      document.querySelectorAll('.faq-q').forEach(function(qq) {
+        qq.classList.remove('open');
+        qq.nextElementSibling.classList.remove('open');
+      });
+      if (!isOpen) { this.classList.add('open'); a.classList.add('open'); }
+    });
+    q.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.click(); }
+    });
+  });
+
+  // ─── COUNTER ANIMATION ────────────────────────────────────
+  function animateCounter(el, target, duration) {
+    var start = performance.now();
+    function update(now) {
+      var elapsed = now - start;
+      var progress = Math.min(elapsed / duration, 1);
+      var eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.floor(eased * target);
+      if (progress < 1) requestAnimationFrame(update);
+      else el.textContent = target;
+    }
+    requestAnimationFrame(update);
+  }
+
+  // 94% stat counter
+  var statCounter = document.getElementById('stat-counter');
+  if (statCounter && 'IntersectionObserver' in window) {
+    var statTriggered = false;
+    var statIO = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting && !statTriggered) {
+          statTriggered = true;
+          animateCounter(statCounter, 94, 1800);
+          statIO.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    statIO.observe(document.getElementById('stat-section'));
+  }
+
+  // Inline counters (80%, 20+)
+  if ('IntersectionObserver' in window) {
+    document.querySelectorAll('.inline-counter').forEach(function(el) {
+      var target = parseInt(el.dataset.target, 10);
+      var suffix = el.dataset.suffix || '';
+      var triggered = false;
+      var icio = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting && !triggered) {
+            triggered = true;
+            var numEl = document.createElement('span');
+            el.textContent = '';
+            el.appendChild(numEl);
+            el.appendChild(document.createTextNode(suffix));
+            animateCounter(numEl, target, 1400);
+            icio.unobserve(el);
+          }
+        });
+      }, { threshold: 0.3 });
+      icio.observe(el);
+    });
+  }
+
+  // ─── BRIGHTBOLT FLOW ANIMATION ───────────────────────────
+  var bbFlow = document.getElementById('brightbolt-flow');
+  if (bbFlow && 'IntersectionObserver' in window) {
+    var bbSteps = bbFlow.querySelectorAll('.bb-step');
+    var bbConnectors = bbFlow.querySelectorAll('.bb-connector');
+    var bbTriggered = false;
+    function runBBSequence() {
+      bbSteps.forEach(function(s) { s.classList.remove('bb-active'); });
+      bbConnectors.forEach(function(c) { c.classList.remove('bb-active'); });
+      setTimeout(function() { bbSteps[0] && bbSteps[0].classList.add('bb-active'); }, 0);
+      setTimeout(function() {
+        bbConnectors[0] && bbConnectors[0].classList.add('bb-active');
+        bbSteps[1] && bbSteps[1].classList.add('bb-active');
+      }, 600);
+      setTimeout(function() {
+        bbConnectors[1] && bbConnectors[1].classList.add('bb-active');
+        bbSteps[2] && bbSteps[2].classList.add('bb-active');
+      }, 1200);
+      setTimeout(function() {
+        bbConnectors[2] && bbConnectors[2].classList.add('bb-active');
+        bbSteps[3] && bbSteps[3].classList.add('bb-active');
+      }, 1800);
+    }
+    var bbIO = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting && !bbTriggered) {
+          bbTriggered = true;
+          runBBSequence();
+          setInterval(runBBSequence, 6000);
+          bbIO.unobserve(bbFlow);
+        }
+      });
+    }, { threshold: 0.3 });
+    bbIO.observe(bbFlow);
+  }
+
+  // ─── COMPARISON TABLE ROW ANIMATION ──────────────────────
+  var compGrid = document.getElementById('comp-grid');
+  if (compGrid && 'IntersectionObserver' in window) {
+    var compTriggered = false;
+    var compIO = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting && !compTriggered) {
+          compTriggered = true;
+          var rows = compGrid.querySelectorAll('.comp-row-animate');
+          rows.forEach(function(row, i) {
+            var legacy = row.querySelector('.comp-td-legacy');
+            var fc     = row.querySelector('.comp-td-fc');
+            setTimeout(function() {
+              if (legacy) { legacy.style.opacity = '1'; legacy.style.transform = 'translateX(0)'; }
+              if (fc)     { fc.style.opacity = '1';     fc.style.transform = 'translateX(0)'; }
+            }, i * 80);
+          });
+          compIO.unobserve(compGrid);
+        }
+      });
+    }, { threshold: 0.1 });
+    compIO.observe(compGrid);
+  }
+
+  // ─── CTA BUTTON PULSE ─────────────────────────────────────
+  setTimeout(function() {
+    var ctaBtn = document.getElementById('hero-cta-btn');
+    if (ctaBtn) {
+      ctaBtn.classList.add('cta-pulse');
+      ctaBtn.addEventListener('animationend', function() { ctaBtn.classList.remove('cta-pulse'); }, { once: true });
+    }
+  }, 8000);
+</script>
+</body>
+</html>

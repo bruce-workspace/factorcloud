@@ -1,0 +1,1895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FactorCloud , Factoring Software Built by Factors</title>
+  <meta name="description" content="Dual-ledger precision, automated cash application, and 20+ integrations. FactorCloud is the factoring platform built by factors who knew what was missing.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #000C12;
+      --bg-2: #000810;
+      --accent: #58BBED;
+      --cta: #0070AA;
+      --white: #FFFFFF;
+      --gray-1: #CDD5DE;
+      --gray-2: #8899AA;
+      --gray-3: #4A5A68;
+      --surface: rgba(255,255,255,0.03);
+      --border: rgba(88,187,237,0.10);
+      --border-active: rgba(88,187,237,0.40);
+      --green: #2ECC9A;
+      --red: #E05050;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 15px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ─── TYPOGRAPHY ─────────────────────────────────────── */
+    .serif { font-family: 'Instrument Serif', Georgia, serif; }
+    .overline {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: block;
+      margin-bottom: 16px;
+    }
+    h1, h2, h3 { font-weight: 400; }
+    h1 { font-family: 'Instrument Serif', Georgia, serif; }
+    h2 { font-family: 'Instrument Serif', Georgia, serif; font-size: clamp(36px, 4vw, 52px); letter-spacing: -0.02em; line-height: 1.1; }
+    h3 { font-size: 18px; font-weight: 600; font-family: 'Geist', sans-serif; line-height: 1.35; }
+    p { color: var(--gray-2); line-height: 1.75; }
+
+    .container { max-width: 1160px; margin: 0 auto; padding: 0 32px; }
+
+    /* ─── BUTTONS ────────────────────────────────────────── */
+    .btn-primary {
+      display: inline-flex; align-items: center; justify-content: center;
+      background: var(--cta);
+      color: #fff;
+      font-size: 14px; font-weight: 600;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      border: none; cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      white-space: nowrap;
+    }
+    .btn-primary:hover { background: #005f8f; transform: translateY(-1px); }
+    .btn-ghost {
+      display: inline-flex; align-items: center; justify-content: center;
+      background: transparent;
+      color: var(--gray-1);
+      font-size: 14px; font-weight: 500;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.15);
+      transition: border-color 0.2s, color 0.2s, transform 0.15s;
+      white-space: nowrap;
+    }
+    .btn-ghost:hover { border-color: rgba(255,255,255,0.35); color: #fff; transform: translateY(-1px); }
+
+    /* ─── NAV ────────────────────────────────────────────── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      height: 64px;
+      display: flex; align-items: center;
+      border-bottom: 1px solid transparent;
+      transition: background 0.3s, border-color 0.3s, backdrop-filter 0.3s;
+    }
+    .nav.scrolled {
+      background: rgba(0,12,18,0.92);
+      border-color: rgba(88,187,237,0.08);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      width: 100%; max-width: 1160px; margin: 0 auto; padding: 0 32px;
+    }
+    .nav-logo img { height: 32px; display: block; }
+    .nav-links {
+      display: flex; align-items: center; gap: 4px;
+      list-style: none;
+    }
+    .nav-links > li { position: relative; }
+    .nav-links > li > a {
+      display: flex; align-items: center; gap: 4px;
+      font-size: 14px; font-weight: 500; color: var(--gray-1);
+      text-decoration: none;
+      padding: 8px 12px;
+      border-radius: 6px;
+      transition: color 0.15s, background 0.15s;
+    }
+    .nav-links > li > a:hover { color: #fff; background: rgba(255,255,255,0.05); }
+    .nav-links > li > a .chevron {
+      width: 10px; height: 10px;
+      stroke: currentColor; fill: none; stroke-width: 2;
+      stroke-linecap: round; stroke-linejoin: round;
+      transition: transform 0.2s;
+    }
+    .nav-links > li.open > a .chevron { transform: rotate(180deg); }
+
+    /* Dropdown */
+    .nav-dropdown {
+      position: absolute; top: calc(100% + 8px); left: 0;
+      background: #020F18;
+      border: 1px solid rgba(88,187,237,0.12);
+      border-radius: 12px;
+      padding: 8px;
+      min-width: 220px;
+      opacity: 0; pointer-events: none;
+      transform: translateY(-6px);
+      transition: opacity 0.15s, transform 0.15s;
+      box-shadow: 0 24px 48px rgba(0,0,0,0.6);
+    }
+    .nav-links > li.open .nav-dropdown {
+      opacity: 1; pointer-events: auto; transform: translateY(0);
+    }
+    .nav-dropdown a {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 13px; font-weight: 500; color: var(--gray-1);
+      text-decoration: none;
+      padding: 9px 12px;
+      border-radius: 7px;
+      transition: background 0.12s, color 0.12s;
+    }
+    .nav-dropdown a:hover { background: rgba(88,187,237,0.08); color: #fff; }
+    .nav-dropdown a .dd-icon {
+      width: 28px; height: 28px;
+      background: rgba(88,187,237,0.08);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      font-size: 13px;
+    }
+    .nav-right { display: flex; align-items: center; gap: 16px; }
+    .nav-demo { font-size: 13px; padding: 9px 20px; }
+
+    /* Hamburger */
+    .nav-hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; padding: 4px; background: none; border: none;
+    }
+    .nav-hamburger span {
+      width: 22px; height: 2px; background: var(--gray-1); border-radius: 2px;
+      transition: transform 0.25s, opacity 0.25s;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(4px, 7px); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(4px, -7px); }
+
+    /* Mobile nav */
+    .mobile-nav {
+      display: none;
+      position: fixed; top: 64px; left: 0; right: 0; bottom: 0;
+      background: #000C12;
+      padding: 24px 32px 48px;
+      overflow-y: auto;
+      z-index: 999;
+      border-top: 1px solid rgba(88,187,237,0.08);
+    }
+    .mobile-nav.open { display: block; }
+    .mobile-nav-section { margin-bottom: 8px; }
+    .mobile-nav-toggle {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 15px; font-weight: 600; color: var(--gray-1);
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      cursor: pointer; background: none; border: none; width: 100%;
+      color: var(--gray-1); text-align: left;
+    }
+    .mobile-nav-toggle .chevron { transition: transform 0.2s; stroke: var(--gray-2); fill: none; stroke-width: 2; }
+    .mobile-nav-toggle.open .chevron { transform: rotate(180deg); }
+    .mobile-nav-sub {
+      display: none; padding: 8px 0;
+    }
+    .mobile-nav-sub.open { display: block; }
+    .mobile-nav-sub a {
+      display: block; font-size: 14px; color: var(--gray-2);
+      text-decoration: none; padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .mobile-nav-link {
+      display: block; font-size: 15px; font-weight: 600; color: var(--gray-1);
+      text-decoration: none;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .mobile-nav-cta { margin-top: 24px; }
+
+    /* ─── HERO ───────────────────────────────────────────── */
+    .hero {
+      background: var(--bg);
+      position: relative; overflow: hidden;
+      padding: 160px 0 100px;
+      min-height: 100vh;
+      display: flex; align-items: center;
+    }
+    /* Animated grid */
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(88,187,237,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(88,187,237,0.02) 1px, transparent 1px);
+      background-size: 56px 56px;
+      animation: grid-drift 30s linear infinite;
+      pointer-events: none;
+      mask-image: radial-gradient(ellipse 90% 70% at 50% 40%, black 20%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 40%, black 20%, transparent 100%);
+    }
+    @keyframes grid-drift {
+      0% { background-position: 0 0; }
+      100% { background-position: 56px 56px; }
+    }
+    /* Radial glow */
+    .hero-glow {
+      position: absolute; top: 15%; left: 5%; width: 55%; height: 80%;
+      background: radial-gradient(ellipse at 40% 40%, rgba(88,187,237,0.04) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .hero-inner { position: relative; z-index: 2; width: 100%; }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 55fr 45fr;
+      gap: 64px; align-items: center;
+    }
+    .hero-overline {
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px; display: block;
+    }
+    .hero-h1 {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: clamp(52px, 6.5vw, 88px);
+      font-weight: 400;
+      letter-spacing: -0.03em;
+      line-height: 1.02;
+      margin-bottom: 28px;
+      opacity: 1 !important;
+    }
+    .hero-h1 .h1-blue { color: var(--accent); }
+    .hero-h1 .h1-white { color: #fff; }
+    .hero-sub {
+      font-size: 17px; color: var(--gray-2);
+      max-width: 480px; line-height: 1.7;
+      margin-bottom: 36px;
+    }
+    .hero-props {
+      list-style: none;
+      margin-bottom: 44px;
+    }
+    .hero-prop {
+      display: flex; align-items: center; gap: 14px;
+      font-size: 14px; font-weight: 500; color: var(--gray-1);
+      padding: 11px 0;
+      border-bottom: 1px solid rgba(88,187,237,0.08);
+    }
+    .hero-prop:last-child { border-bottom: none; }
+    .hero-prop-line {
+      width: 28px; height: 1px;
+      background: linear-gradient(to right, var(--accent), rgba(88,187,237,0.2));
+      flex-shrink: 0;
+    }
+    .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+    /* Dashboard visual */
+    .hero-visual { position: relative; }
+    .dash-card {
+      background: #071520;
+      border: 1px solid rgba(88,187,237,0.2);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 0 60px rgba(88,187,237,0.08), 0 40px 80px rgba(0,0,0,0.5);
+      transform: perspective(1000px) rotateY(-3deg) rotateX(1deg);
+      transition: transform 0.4s ease;
+    }
+    .dash-card:hover { transform: perspective(1000px) rotateY(-1deg) rotateX(0.5deg); }
+    .dash-card img { width: 100%; display: block; border-radius: 0 0 15px 15px; }
+    .dash-card-bar {
+      display: flex; align-items: center; gap: 8px;
+      padding: 12px 16px;
+      background: rgba(0,0,0,0.4);
+    }
+    .dash-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .dash-dot:nth-child(1) { background: #E05050; }
+    .dash-dot:nth-child(2) { background: #FFC658; }
+    .dash-dot:nth-child(3) { background: #2ECC9A; }
+
+    /* ─── STAT SECTION ───────────────────────────────────── */
+    .stat-section {
+      background: #000810;
+      padding: 100px 0;
+      text-align: center;
+      border-top: 1px solid rgba(88,187,237,0.06);
+      border-bottom: 1px solid rgba(88,187,237,0.06);
+    }
+    .stat-number {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: clamp(96px, 14vw, 140px);
+      color: var(--accent);
+      line-height: 1;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+    }
+    .stat-label {
+      font-size: clamp(18px, 2.5vw, 24px);
+      color: var(--gray-1);
+      font-weight: 400;
+      margin-bottom: 56px;
+      letter-spacing: -0.01em;
+    }
+    .stat-badges {
+      display: flex; flex-wrap: wrap; gap: 12px;
+      justify-content: center;
+    }
+    .stat-badge {
+      font-size: 13px; font-weight: 600;
+      color: var(--gray-2);
+      padding: 8px 18px;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 100px;
+      background: rgba(255,255,255,0.02);
+      letter-spacing: 0.02em;
+    }
+
+    /* ─── ZIGZAG PLATFORM SECTIONS ───────────────────────── */
+    .platform-wrap { padding: 0; }
+    .platform-section {
+      padding: 100px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .platform-section:last-child { border-bottom: none; }
+    .platform-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: center;
+    }
+    .platform-row.reverse { direction: rtl; }
+    .platform-row.reverse > * { direction: ltr; }
+    .platform-copy .overline { margin-bottom: 14px; }
+    .platform-copy h2 { margin-bottom: 20px; color: #fff; }
+    .platform-copy p { margin-bottom: 32px; font-size: 16px; line-height: 1.75; }
+    .platform-link {
+      font-size: 14px; font-weight: 600; color: var(--accent);
+      text-decoration: none;
+      display: inline-flex; align-items: center; gap: 6px;
+      transition: gap 0.2s;
+    }
+    .platform-link:hover { gap: 10px; }
+
+    /* HTML Mockup shared styles */
+    .mockup {
+      background: #071520;
+      border: 1px solid rgba(88,187,237,0.12);
+      border-radius: 12px;
+      overflow: hidden;
+      font-size: 12px;
+    }
+    .mockup-bar {
+      background: rgba(0,0,0,0.5);
+      border-bottom: 1px solid rgba(88,187,237,0.08);
+      padding: 10px 14px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .m-dots { display: flex; gap: 5px; }
+    .m-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .m-dot:nth-child(1) { background: rgba(224,80,80,0.6); }
+    .m-dot:nth-child(2) { background: rgba(255,198,88,0.6); }
+    .m-dot:nth-child(3) { background: rgba(46,204,154,0.6); }
+    .m-title { font-size: 11px; color: var(--gray-3); font-weight: 500; margin-left: 4px; }
+
+    /* Schedule flow mockup */
+    .sched-flow { padding: 28px; }
+    .sched-step {
+      display: flex; align-items: center; gap: 0;
+      margin-bottom: 0;
+    }
+    .sched-node {
+      background: #0B2233;
+      border: 1px solid rgba(88,187,237,0.2);
+      border-radius: 10px;
+      padding: 14px 16px;
+      flex: 1; min-width: 0;
+    }
+    .sched-node-label {
+      font-size: 9px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--gray-3); margin-bottom: 6px;
+    }
+    .sched-node-title { font-size: 12px; font-weight: 600; color: var(--gray-1); margin-bottom: 4px; }
+    .sched-node-sub { font-size: 11px; color: var(--gray-3); }
+    .sched-arrow {
+      flex-shrink: 0; width: 28px; text-align: center;
+      color: var(--accent); font-size: 14px;
+      position: relative;
+    }
+    .sched-arrow-line {
+      width: 2px; height: 24px; background: rgba(88,187,237,0.2);
+      margin: 0 auto;
+    }
+    .sched-arrow-down { text-align: center; color: var(--accent); font-size: 12px; }
+    .sched-flow-col { display: flex; flex-direction: column; gap: 0; }
+    .sched-spacer { height: 8px; margin: 0 auto; width: 2px; background: rgba(88,187,237,0.15); }
+    .sched-result {
+      margin-top: 8px;
+      background: rgba(46,204,154,0.06);
+      border: 1px solid rgba(46,204,154,0.2);
+      border-radius: 10px;
+      padding: 14px 16px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .sched-result-check {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: rgba(46,204,154,0.15);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--green); font-size: 14px; flex-shrink: 0;
+    }
+    .sched-result-text { font-size: 12px; font-weight: 600; color: var(--green); }
+    .sched-result-sub { font-size: 11px; color: var(--gray-3); margin-top: 2px; }
+    .sched-pulse-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--accent);
+      animation: pulse-dot 2s ease-in-out infinite;
+      margin-left: auto; flex-shrink: 0;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.7); }
+    }
+
+    /* Client record mockup */
+    .client-mockup { padding: 0; }
+    .client-tabs {
+      display: flex; gap: 0;
+      border-bottom: 1px solid rgba(88,187,237,0.1);
+      padding: 0 16px;
+    }
+    .client-tab {
+      font-size: 11px; font-weight: 600; color: var(--gray-3);
+      padding: 10px 14px; cursor: default;
+      border-bottom: 2px solid transparent;
+      letter-spacing: 0.02em;
+    }
+    .client-tab.active { color: var(--accent); border-color: var(--accent); }
+    .client-info { padding: 16px; }
+    .client-header {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .client-name { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+    .client-code { font-size: 11px; color: var(--gray-3); font-family: monospace; }
+    .client-badges { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
+    .badge {
+      font-size: 10px; font-weight: 600; padding: 3px 9px;
+      border-radius: 100px; letter-spacing: 0.04em;
+    }
+    .badge-green { background: rgba(46,204,154,0.12); color: var(--green); border: 1px solid rgba(46,204,154,0.2); }
+    .badge-blue { background: rgba(88,187,237,0.1); color: var(--accent); border: 1px solid rgba(88,187,237,0.2); }
+    .badge-gray { background: rgba(255,255,255,0.06); color: var(--gray-2); border: 1px solid rgba(255,255,255,0.08); }
+    .client-fields {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .client-field-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gray-3); margin-bottom: 3px; }
+    .client-field-val { font-size: 12px; font-weight: 500; color: var(--gray-1); }
+    .client-meta-row {
+      display: flex; justify-content: space-between; align-items: center;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding-top: 12px; margin-top: 12px;
+    }
+    .client-meta-label { font-size: 11px; color: var(--gray-3); }
+    .client-meta-val { font-size: 13px; font-weight: 700; font-family: 'Instrument Serif', serif; color: #fff; }
+
+    /* Integration pills grid */
+    .int-grid-mockup { padding: 28px; }
+    .int-grid-title {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--gray-3); margin-bottom: 20px;
+    }
+    .int-pills {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+    }
+    .int-pill {
+      background: rgba(88,187,237,0.04);
+      border: 1px solid rgba(88,187,237,0.12);
+      border-radius: 8px;
+      padding: 12px 14px;
+      text-align: center;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .int-pill:hover { background: rgba(88,187,237,0.08); border-color: rgba(88,187,237,0.25); }
+    .int-pill-name { font-size: 12px; font-weight: 600; color: var(--gray-1); }
+    .int-pill-cat { font-size: 10px; color: var(--gray-3); margin-top: 2px; }
+    .int-more {
+      margin-top: 16px; text-align: center;
+      font-size: 11px; color: var(--gray-3); font-weight: 500;
+    }
+
+    /* Client portal mockup */
+    .portal-mockup { padding: 0; }
+    .portal-list { padding: 0 16px 16px; }
+    .portal-header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+      margin-bottom: 8px;
+    }
+    .portal-header-title { font-size: 13px; font-weight: 700; color: #fff; }
+    .portal-header-count { font-size: 11px; color: var(--gray-3); }
+    .portal-row {
+      display: flex; align-items: center; gap: 10px;
+      padding: 9px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      font-size: 11px;
+    }
+    .portal-row:last-child { border-bottom: none; }
+    .portal-inv-num { font-weight: 700; color: var(--gray-2); font-family: monospace; width: 72px; flex-shrink: 0; }
+    .portal-debtor { flex: 1; color: var(--gray-1); font-weight: 500; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .portal-amount { font-weight: 700; color: #fff; font-family: 'Instrument Serif', serif; font-size: 12px; flex-shrink: 0; }
+    .portal-status { flex-shrink: 0; }
+    .s-funded { background: rgba(46,204,154,0.12); color: var(--green); border: 1px solid rgba(46,204,154,0.2); }
+    .s-pending { background: rgba(88,187,237,0.1); color: var(--accent); border: 1px solid rgba(88,187,237,0.2); }
+    .s-review { background: rgba(255,198,88,0.1); color: #FFC658; border: 1px solid rgba(255,198,88,0.2); }
+    .portal-thread {
+      margin: 0 16px 16px;
+      background: rgba(0,0,0,0.3);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 8px;
+      padding: 12px;
+    }
+    .portal-thread-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gray-3); margin-bottom: 8px; }
+    .thread-msg {
+      display: flex; gap: 8px; margin-bottom: 8px; font-size: 11px;
+    }
+    .thread-msg:last-child { margin-bottom: 0; }
+    .thread-avatar {
+      width: 22px; height: 22px; border-radius: 50%;
+      background: rgba(88,187,237,0.15);
+      flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+      font-size: 9px; font-weight: 700; color: var(--accent);
+    }
+    .thread-body { flex: 1; }
+    .thread-sender { font-weight: 700; color: var(--gray-2); margin-bottom: 2px; }
+    .thread-text { color: var(--gray-3); line-height: 1.4; }
+
+    /* Ledger mockup */
+    .ledger-mockup { padding: 0; }
+    .ledger-head {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 8px; padding: 10px 16px;
+      background: rgba(0,0,0,0.3);
+      border-bottom: 1px solid rgba(88,187,237,0.08);
+      font-size: 9px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em; color: var(--gray-3);
+    }
+    .ledger-row {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 8px; padding: 10px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      font-size: 11px; align-items: center;
+    }
+    .ledger-row:last-child { border-bottom: none; }
+    .ledger-desc { color: var(--gray-1); font-weight: 500; }
+    .ledger-type { color: var(--gray-3); }
+    .ledger-debit { color: var(--red); font-weight: 600; font-family: 'Instrument Serif', serif; font-size: 12px; }
+    .ledger-credit { color: var(--green); font-weight: 600; font-family: 'Instrument Serif', serif; font-size: 12px; }
+    .ledger-balance { color: var(--gray-2); font-family: 'Instrument Serif', serif; font-size: 12px; }
+    .ledger-footer {
+      padding: 10px 16px;
+      background: rgba(46,204,154,0.04);
+      border-top: 1px solid rgba(46,204,154,0.12);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .ledger-footer-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gray-3); }
+    .ledger-footer-val { font-size: 14px; font-weight: 700; font-family: 'Instrument Serif', serif; color: var(--green); }
+    .ledger-balanced { font-size: 10px; color: var(--green); font-weight: 600; display: flex; align-items: center; gap: 4px; }
+
+    /* ─── COMPARISON TABLE ───────────────────────────────── */
+    .compare-section { background: #000810; padding: 100px 0; }
+    .section-header { margin-bottom: 64px; }
+    .section-header h2 { color: #fff; margin-bottom: 0; }
+    .comp-grid {
+      display: grid; grid-template-columns: 1.2fr 1fr 1fr;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 14px; overflow: hidden;
+    }
+    .comp-col-head {
+      padding: 20px 24px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .comp-col-head-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gray-3); margin-bottom: 6px; }
+    .comp-col-head-title { font-size: 16px; font-weight: 700; }
+    .comp-col-head-sub { font-size: 12px; color: var(--gray-3); margin-top: 4px; }
+    .comp-feat-head { border-right: 1px solid rgba(255,255,255,0.06); }
+    .comp-legacy-head { background: rgba(224,80,80,0.06); border-right: 1px solid rgba(255,255,255,0.06); }
+    .comp-fc-head { background: rgba(46,204,154,0.06); }
+    .comp-feat-head .comp-col-head-title { color: var(--gray-2); }
+    .comp-legacy-head .comp-col-head-title { color: var(--red); }
+    .comp-fc-head .comp-col-head-title { color: var(--green); }
+    .comp-row-feat {
+      padding: 16px 24px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      border-right: 1px solid rgba(255,255,255,0.06);
+      font-size: 13px; font-weight: 600; color: var(--gray-2);
+      display: flex; align-items: center;
+    }
+    .comp-row-legacy {
+      padding: 16px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      border-right: 1px solid rgba(255,255,255,0.06);
+      background: rgba(224,80,80,0.03);
+      font-size: 13px; color: var(--gray-3);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .comp-row-fc {
+      padding: 16px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      background: rgba(46,204,154,0.03);
+      font-size: 13px; color: var(--gray-1);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .comp-row-feat:last-child, .comp-row-legacy:last-child, .comp-row-fc:last-child { border-bottom: none; }
+    .x-mark { color: var(--red); font-weight: 700; font-size: 15px; flex-shrink: 0; }
+    .check-mark { color: var(--green); font-weight: 700; font-size: 15px; flex-shrink: 0; }
+
+    /* ─── STEPS SECTION ──────────────────────────────────── */
+    .steps-section { padding: 100px 0; }
+    .steps-row {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 0; position: relative; margin-top: 64px;
+    }
+    .steps-row::before {
+      content: '';
+      position: absolute; top: 20px; left: 10%; right: 10%;
+      height: 1px; background: linear-gradient(to right, transparent, rgba(88,187,237,0.2), transparent);
+      pointer-events: none;
+    }
+    .step { padding: 0 40px 0 0; }
+    .step:last-child { padding-right: 0; }
+    .step-number {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: 48px; color: rgba(88,187,237,0.25);
+      line-height: 1; margin-bottom: 20px;
+      letter-spacing: -0.02em;
+    }
+    .step-title { font-size: 17px; font-weight: 700; color: #fff; margin-bottom: 10px; }
+    .step-desc { font-size: 14px; color: var(--gray-2); line-height: 1.65; }
+
+    /* ─── FAQ ────────────────────────────────────────────── */
+    .faq-section { padding: 100px 0; background: #000810; }
+    .faq-list { margin-top: 56px; }
+    .faq-item {
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .faq-item:first-child { border-top: 1px solid rgba(255,255,255,0.06); }
+    .faq-q {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 22px 0; cursor: pointer;
+      font-size: 16px; font-weight: 600; color: var(--gray-1);
+      transition: color 0.2s;
+      user-select: none;
+    }
+    .faq-q:hover { color: #fff; }
+    .faq-q.open { color: #fff; }
+    .faq-chevron {
+      width: 18px; height: 18px; flex-shrink: 0;
+      stroke: var(--gray-3); fill: none; stroke-width: 2;
+      stroke-linecap: round; stroke-linejoin: round;
+      transition: transform 0.25s, stroke 0.2s;
+    }
+    .faq-q.open .faq-chevron { transform: rotate(180deg); stroke: var(--accent); }
+    .faq-a {
+      display: none;
+      padding: 0 0 22px;
+      font-size: 15px; color: var(--gray-2); line-height: 1.75;
+      max-width: 640px;
+    }
+    .faq-a.open { display: block; }
+
+    /* ─── DEMO CTA ───────────────────────────────────────── */
+    .demo-section {
+      background: #000C12;
+      border-top: 1px solid rgba(88,187,237,0.08);
+      padding: 120px 0;
+      text-align: center;
+    }
+    .demo-section h2 {
+      font-size: clamp(40px, 5vw, 64px);
+      color: #fff; margin-bottom: 20px;
+      letter-spacing: -0.02em;
+    }
+    .demo-section p {
+      font-size: 17px; color: var(--gray-2);
+      max-width: 480px; margin: 0 auto 44px;
+    }
+    .demo-trust {
+      display: flex; flex-wrap: wrap; gap: 24px;
+      justify-content: center;
+      margin-top: 40px;
+    }
+    .trust-item {
+      font-size: 12px; font-weight: 600;
+      color: var(--gray-3); letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .trust-sep { color: rgba(255,255,255,0.12); }
+
+    /* ─── FOOTER ─────────────────────────────────────────── */
+    .footer {
+      background: #000810;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding: 80px 0 48px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+      gap: 48px; margin-bottom: 64px;
+    }
+    .footer-brand img { height: 28px; margin-bottom: 16px; display: block; }
+    .footer-brand p { font-size: 13px; color: var(--gray-3); line-height: 1.6; max-width: 200px; }
+    .footer-col-title {
+      font-size: 11px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--gray-2); margin-bottom: 16px;
+    }
+    .footer-links { list-style: none; }
+    .footer-links li { margin-bottom: 10px; }
+    .footer-links a {
+      font-size: 13px; color: var(--gray-3);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .footer-links a:hover { color: var(--gray-1); }
+    .footer-bottom {
+      display: flex; justify-content: space-between; align-items: center;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding-top: 32px;
+    }
+    .footer-copy { font-size: 12px; color: var(--gray-3); }
+    .footer-address { font-size: 12px; color: var(--gray-3); }
+    .footer-social { display: flex; gap: 12px; align-items: center; }
+    .footer-social a {
+      display: flex; align-items: center; justify-content: center;
+      width: 32px; height: 32px;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 6px;
+      color: var(--gray-3);
+      text-decoration: none;
+      transition: border-color 0.15s, color 0.15s;
+    }
+    .footer-social a:hover { border-color: rgba(255,255,255,0.25); color: #fff; }
+
+    /* ─── REVEAL ANIMATION (UPGRADED) ───────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 48px; }
+      .hero-visual { display: none; }
+      .hero-visual-mobile { display: block !important; }
+      .platform-row { grid-template-columns: 1fr; gap: 48px; }
+      .platform-row.reverse { direction: ltr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+    }
+    @media (max-width: 768px) {
+      .nav-links, .nav-right { display: none; }
+      .nav-hamburger { display: flex; }
+      .hero { padding: 120px 0 80px; min-height: auto; }
+      .hero-grid { gap: 40px; }
+      .stat-section { padding: 72px 0; }
+      .platform-section { padding: 72px 0; }
+      .compare-section { padding: 72px 0; }
+      .comp-grid { grid-template-columns: 1fr; }
+      .comp-feat-head, .comp-legacy-head, .comp-fc-head { border-right: none; }
+      .comp-row-feat, .comp-row-legacy, .comp-row-fc { border-right: none; }
+      .comp-legacy-head, .comp-row-legacy { display: none; }
+      .steps-section { padding: 72px 0; }
+      .steps-row { grid-template-columns: 1fr; gap: 40px; }
+      .steps-row::before { display: none; }
+      .step { padding: 0; }
+      .faq-section { padding: 72px 0; }
+      .demo-section { padding: 80px 0; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+      .demo-trust { gap: 16px; }
+      .int-pills { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) {
+      .container { padding: 0 20px; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .hero-ctas { flex-direction: column; }
+      .hero-ctas .btn-primary, .hero-ctas .btn-ghost { width: 100%; text-align: center; }
+      .stat-badges { flex-direction: column; align-items: center; }
+    }
+
+    .hero-visual-mobile { display: none; margin-top: 40px; }
+
+    /* ─── HERO ENTRANCE ANIMATIONS ───────────────────────── */
+    @keyframes heroFadeUp {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    .hero-anim {
+      opacity: 1 !important; /* iOS Safari fallback */
+      animation: heroFadeUp 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    /* ─── DASHBOARD FLOAT ────────────────────────────────── */
+    @keyframes float {
+      0%, 100% { transform: perspective(1000px) rotateY(-3deg) rotateX(1deg) translateY(0px); }
+      50% { transform: perspective(1000px) rotateY(-3deg) rotateX(1deg) translateY(-8px); }
+    }
+    @keyframes dashGlow {
+      0%, 100% { box-shadow: 0 0 40px rgba(88,187,237,0.06), 0 40px 80px rgba(0,0,0,0.5); }
+      50% { box-shadow: 0 0 80px rgba(88,187,237,0.14), 0 40px 80px rgba(0,0,0,0.5); }
+    }
+    .dash-card-floating {
+      animation: float 5s ease-in-out infinite, dashGlow 3s ease-in-out infinite;
+    }
+
+    /* ─── CTA PULSE ──────────────────────────────────────── */
+    @keyframes ctaPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(0,112,170,0.4); }
+      50% { box-shadow: 0 0 0 12px rgba(0,112,170,0); }
+    }
+    .cta-pulse {
+      animation: ctaPulse 2s ease-out;
+    }
+
+    /* ─── NAV SCROLL ────────────────────────────────── already handled in .nav.scrolled ─── */
+
+    /* ─── BRIGHTBOLT STEP ANIMATION ─────────────────────── */
+    .bb-step {
+      opacity: 0.6;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    .bb-step.bb-active {
+      opacity: 1;
+      transform: scale(1.02);
+    }
+    .bb-connector {
+      transform-origin: left center;
+      transform: scaleX(0);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .bb-connector.bb-active {
+      transform: scaleX(1);
+    }
+
+    /* ─── COMPARISON TABLE SLIDE ─────────────────────────── */
+    .comp-row-legacy {
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .comp-row-fc {
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .comp-table-animate .comp-row-legacy {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    .comp-table-animate .comp-row-fc {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+
+    /* ─── REDUCED MOTION ─────────────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!--  NAVIGATION                                            -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<nav class="nav" id="main-nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <img src="/assets/logo-white.png" alt="FactorCloud" />
+    </a>
+
+    <ul class="nav-links">
+      <li>
+        <a href="#" class="nav-link-toggle" data-dropdown="platform">
+          Platform
+          <svg class="chevron" viewBox="0 0 10 6"><polyline points="1 1 5 5 9 1"/></svg>
+        </a>
+        <div class="nav-dropdown" id="dd-platform">
+          <a href="/features/automation.html"><span class="dd-icon">⚡</span>Automation</a>
+          <a href="/features/client-management.html"><span class="dd-icon">🏢</span>Client Management</a>
+          <a href="/features/operations.html"><span class="dd-icon">⚙️</span>Operations</a>
+          <a href="/features/client-portal.html"><span class="dd-icon">🖥️</span>Client Portal</a>
+          <a href="/features/brightbolt.html"><span class="dd-icon">🔍</span>BrightBolt OCR</a>
+          <a href="/features/api.html"><span class="dd-icon">🔗</span>Open API</a>
+        </div>
+      </li>
+      <li>
+        <a href="#" class="nav-link-toggle" data-dropdown="integrations">
+          Integrations
+          <svg class="chevron" viewBox="0 0 10 6"><polyline points="1 1 5 5 9 1"/></svg>
+        </a>
+        <div class="nav-dropdown" id="dd-integrations" style="min-width: 200px;">
+          <a href="/integrations/truckercloud.html"><span class="dd-icon">🚛</span>TruckerCloud</a>
+          <a href="/integrations/quickbooks.html"><span class="dd-icon">📒</span>QuickBooks</a>
+          <a href="/integrations/ansonia.html"><span class="dd-icon">📈</span>Ansonia</a>
+          <a href="/integrations/rox.html"><span class="dd-icon">🤖</span>ROX</a>
+          <a href="/integrations/bill360.html"><span class="dd-icon">💰</span>Bill360</a>
+          <a href="/integrations/index.html"><span class="dd-icon">+</span>All Integrations</a>
+        </div>
+      </li>
+      <li><a href="/pricing.html">Pricing</a></li>
+      <li><a href="/resources/index.html">Resources</a></li>
+      <li><a href="/about/index.html">About</a></li>
+    </ul>
+
+    <div class="nav-right">
+      <a href="/get-demo.html" class="btn-primary nav-demo">Get a Demo</a>
+      <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Nav -->
+<div class="mobile-nav" id="mobile-nav">
+  <div class="mobile-nav-section">
+    <button class="mobile-nav-toggle" data-target="m-platform">
+      Platform
+      <svg class="chevron" width="16" height="16" viewBox="0 0 10 6"><polyline points="1 1 5 5 9 1"/></svg>
+    </button>
+    <div class="mobile-nav-sub" id="m-platform">
+      <a href="/features/automation.html">Automation</a>
+      <a href="/features/client-management.html">Client Management</a>
+      <a href="/features/operations.html">Operations</a>
+      <a href="/features/client-portal.html">Client Portal</a>
+      <a href="/features/brightbolt.html">BrightBolt OCR</a>
+      <a href="/features/api.html">Open API</a>
+    </div>
+  </div>
+  <div class="mobile-nav-section">
+    <button class="mobile-nav-toggle" data-target="m-integrations">
+      Integrations
+      <svg class="chevron" width="16" height="16" viewBox="0 0 10 6"><polyline points="1 1 5 5 9 1"/></svg>
+    </button>
+    <div class="mobile-nav-sub" id="m-integrations">
+      <a href="/integrations/truckercloud.html">TruckerCloud</a>
+      <a href="/integrations/quickbooks.html">QuickBooks</a>
+      <a href="/integrations/ansonia.html">Ansonia</a>
+      <a href="/integrations/rox.html">ROX</a>
+      <a href="/integrations/bill360.html">Bill360</a>
+      <a href="/integrations/index.html">All Integrations</a>
+    </div>
+  </div>
+  <a href="/pricing.html" class="mobile-nav-link">Pricing</a>
+  <a href="/resources/index.html" class="mobile-nav-link">Resources</a>
+  <a href="/about/index.html" class="mobile-nav-link">About</a>
+  <div class="mobile-nav-cta">
+    <a href="/get-demo.html" class="btn-primary" style="width: 100%; justify-content: center;">Get a Demo</a>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!--  HERO                                                  -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <div class="container">
+      <div class="hero-grid">
+        <!-- Left: Copy -->
+        <div class="hero-copy">
+          <span class="hero-overline hero-anim" style="animation-delay:0ms;">Built by operators</span>
+          <h1 class="hero-h1">
+            <span class="h1-blue hero-anim" style="display:block;opacity:1 !important;animation-delay:150ms;">Factor More Invoices.</span>
+            <span class="h1-white hero-anim" style="display:block;opacity:1 !important;animation-delay:250ms;">Hire Fewer People.</span>
+          </h1>
+          <p class="hero-sub hero-anim" style="animation-delay:350ms;">Dual-ledger precision. Automated cash application. Free onboarding. Built by a team that processed 60,000 invoices a month and needed better software.</p>
+          <ul class="hero-props">
+            <li class="hero-prop hero-anim" style="animation-delay:450ms;">
+              <span class="hero-prop-line"></span>
+              BrightBolt automates schedule creation. Cash applies itself.
+            </li>
+            <li class="hero-prop hero-anim" style="animation-delay:500ms;">
+              <span class="hero-prop-line"></span>
+              Clients, debtors, vendors , one system, one source of truth.
+            </li>
+            <li class="hero-prop hero-anim" style="animation-delay:550ms;">
+              <span class="hero-prop-line"></span>
+              Give clients a portal they'll actually use.
+            </li>
+          </ul>
+          <div class="hero-ctas hero-anim" style="animation-delay:650ms;">
+            <a href="/get-demo.html" class="btn-primary" id="hero-cta-btn" style="font-size: 15px; padding: 14px 28px;">Get a Demo</a>
+            <a href="/features/index.html" class="btn-ghost" style="font-size: 15px; padding: 14px 28px;">See the Platform</a>
+          </div>
+        </div>
+
+        <!-- Right: Dashboard visual (desktop) -->
+        <div class="hero-visual">
+          <div class="dash-card dash-card-floating">
+            <div class="dash-card-bar">
+              <span class="dash-dot"></span>
+              <span class="dash-dot"></span>
+              <span class="dash-dot"></span>
+            </div>
+            <img src="/assets/dash-2.png" alt="FactorCloud dashboard , Quick Peek invoice view" loading="eager" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile visual (below copy) -->
+      <div class="hero-visual-mobile">
+        <div class="dash-card">
+          <div class="dash-card-bar">
+            <span class="dash-dot"></span>
+            <span class="dash-dot"></span>
+            <span class="dash-dot"></span>
+          </div>
+          <img src="/assets/dash-2.png" alt="FactorCloud dashboard" loading="eager" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!--  94% STAT                                              -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="stat-section reveal" id="stat-section">
+  <div class="container">
+    <div class="stat-number"><span id="stat-counter" data-target="94">94</span>%</div>
+    <p class="stat-label">of teams that see FactorCloud make the switch.</p>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!--  PLATFORM SECTIONS (ZIGZAG)                            -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="platform-wrap">
+
+  <!-- 1. Automation -->
+  <section class="platform-section">
+    <div class="container">
+      <div class="platform-row">
+        <!-- Copy -->
+        <div class="platform-copy reveal">
+          <span class="overline">Automation</span>
+          <h2>Stop Doing What Software Should Be Doing For You</h2>
+          <p>FactorCloud automates schedule creation, payment application, and credit checks. Your team focuses on clients. The platform handles the rest.</p>
+          <p>Most factoring platforms automate schedule creation. FactorCloud automates schedule creation AND cash application. Your payments match themselves. Your team stops chasing pennies.</p>
+          <a href="/features/automation.html" class="platform-link">Explore Automation <span>→</span></a>
+        </div>
+        <!-- Visual: Schedule flow -->
+        <div class="reveal">
+          <div class="mockup">
+            <div class="mockup-bar">
+              <div class="m-dots"><span class="m-dot"></span><span class="m-dot"></span><span class="m-dot"></span></div>
+              <span class="m-title">Schedule Creation , BrightBolt Automation</span>
+            </div>
+            <div class="sched-flow" id="brightbolt-flow">
+              <div class="sched-flow-col">
+                <div class="sched-node bb-step" data-bb-step="0">
+                  <div class="sched-node-label">Step 1 , Received</div>
+                  <div class="sched-node-title">📧 Email with Invoice</div>
+                  <div class="sched-node-sub">apex@acmecarriers.com · 3 attachments</div>
+                </div>
+                <div class="sched-spacer bb-connector" data-bb-connector="0"></div>
+                <div class="sched-node bb-step" data-bb-step="1">
+                  <div class="sched-node-label">Step 2 , OCR Extraction</div>
+                  <div class="sched-node-title">🔍 BrightBolt Processing</div>
+                  <div class="sched-node-sub">Invoice # · Debtor · Amount · Date extracted</div>
+                </div>
+                <div class="sched-spacer bb-connector" data-bb-connector="1"></div>
+                <div class="sched-node bb-step" data-bb-step="2">
+                  <div class="sched-node-label">Step 3 , Credit Check</div>
+                  <div class="sched-node-title">✓ Debtor Verified</div>
+                  <div class="sched-node-sub">Ansonia · Limit $500k · Current balance $291k</div>
+                </div>
+                <div class="sched-spacer bb-connector" data-bb-connector="2"></div>
+                <div class="sched-result bb-step" data-bb-step="3">
+                  <div class="sched-result-check">✓</div>
+                  <div>
+                    <div class="sched-result-text">Schedule INV-20480 Created</div>
+                    <div class="sched-result-sub">$84,200.00 · Apex Logistics · Ready to fund</div>
+                  </div>
+                  <div class="sched-pulse-dot"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p style="font-size: 13px; color: var(--gray-3); margin-top: 12px; text-align: center;">BrightBolt saves thousands of hours annually across the factors running on FactorCloud.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Client Management -->
+  <section class="platform-section">
+    <div class="container">
+      <div class="platform-row reverse">
+        <!-- Visual: Client record -->
+        <div class="reveal">
+          <div class="mockup">
+            <div class="mockup-bar">
+              <div class="m-dots"><span class="m-dot"></span><span class="m-dot"></span><span class="m-dot"></span></div>
+              <span class="m-title">Companies / ACME Carrier, Inc.</span>
+            </div>
+            <div class="client-mockup">
+              <div class="client-tabs">
+                <div class="client-tab active">Details</div>
+                <div class="client-tab">Invoices</div>
+                <div class="client-tab">Disbursements</div>
+                <div class="client-tab">Collections</div>
+                <div class="client-tab">Reports</div>
+              </div>
+              <div class="client-info">
+                <div class="client-header">
+                  <div>
+                    <div class="client-name">ACME Carrier, Inc.</div>
+                    <div class="client-code">ID: 234123424534</div>
+                    <div class="client-badges">
+                      <span class="badge badge-green">Active Client</span>
+                      <span class="badge badge-blue">Transport</span>
+                      <span class="badge badge-gray">3% Fixed</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="client-fields">
+                  <div>
+                    <div class="client-field-label">Primary Contact</div>
+                    <div class="client-field-val">David Martinez</div>
+                  </div>
+                  <div>
+                    <div class="client-field-label">Currency</div>
+                    <div class="client-field-val">USD</div>
+                  </div>
+                  <div>
+                    <div class="client-field-label">Fed Tax ID</div>
+                    <div class="client-field-val">23-494xxxx</div>
+                  </div>
+                  <div>
+                    <div class="client-field-label">MC / DOT</div>
+                    <div class="client-field-val">MC-3234 · DOT-42484</div>
+                  </div>
+                </div>
+                <div class="client-meta-row">
+                  <div>
+                    <div class="client-meta-label">Open Invoices</div>
+                    <div class="client-meta-val">24</div>
+                  </div>
+                  <div>
+                    <div class="client-meta-label">Outstanding</div>
+                    <div class="client-meta-val">$1,240,800</div>
+                  </div>
+                  <div>
+                    <div class="client-meta-label">Credit Limit</div>
+                    <div class="client-meta-val">$500,000</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Copy -->
+        <div class="platform-copy reveal">
+          <span class="overline">Client Management</span>
+          <h2>Your Entire Book of Business. One System.</h2>
+          <p>Clients, debtors, and vendors in one place. Full CRM-style tracking without the complexity. Factors have scaled their NFE by <span class="inline-counter" data-target="80" data-suffix="%">80%</span> on FactorCloud without adding headcount.</p>
+          <a href="/features/client-management.html" class="platform-link">Explore Client Management <span>→</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Integrations -->
+  <section class="platform-section">
+    <div class="container">
+      <div class="platform-row">
+        <!-- Copy -->
+        <div class="platform-copy reveal">
+          <span class="overline">Integrations</span>
+          <h2><span class="inline-counter" data-target="20" data-suffix="+">20+</span> Integrations. Zero Setup.</h2>
+          <p>From credit and underwriting to transportation data and accounting, every integration in FactorCloud works out of the box. No bolt-on modules. No professional services fees. Every integration ships included with your subscription.</p>
+          <a href="/integrations/index.html" class="platform-link">See All Integrations <span>→</span></a>
+        </div>
+        <!-- Visual: Partner pills -->
+        <div class="reveal">
+          <div class="mockup">
+            <div class="mockup-bar">
+              <div class="m-dots"><span class="m-dot"></span><span class="m-dot"></span><span class="m-dot"></span></div>
+              <span class="m-title">Connected Partners</span>
+            </div>
+            <div class="int-grid-mockup">
+              <div class="int-grid-title">Active Integrations</div>
+              <div class="int-pills">
+                <div class="int-pill">
+                  <div class="int-pill-name">TruckerCloud</div>
+                  <div class="int-pill-cat">Freight Data</div>
+                </div>
+                <div class="int-pill">
+                  <div class="int-pill-name">QuickBooks</div>
+                  <div class="int-pill-cat">Accounting</div>
+                </div>
+                <div class="int-pill">
+                  <div class="int-pill-name">Ansonia</div>
+                  <div class="int-pill-cat">Credit</div>
+                </div>
+                <div class="int-pill">
+                  <div class="int-pill-name">ROX</div>
+                  <div class="int-pill-cat">Underwriting</div>
+                </div>
+                <div class="int-pill">
+                  <div class="int-pill-name">Bill360</div>
+                  <div class="int-pill-cat">Collections</div>
+                </div>
+                <div class="int-pill">
+                  <div class="int-pill-name">BrightBolt</div>
+                  <div class="int-pill-cat">OCR</div>
+                </div>
+              </div>
+              <div class="int-more">+ 14 more partners · Open REST API</div>
+              <div class="int-more" style="margin-top: 8px; color: var(--gray-2);">Don't see your tool? Our REST API means you can connect anything.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Client Portal -->
+  <section class="platform-section">
+    <div class="container">
+      <div class="platform-row reverse">
+        <!-- Visual: Portal view -->
+        <div class="reveal">
+          <div class="mockup">
+            <div class="mockup-bar">
+              <div class="m-dots"><span class="m-dot"></span><span class="m-dot"></span><span class="m-dot"></span></div>
+              <span class="m-title">Client Portal , Acme Carrier</span>
+            </div>
+            <div class="portal-mockup">
+              <div class="portal-list">
+                <div class="portal-header">
+                  <span class="portal-header-title">My Invoices</span>
+                  <span class="portal-header-count">24 open · $1.24M</span>
+                </div>
+                <div class="portal-row">
+                  <span class="portal-inv-num">INV-2345</span>
+                  <span class="portal-debtor">Wal-Mart Stores</span>
+                  <span class="portal-amount">$245,002</span>
+                  <span class="portal-status badge badge-green s-funded">Funded</span>
+                </div>
+                <div class="portal-row">
+                  <span class="portal-inv-num">INV-2346</span>
+                  <span class="portal-debtor">CocaCola Enterprises</span>
+                  <span class="portal-amount">$12,310</span>
+                  <span class="portal-status badge badge-blue s-pending">Pending</span>
+                </div>
+                <div class="portal-row">
+                  <span class="portal-inv-num">INV-2347</span>
+                  <span class="portal-debtor">Houdini's Hallow LLC</span>
+                  <span class="portal-amount">$810</span>
+                  <span class="portal-status badge s-review" style="background: rgba(255,198,88,0.1); color: #FFC658; border: 1px solid rgba(255,198,88,0.2);">Review</span>
+                </div>
+                <div class="portal-row">
+                  <span class="portal-inv-num">INV-2348</span>
+                  <span class="portal-debtor">Schwin Logistics</span>
+                  <span class="portal-amount">$12,310</span>
+                  <span class="portal-status badge badge-green s-funded">Funded</span>
+                </div>
+              </div>
+              <div class="portal-thread">
+                <div class="portal-thread-label">Messages</div>
+                <div class="thread-msg">
+                  <div class="thread-avatar">FC</div>
+                  <div class="thread-body">
+                    <div class="thread-sender">FactorCloud Support</div>
+                    <div class="thread-text">INV-2347 is under review. We'll update you within 2 hours.</div>
+                  </div>
+                </div>
+                <div class="thread-msg">
+                  <div class="thread-avatar" style="background: rgba(255,255,255,0.06); color: var(--gray-2);">AC</div>
+                  <div class="thread-body">
+                    <div class="thread-sender">ACME Carrier</div>
+                    <div class="thread-text">Thanks, I'll check back this afternoon.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Copy -->
+        <div class="platform-copy reveal">
+          <span class="overline">Client Portal</span>
+          <h2>Give Your Clients a View They Actually Want to Use</h2>
+          <p>The FactorCloud client portal mirrors your back office exactly. Clients see what they need. They stop calling. Because the portal mirrors your back office, training takes minutes. Your account executives get their time back.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Dual-Ledger Accounting -->
+  <section class="platform-section">
+    <div class="container">
+      <div class="platform-row">
+        <!-- Copy -->
+        <div class="platform-copy reveal">
+          <span class="overline">Accounting</span>
+          <h2>Dual-Ledger Precision. No Reconciliation Nightmares.</h2>
+          <p>FactorCloud records every transaction twice , debits and credits, always balanced. No month-end reconciliation scrambles. No penny-chasing across spreadsheets. Your auditors will thank you.</p>
+        </div>
+        <!-- Visual: Ledger entries -->
+        <div class="reveal">
+          <div class="mockup">
+            <div class="mockup-bar">
+              <div class="m-dots"><span class="m-dot"></span><span class="m-dot"></span><span class="m-dot"></span></div>
+              <span class="m-title">General Ledger , INV-20480 Funding Event</span>
+            </div>
+            <div class="ledger-mockup">
+              <div class="ledger-head">
+                <span>Description</span>
+                <span>Type</span>
+                <span>Debit</span>
+                <span>Credit</span>
+              </div>
+              <div class="ledger-row">
+                <span class="ledger-desc">Accounts Receivable , Apex Logistics</span>
+                <span class="ledger-type">AR</span>
+                <span class="ledger-debit">$84,200</span>
+                <span class="ledger-credit"></span>
+              </div>
+              <div class="ledger-row">
+                <span class="ledger-desc">Factoring Fee Revenue</span>
+                <span class="ledger-type">Revenue</span>
+                <span class="ledger-debit"></span>
+                <span class="ledger-credit">$2,526</span>
+              </div>
+              <div class="ledger-row">
+                <span class="ledger-desc">Advance to Client , ACME Carrier</span>
+                <span class="ledger-type">Advance</span>
+                <span class="ledger-debit"></span>
+                <span class="ledger-credit">$75,780</span>
+              </div>
+              <div class="ledger-row">
+                <span class="ledger-desc">Reserve Holdback</span>
+                <span class="ledger-type">Reserve</span>
+                <span class="ledger-debit"></span>
+                <span class="ledger-credit">$5,894</span>
+              </div>
+              <div class="ledger-footer">
+                <span class="ledger-footer-label">Status</span>
+                <span class="ledger-balanced">✓ Balanced , $84,200 = $84,200</span>
+                <span class="ledger-footer-val">$84,200</span>
+              </div>
+            </div>
+          </div>
+          <p style="font-size: 13px; color: var(--gray-3); margin-top: 12px; text-align: center;">Single-ledger systems force you to reconcile manually. Dual-ledger means the math is always right and you can prove it to any auditor, any time.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /platform-wrap -->
+
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!--  COMPARISON TABLE                                      -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="compare-section">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="overline">Why Switch</span>
+      <h2>The Difference Is Clear</h2>
+    </div>
+    <div class="comp-grid reveal" id="comp-grid">
+      <!-- Headers -->
+      <div class="comp-col-head comp-feat-head">
+        <div class="comp-col-head-label">Feature</div>
+        <div class="comp-col-head-title" style="color: var(--gray-2);">Comparison</div>
+      </div>
+      <div class="comp-col-head comp-legacy-head">
+        <div class="comp-col-head-label">The old way</div>
+        <div class="comp-col-head-title" style="color: var(--red);">Legacy Software</div>
+        <div class="comp-col-head-sub">Where most factors are stuck</div>
+      </div>
+      <div class="comp-col-head comp-fc-head">
+        <div class="comp-col-head-label">Built by factors</div>
+        <div class="comp-col-head-title" style="color: var(--green);">FactorCloud</div>
+        <div class="comp-col-head-sub">What modern looks like</div>
+      </div>
+      <!-- Rows -->
+      <div class="comp-row-feat">Funding Process</div>
+      <div class="comp-row-legacy"><span class="x-mark">✗</span> Manual PDF uploads, data entry, and verification</div>
+      <div class="comp-row-fc"><span class="check-mark">✓</span> Automated via BrightBolt</div>
+
+      <div class="comp-row-feat">Ledger Accounting</div>
+      <div class="comp-row-legacy"><span class="x-mark">✗</span> Single-ledger. Month-end reconciliation required.</div>
+      <div class="comp-row-fc"><span class="check-mark">✓</span> Dual-ledger, always balanced</div>
+
+      <div class="comp-row-feat">Integration Ecosystem</div>
+      <div class="comp-row-legacy"><span class="x-mark">✗</span> Limited integrations. Professional services for custom connections.</div>
+      <div class="comp-row-fc"><span class="check-mark">✓</span> 20+ out-of-the-box</div>
+
+      <div class="comp-row-feat">Client Portal</div>
+      <div class="comp-row-legacy"><span class="x-mark">✗</span> No portal, or a basic view that generates more phone calls</div>
+      <div class="comp-row-fc"><span class="check-mark">✓</span> Full mirror-view portal</div>
+
+      <div class="comp-row-feat">User Interface</div>
+      <div class="comp-row-legacy"><span class="x-mark">✗</span> Desktop-first. Weeks of training for new hires.</div>
+      <div class="comp-row-fc"><span class="check-mark">✓</span> Modern, 80% faster onboarding</div>
+
+      <div class="comp-row-feat">Support Response</div>
+      <div class="comp-row-legacy"><span class="x-mark">✗</span> Ticket queue. Days or weeks for resolution.</div>
+      <div class="comp-row-fc"><span class="check-mark">✓</span> Real engineers, 24hr SLA</div>
+
+      <div class="comp-row-feat">Cash Application</div>
+      <div class="comp-row-legacy"><span class="x-mark">✗</span> Manual lockbox import and matching</div>
+      <div class="comp-row-fc"><span class="check-mark">✓</span> Automated , payments match themselves</div>
+
+      <div class="comp-row-feat">Migration Cost</div>
+      <div class="comp-row-legacy"><span class="x-mark">✗</span> Paid professional services</div>
+      <div class="comp-row-fc"><span class="check-mark">✓</span> Free. We handle everything.</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!--  SWITCHING STEPS                                       -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="steps-section">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="overline">Getting Started</span>
+      <h2>Getting Started Takes Three Steps</h2>
+    </div>
+    <div class="steps-row">
+      <div class="step reveal">
+        <div class="step-number">01</div>
+        <div class="step-title">Schedule a Demo</div>
+        <p class="step-desc">See the platform running on your actual use case. Most demos last under an hour and answer every question your team has.</p>
+      </div>
+      <div class="step reveal" style="transition-delay: 0.1s;">
+        <div class="step-number">02</div>
+        <div class="step-title">Onboard Your Book , Free</div>
+        <p class="step-desc">Three-step setup with dedicated onboarding support at no cost. We migrate your data, configure the platform, and run it in parallel with your current software until you're ready.</p>
+      </div>
+      <div class="step reveal" style="transition-delay: 0.2s;">
+        <div class="step-number">03</div>
+        <div class="step-title">Go Live , Days, Not Months</div>
+        <p class="step-desc">Close business in your old software tonight. Open in FactorCloud tomorrow.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!--  FAQ                                                   -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="faq-section">
+  <div class="container" style="max-width: 800px;">
+    <div class="section-header reveal">
+      <span class="overline">Questions</span>
+      <h2>Common Questions</h2>
+    </div>
+    <div class="faq-list reveal">
+      <div class="faq-item">
+        <div class="faq-q" tabindex="0">
+          What makes FactorCloud different?
+          <svg class="faq-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-a">
+          Three things nobody else can say: automated cash application that matches payments without human intervention, dual-ledger accounting accurate to the penny on every transaction, and free onboarding where we migrate your entire book. We built this because we ran a factor processing 60,000 invoices a month and the existing software couldn't keep up.
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" tabindex="0">
+          How long does onboarding take?
+          <svg class="faq-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-a">
+          Most teams are fully operational within days. Onboarding is free , we handle the migration, configuration, and parallel testing. We have never charged a setup fee.
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" tabindex="0">
+          What integrations do you support?
+          <svg class="faq-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-a">
+          TruckerCloud, Ansonia, QuickBooks, ROX, BankShot, Bill360, and 15 more. Open API for custom connections. No surcharges, no add-on tiers. Every integration is included with your subscription.
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" tabindex="0">
+          How secure is FactorCloud?
+          <svg class="faq-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-a">
+          SOC2 compliant. Cloud-hosted with 45+ developers maintaining uptime, security, and continuous improvement. Every user action is logged. Every change is tracked. You're always audit-ready.
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" tabindex="0">
+          Can I see it before committing?
+          <svg class="faq-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-a">
+          Yes. Schedule a demo and we'll show you the platform on a live environment in under an hour. Bring your team, bring your questions, bring a real use case. We'll walk through it.
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" tabindex="0">
+          What types of factors use FactorCloud?
+          <svg class="faq-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-a">
+          Transportation, staffing, construction, general factoring, freight brokers , we serve them all. Unlike platforms built for a single vertical, FactorCloud's configurable terms and workflows adapt to any factoring specialty.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!--  DEMO CTA                                              -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="demo-section">
+  <div class="container">
+    <div class="reveal">
+      <h2 class="serif">Ready to See It in Action?</h2>
+      <p>Schedule a demo and see FactorCloud running on your actual use case. If you like what you see, we'll migrate your entire book. Free.</p>
+      <a href="/get-demo.html" class="btn-primary" style="font-size: 16px; padding: 16px 36px;">Get a Demo</a>
+      <div class="demo-trust">
+        <span class="trust-item">SOC2 Compliant</span>
+        <span class="trust-sep">·</span>
+        <span class="trust-item">45+ Developers</span>
+        <span class="trust-sep">·</span>
+        <span class="trust-item">94% Close Rate</span>
+        <span class="trust-sep">·</span>
+        <span class="trust-item">Atlanta, GA</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!--  FOOTER                                                -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="/assets/logo-white.png" alt="FactorCloud" />
+        <p>The factoring platform built by factors who knew what was missing.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Platform</div>
+        <ul class="footer-links">
+          <li><a href="/features/automation.html">Automation</a></li>
+          <li><a href="/features/client-management.html">Client Management</a></li>
+          <li><a href="/features/operations.html">Operations</a></li>
+          <li><a href="/features/client-portal.html">Client Portal</a></li>
+          <li><a href="/features/brightbolt.html">BrightBolt OCR</a></li>
+          <li><a href="/features/api.html">Open API</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Integrations</div>
+        <ul class="footer-links">
+          <li><a href="/integrations/truckercloud.html">TruckerCloud</a></li>
+          <li><a href="/integrations/quickbooks.html">QuickBooks</a></li>
+          <li><a href="/integrations/ansonia.html">Ansonia</a></li>
+          <li><a href="/integrations/rox.html">ROX</a></li>
+          <li><a href="/integrations/bill360.html">Bill360</a></li>
+          <li><a href="/integrations/brightbolt.html">BrightBolt</a></li>
+          <li><a href="/integrations/bankshot.html">BankShot</a></li>
+          <li><a href="/integrations/index.html">All Integrations</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <ul class="footer-links">
+          <li><a href="/about/index.html">About</a></li>
+          <li><a href="/about/story.html">Our Story</a></li>
+          <li><a href="/about/team.html">Team</a></li>
+          <li><a href="/about/values.html">Values</a></li>
+          <li><a href="/about/security.html">Security</a></li>
+          <li><a href="/contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Legal</div>
+        <ul class="footer-links">
+          <li><a href="/legal/privacy.html">Privacy Policy</a></li>
+          <li><a href="/legal/terms.html">Terms of Service</a></li>
+          <li><a href="/legal/app-privacy.html">App Privacy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2025 FactorCloud. All rights reserved.</span>
+      <span class="footer-address">3490 Piedmont Rd. Suite 1350, Atlanta, GA 30305</span>
+      <div class="footer-social">
+        <a href="https://linkedin.com/company/factorcloud" aria-label="LinkedIn" target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+  // ─── NAV SCROLL (60px threshold) ────────────────────────
+  var nav = document.getElementById('main-nav');
+  window.addEventListener('scroll', function() {
+    if (window.scrollY > 60) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  }, { passive: true });
+
+  // ─── NAV DROPDOWNS ──────────────────────────────────────
+  document.querySelectorAll('.nav-link-toggle').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      var li = this.parentElement;
+      var wasOpen = li.classList.contains('open');
+      document.querySelectorAll('.nav-links > li').forEach(function(l) { l.classList.remove('open'); });
+      if (!wasOpen) li.classList.add('open');
+    });
+  });
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.nav-links')) {
+      document.querySelectorAll('.nav-links > li').forEach(function(l) { l.classList.remove('open'); });
+    }
+  });
+
+  // ─── HAMBURGER ──────────────────────────────────────────
+  var hamburger = document.getElementById('hamburger');
+  var mobileNav = document.getElementById('mobile-nav');
+  hamburger.addEventListener('click', function() {
+    this.classList.toggle('open');
+    mobileNav.classList.toggle('open');
+    document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
+  });
+
+  // ─── MOBILE NAV TOGGLES ─────────────────────────────────
+  document.querySelectorAll('.mobile-nav-toggle').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var targetId = this.dataset.target;
+      var sub = document.getElementById(targetId);
+      this.classList.toggle('open');
+      sub.classList.toggle('open');
+    });
+  });
+
+  // ─── SCROLL REVEAL (with stagger) ───────────────────────
+  var reveals = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          // Stagger sibling reveals
+          var el = entry.target;
+          var siblings = Array.from(el.parentElement ? el.parentElement.querySelectorAll('.reveal') : []);
+          var idx = siblings.indexOf(el);
+          if (idx > 0) {
+            el.style.transitionDelay = (idx * 100) + 'ms';
+          }
+          el.classList.add('visible');
+          io.unobserve(el);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(function(el) { io.observe(el); });
+  } else {
+    reveals.forEach(function(el) { el.classList.add('visible'); });
+  }
+
+  // Fallback: ensure all reveals visible after 800ms
+  setTimeout(function() {
+    document.querySelectorAll('.reveal').forEach(function(el) {
+      el.classList.add('visible');
+    });
+  }, 800);
+
+  // ─── FAQ ACCORDION ──────────────────────────────────────
+  document.querySelectorAll('.faq-q').forEach(function(q) {
+    q.addEventListener('click', function() {
+      var a = this.nextElementSibling;
+      var isOpen = this.classList.contains('open');
+      document.querySelectorAll('.faq-q').forEach(function(qq) {
+        qq.classList.remove('open');
+        qq.nextElementSibling.classList.remove('open');
+      });
+      if (!isOpen) {
+        this.classList.add('open');
+        a.classList.add('open');
+      }
+    });
+    q.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.click(); }
+    });
+  });
+
+  // ─── COUNTER ANIMATION ──────────────────────────────────
+  function animateCounter(el, target, duration) {
+    var start = performance.now();
+    function update(now) {
+      var elapsed = now - start;
+      var progress = Math.min(elapsed / duration, 1);
+      var eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.floor(eased * target);
+      if (progress < 1) requestAnimationFrame(update);
+      else el.textContent = target;
+    }
+    requestAnimationFrame(update);
+  }
+
+  // 94% stat counter
+  var statCounter = document.getElementById('stat-counter');
+  if (statCounter && 'IntersectionObserver' in window) {
+    var statTriggered = false;
+    var statIO = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting && !statTriggered) {
+          statTriggered = true;
+          animateCounter(statCounter, 94, 1800);
+          statIO.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    statIO.observe(document.getElementById('stat-section'));
+  }
+
+  // Inline counters (80%, 20+)
+  if ('IntersectionObserver' in window) {
+    document.querySelectorAll('.inline-counter').forEach(function(el) {
+      var target = parseInt(el.dataset.target, 10);
+      var suffix = el.dataset.suffix || '';
+      var triggered = false;
+      var icio = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting && !triggered) {
+            triggered = true;
+            var numEl = document.createElement('span');
+            el.textContent = '';
+            el.appendChild(numEl);
+            el.appendChild(document.createTextNode(suffix));
+            animateCounter(numEl, target, 1400);
+            icio.unobserve(el);
+          }
+        });
+      }, { threshold: 0.3 });
+      icio.observe(el);
+    });
+  }
+
+  // ─── BRIGHTBOLT FLOW ANIMATION ──────────────────────────
+  var bbFlow = document.getElementById('brightbolt-flow');
+  if (bbFlow && 'IntersectionObserver' in window) {
+    var bbSteps = bbFlow.querySelectorAll('.bb-step');
+    var bbConnectors = bbFlow.querySelectorAll('.bb-connector');
+    var bbTriggered = false;
+    var bbInterval = null;
+
+    function runBBSequence() {
+      // Reset all
+      bbSteps.forEach(function(s) { s.classList.remove('bb-active'); });
+      bbConnectors.forEach(function(c) { c.classList.remove('bb-active'); });
+      // Step 1 at 0ms
+      setTimeout(function() {
+        bbSteps[0] && bbSteps[0].classList.add('bb-active');
+      }, 0);
+      // Connector 0 + Step 2 at 600ms
+      setTimeout(function() {
+        bbConnectors[0] && bbConnectors[0].classList.add('bb-active');
+        bbSteps[1] && bbSteps[1].classList.add('bb-active');
+      }, 600);
+      // Connector 1 + Step 3 at 1200ms
+      setTimeout(function() {
+        bbConnectors[1] && bbConnectors[1].classList.add('bb-active');
+        bbSteps[2] && bbSteps[2].classList.add('bb-active');
+      }, 1200);
+      // Connector 2 + Step 4 at 1800ms
+      setTimeout(function() {
+        bbConnectors[2] && bbConnectors[2].classList.add('bb-active');
+        bbSteps[3] && bbSteps[3].classList.add('bb-active');
+      }, 1800);
+      // Reset at 2400ms then loop every 6s handled by interval
+    }
+
+    var bbIO = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting && !bbTriggered) {
+          bbTriggered = true;
+          runBBSequence();
+          bbInterval = setInterval(runBBSequence, 6000);
+          bbIO.unobserve(bbFlow);
+        }
+      });
+    }, { threshold: 0.3 });
+    bbIO.observe(bbFlow);
+  }
+
+  // ─── COMPARISON TABLE ROW ANIMATION ─────────────────────
+  var compGrid = document.getElementById('comp-grid');
+  if (compGrid && 'IntersectionObserver' in window) {
+    var compTriggered = false;
+    // Mark initial state
+    compGrid.classList.add('comp-table-animate');
+    var compIO = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting && !compTriggered) {
+          compTriggered = true;
+          var legacyRows = compGrid.querySelectorAll('.comp-row-legacy');
+          var fcRows = compGrid.querySelectorAll('.comp-row-fc');
+          var maxRows = Math.max(legacyRows.length, fcRows.length);
+          for (var i = 0; i < maxRows; i++) {
+            (function(idx) {
+              setTimeout(function() {
+                if (legacyRows[idx]) {
+                  legacyRows[idx].style.opacity = '1';
+                  legacyRows[idx].style.transform = 'translateX(0)';
+                }
+                if (fcRows[idx]) {
+                  fcRows[idx].style.opacity = '1';
+                  fcRows[idx].style.transform = 'translateX(0)';
+                }
+              }, idx * 80);
+            })(i);
+          }
+          compIO.unobserve(compGrid);
+        }
+      });
+    }, { threshold: 0.1 });
+    compIO.observe(compGrid);
+  }
+
+  // ─── CTA BUTTON PULSE (after 8s) ────────────────────────
+  setTimeout(function() {
+    var ctaBtn = document.getElementById('hero-cta-btn');
+    if (ctaBtn) {
+      ctaBtn.classList.add('cta-pulse');
+      ctaBtn.addEventListener('animationend', function() {
+        ctaBtn.classList.remove('cta-pulse');
+      }, { once: true });
+    }
+  }, 8000);
+</script>
+</body>
+</html>
