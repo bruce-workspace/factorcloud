@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <!-- Sun rays from center gap -->
+  <!-- Center gap is at x=100, y=112 approximately -->
+  <!-- Rays shooting upward/outward from gap center (100, 110) -->
+  <g stroke="#D4A843" stroke-width="2" stroke-linecap="round" opacity="0.7">
+    <!-- Center ray straight up -->
+    <line x1="100" y1="105" x2="100" y2="52"/>
+    <!-- Ray upper-left -->
+    <line x1="97" y1="107" x2="64" y2="62"/>
+    <!-- Ray left -->
+    <line x1="94" y1="110" x2="44" y2="80"/>
+    <!-- Ray upper-right -->
+    <line x1="103" y1="107" x2="136" y2="62"/>
+    <!-- Ray right -->
+    <line x1="106" y1="110" x2="156" y2="80"/>
+    <!-- Ray far upper-left -->
+    <line x1="96" y1="106" x2="76" y2="46"/>
+    <!-- Ray far upper-right -->
+    <line x1="104" y1="106" x2="124" y2="46"/>
+  </g>
+
+  <!-- Left cloud half -->
+  <path d="M 55 140 
+           Q 36 140 36 122 
+           Q 36 108 50 106 
+           Q 50 86 68 84 
+           Q 78 74 90 80 
+           Q 90 78 92 112 
+           Q 84 112 78 118 
+           Q 68 118 62 128 
+           Q 58 128 55 140 Z"
+        fill="#D4A843" fill-opacity="0.85" stroke="#D4A843" stroke-width="1.5" stroke-linejoin="round"/>
+
+  <!-- Right cloud half -->
+  <path d="M 145 140 
+           Q 164 140 164 122 
+           Q 164 108 150 106 
+           Q 150 86 132 84 
+           Q 122 74 110 80 
+           Q 108 78 108 112 
+           Q 116 112 122 118 
+           Q 132 118 138 128 
+           Q 142 128 145 140 Z"
+        fill="#D4A843" fill-opacity="0.85" stroke="#D4A843" stroke-width="1.5" stroke-linejoin="round"/>
+
+  <!-- Bottom base / ground of clouds -->
+  <path d="M 40 140 Q 68 152 92 148" 
+        fill="none" stroke="#C9983A" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M 108 148 Q 132 152 160 140" 
+        fill="none" stroke="#C9983A" stroke-width="1.5" stroke-linecap="round"/>
+</svg>

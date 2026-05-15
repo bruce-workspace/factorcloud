@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <!-- Circular arrow (clockwise, ~300 degrees) -->
+  <!-- Large arc from top going clockwise, leaving a gap at top-left -->
+  <path d="M 78 42 A 58 58 0 1 1 42 122"
+        fill="none" stroke="#D4A843" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- Arrowhead at end of arc (pointing downward-left at ~210deg) -->
+  <!-- End point is at angle ~210deg from center (100,100), r=58 -->
+  <!-- pos: 100 + 58*cos(210) = 100 - 50.2 = 49.8 ~ 50, 100 + 58*sin(210) = 100 - 29 = 71 -->
+  <!-- Arrow tip at (42, 122), pointing in direction of arc tangent -->
+  <polyline points="42,108 42,122 56,122"
+            fill="none" stroke="#D4A843" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Lightning bolt in center -->
+  <!-- Center of circle is 100, 100 -->
+  <path d="M 108 68 L 92 100 L 104 100 L 92 132 L 108 100 L 96 100 Z"
+        fill="#D4A843" fill-opacity="0.9" stroke="#D4A843" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+
+  <!-- Small tick marks around the arc for technical feel -->
+  <g stroke="#C9983A" stroke-width="1" stroke-linecap="round" opacity="0.5">
+    <!-- tick at ~30deg (right-upper) -->
+    <line x1="148" y1="71" x2="152" y2="65"/>
+    <!-- tick at ~90deg (right) -->
+    <line x1="158" y1="100" x2="164" y2="100"/>
+    <!-- tick at ~150deg (right-lower) -->
+    <line x1="148" y1="129" x2="152" y2="135"/>
+    <!-- tick at ~330deg (left-upper) -->
+    <line x1="52" y1="71" x2="48" y2="65"/>
+    <!-- tick at ~270deg (left) — before the gap -->
+  </g>
+</svg>

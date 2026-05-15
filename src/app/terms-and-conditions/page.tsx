@@ -1,0 +1,175 @@
+import type { Metadata } from "next";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+
+export const metadata: Metadata = {
+  title: "Terms and Conditions",
+  description:
+    "FactorCloud Terms and Conditions. Terms governing your use of the FactorCloud platform.",
+};
+
+const LEGAL_CSS = `
+.legal-hero {
+  padding-top: 140px;
+  padding-bottom: 60px;
+  border-bottom: 1px solid var(--border);
+}
+.legal-hero h1 {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: clamp(36px, 5vw, 56px);
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  margin-bottom: 12px;
+}
+.legal-hero p { color: var(--gray-3); font-size: 14px; }
+.legal-content {
+  max-width: 760px;
+  padding: 64px 32px;
+  margin: 0 auto;
+}
+.legal-content h2 {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 40px 0 12px;
+  color: var(--white);
+}
+.legal-content h2:first-child { margin-top: 0; }
+.legal-content p {
+  font-size: 15px;
+  color: var(--gray-2);
+  line-height: 1.8;
+  margin-bottom: 16px;
+}
+.legal-content ul {
+  list-style: disc;
+  padding-left: 20px;
+  margin-bottom: 16px;
+}
+.legal-content ul li {
+  font-size: 15px;
+  color: var(--gray-2);
+  line-height: 1.8;
+  margin-bottom: 6px;
+}
+.legal-content a { color: var(--accent); }
+`;
+
+export default function TermsPage() {
+  return (
+    <>
+      <style dangerouslySetInnerHTML={{ __html: LEGAL_CSS }} />
+      <Navbar />
+      <div className="legal-hero">
+        <div className="container-sm">
+          <div className="label" style={{ marginBottom: "12px" }}>
+            Legal
+          </div>
+          <h1>Terms and Conditions</h1>
+          <p>Last updated: March 2025</p>
+        </div>
+      </div>
+
+      <div className="legal-content">
+        <h2>Agreement to Terms</h2>
+        <p>
+          These Terms and Conditions (&quot;Terms&quot;) govern your access to
+          and use of FactorCloud&apos;s platform and services. By accessing or
+          using FactorCloud, you agree to be bound by these Terms. This is a
+          placeholder document. The final Terms and Conditions will be reviewed
+          and approved by FactorCloud&apos;s legal counsel before publication.
+        </p>
+
+        <h2>Use of the Service</h2>
+        <p>
+          FactorCloud grants you a limited, non-exclusive, non-transferable
+          license to access and use the platform for your internal business
+          operations. You agree not to:
+        </p>
+        <ul>
+          <li>Reverse engineer, decompile, or disassemble the platform</li>
+          <li>Use the platform to process transactions on behalf of unauthorized third parties</li>
+          <li>Share your login credentials with unauthorized users</li>
+          <li>Use the platform for any unlawful purpose</li>
+          <li>Attempt to gain unauthorized access to any portion of the platform</li>
+        </ul>
+
+        <h2>User Accounts</h2>
+        <p>
+          You are responsible for maintaining the confidentiality of your
+          account credentials and for all activities that occur under your
+          account. You must notify FactorCloud immediately of any unauthorized
+          use of your account.
+        </p>
+
+        <h2>Data and Privacy</h2>
+        <p>
+          Your use of FactorCloud is also governed by our Privacy Policy, which
+          is incorporated into these Terms by reference. By using FactorCloud,
+          you consent to our data practices as described in the Privacy Policy.
+        </p>
+
+        <h2>Intellectual Property</h2>
+        <p>
+          The FactorCloud platform, including all software, features, and
+          content, is owned by FactorCloud and protected by intellectual
+          property laws. Nothing in these Terms transfers any intellectual
+          property rights to you.
+        </p>
+
+        <h2>Service Availability</h2>
+        <p>
+          FactorCloud strives to maintain high availability of the platform.
+          However, we do not guarantee uninterrupted access and may perform
+          maintenance that results in temporary downtime. Enterprise customers
+          are subject to the SLA terms specified in their service agreement.
+        </p>
+
+        <h2>Limitation of Liability</h2>
+        <p>
+          To the maximum extent permitted by law, FactorCloud shall not be
+          liable for any indirect, incidental, special, consequential, or
+          punitive damages arising from your use of the platform. Our total
+          liability to you shall not exceed the fees paid by you in the 12
+          months preceding the claim.
+        </p>
+
+        <h2>Termination</h2>
+        <p>
+          Either party may terminate this agreement upon notice. Upon
+          termination, your access to the platform will be suspended. You may
+          request an export of your data within 30 days of termination.
+        </p>
+
+        <h2>Governing Law</h2>
+        <p>
+          These Terms shall be governed by and construed in accordance with
+          the laws of the State of Georgia, without regard to its conflict of
+          law provisions. Any disputes shall be resolved in the courts of
+          Fulton County, Georgia.
+        </p>
+
+        <h2>Changes to Terms</h2>
+        <p>
+          FactorCloud reserves the right to modify these Terms at any time. We
+          will notify you of material changes by email or through the platform.
+          Continued use of the platform after such notification constitutes
+          acceptance of the updated Terms.
+        </p>
+
+        <h2>Contact Us</h2>
+        <p>If you have questions about these Terms, please contact us:</p>
+        <p>
+          FactorCloud
+          <br />
+          3490 Piedmont Rd. Suite 1350
+          <br />
+          Atlanta, GA 30305
+          <br />
+          <a href="mailto:hello@factorcloud.com">hello@factorcloud.com</a>
+        </p>
+      </div>
+
+      <Footer />
+    </>
+  );
+}

@@ -1,0 +1,56 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {NAMESPACE}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {SERVICE_NAME}-lb
+  namespace: {NAMESPACE}
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
+    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: {CERTIFICATE_ARN}
+    service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "https"
+spec:
+  selector:
+    app: {SERVICE_NAME}
+  ports:
+    - name: https
+      port: 443
+      targetPort: {CONTAINER_PORT}
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {SERVICE_NAME}
+  namespace: {NAMESPACE}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {SERVICE_NAME}
+  template:
+    metadata:
+      labels:
+        app: {SERVICE_NAME}
+    spec:
+      containers:
+        - name: {SERVICE_NAME}
+          imagePullPolicy: Always
+          image: {ACCOUNT_ID}.dkr.ecr.{REGION}.amazonaws.com/{ECR_REPO_PREFIX}-{IMAGE}:latest
+          ports:
+            - containerPort: {CONTAINER_PORT}
+          env:
+            # Optional app secrets (drop these if not needed)
+            - name: HELP_CENTER_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {SERVICE_NAME}-help-center
+                  key: password
+            - name: HELP_CENTER_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {SERVICE_NAME}-help-center
+                  key: hmac-secret

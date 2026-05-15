@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <!-- Center solid circle -->
+  <circle cx="100" cy="100" r="10" fill="#D4A843"/>
+
+  <!-- 6 spokes with endpoint circles -->
+  <!-- Spoke 1: straight up (90deg) -->
+  <line x1="100" y1="90" x2="100" y2="44" stroke="#D4A843" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="100" cy="38" r="8" fill="none" stroke="#D4A843" stroke-width="2"/>
+
+  <!-- Spoke 2: upper-right (30deg) -->
+  <line x1="109" y1="95" x2="148" y2="72" stroke="#D4A843" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="154" cy="69" r="8" fill="none" stroke="#D4A843" stroke-width="2"/>
+
+  <!-- Spoke 3: lower-right (150deg from top = -30deg) -->
+  <line x1="109" y1="105" x2="148" y2="128" stroke="#D4A843" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="154" cy="131" r="8" fill="none" stroke="#D4A843" stroke-width="2"/>
+
+  <!-- Spoke 4: straight down (270deg) -->
+  <line x1="100" y1="110" x2="100" y2="156" stroke="#D4A843" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="100" cy="162" r="8" fill="none" stroke="#D4A843" stroke-width="2"/>
+
+  <!-- Spoke 5: lower-left (210deg) -->
+  <line x1="91" y1="105" x2="52" y2="128" stroke="#D4A843" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="46" cy="131" r="8" fill="none" stroke="#D4A843" stroke-width="2"/>
+
+  <!-- Spoke 6: upper-left (330deg) -->
+  <line x1="91" y1="95" x2="52" y2="72" stroke="#D4A843" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="46" cy="69" r="8" fill="none" stroke="#D4A843" stroke-width="2"/>
+
+  <!-- Inner ring to connect hub visually -->
+  <circle cx="100" cy="100" r="22" fill="none" stroke="#D4A843" stroke-width="1" stroke-dasharray="3 4" opacity="0.4"/>
+
+  <!-- Small fill dots inside outer circles for depth -->
+  <circle cx="100" cy="38" r="3" fill="#C9983A" opacity="0.7"/>
+  <circle cx="154" cy="69" r="3" fill="#C9983A" opacity="0.7"/>
+  <circle cx="154" cy="131" r="3" fill="#C9983A" opacity="0.7"/>
+  <circle cx="100" cy="162" r="3" fill="#C9983A" opacity="0.7"/>
+  <circle cx="46" cy="131" r="3" fill="#C9983A" opacity="0.7"/>
+  <circle cx="46" cy="69" r="3" fill="#C9983A" opacity="0.7"/>
+</svg>
