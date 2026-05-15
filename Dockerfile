@@ -13,12 +13,12 @@ FROM node:22-alpine AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production
-ENV PORT=3002
+ENV PORT=3000
 ENV HOSTNAME=0.0.0.0
 
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/build/standalone ./
 COPY --from=builder /app/build/static ./build/static
 
-EXPOSE 3002
+EXPOSE 3000
 CMD ["node", "server.js"]
