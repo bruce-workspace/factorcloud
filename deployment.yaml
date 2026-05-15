@@ -42,15 +42,4 @@ spec:
           image: {ACCOUNT_ID}.dkr.ecr.{REGION}.amazonaws.com/{ECR_REPO_PREFIX}-{IMAGE}:latest
           ports:
             - containerPort: {CONTAINER_PORT}
-          env:
-            # Optional app secrets (drop these if not needed)
-            - name: HELP_CENTER_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: {SERVICE_NAME}-help-center
-                  key: password
-            - name: HELP_CENTER_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: {SERVICE_NAME}-help-center
-                  key: hmac-secret
+
