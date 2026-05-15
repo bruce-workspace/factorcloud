@@ -13,7 +13,7 @@ region: "us-east-2"
 cluster: "firebolt-eks-int"
 namespace: "marketing"
 service: "fc-website"
-ecr_repo_prefix: "factorcloud-website-rc"
+ecr_repo_prefix: "factorcloud-website"
 container_port: 3000
 node_version: 22.22.0
 docker_node_version: 18.12.0
