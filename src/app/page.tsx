@@ -1,12 +1,18 @@
 // AUTO-GENERATED from index.html by scripts/migrate-html.mjs.
-// Hand-edits are fine; re-running the migrator will overwrite this file.
+// Copy is sourced from /content/pages/{locale}/home.mdx — edit there, not here.
+import { Fragment } from "react";
 import type { Metadata } from "next";
 import Script from "next/script";
+import { loadPage } from "@/lib/content";
+import { getMetadata } from "@/lib/seo";
+import type { HomeFrontmatter } from "@/lib/content-types";
 
-export const metadata: Metadata = {
-  title: "FactorCloud , Factoring Software for Modern Operators",
-  description: "Dual-ledger precision, automated cash application, and 20+ integrations. The factoring platform operators built when they got tired of software holding them back.",
-};
+const LOCALE = "en" as const;
+
+export function generateMetadata(): Metadata {
+  const { frontmatter } = loadPage<HomeFrontmatter>("home", LOCALE);
+  return getMetadata({ page: "home", locale: LOCALE, override: frontmatter.seo });
+}
 
 const PAGE_CSS = `
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -35,14 +41,14 @@ const PAGE_CSS = `
 
     @font-face {
       font-family: 'Syne';
-      src: url('../assets/fonts/Syne/Syne-Regular.ttf') format('truetype');
+      src: url('/images/fonts/Syne/Syne-Regular.ttf') format('truetype');
       font-weight: 400;
       font-style: normal;
       font-display: swap;
     }
     @font-face {
       font-family: 'Syne';
-      src: url('../assets/fonts/Syne/Syne-Bold.ttf') format('truetype');
+      src: url('/images/fonts/Syne/Syne-Bold.ttf') format('truetype');
       font-weight: 700;
       font-style: normal;
       font-display: swap;
@@ -126,7 +132,7 @@ const PAGE_CSS = `
 
     /* ─── NAV ────────────────────────────────────────────── */
     .nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      position: fixed; top: 36px; left: 0; right: 0; z-index: 1000;
       height: 64px;
       display: flex; align-items: center;
       background: rgba(10,10,8,0.96);
@@ -2777,13 +2783,37 @@ document.addEventListener('DOMContentLoaded', function() {
 `;
 
 export default function Page() {
+  const { frontmatter: c } = loadPage<HomeFrontmatter>("home", LOCALE);
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: PAGE_CSS }} />
+      <div
+        role="status"
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 1001,
+          height: 36,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          background: "var(--amber)",
+          color: "var(--bg-2)",
+          textAlign: "center",
+          padding: "0 16px",
+          fontSize: "13px",
+          fontWeight: 600,
+          letterSpacing: "0.04em",
+        }}
+      >
+        This is a demo for the marketing team
+      </div>
       <nav className="nav" id="main-nav">
   <div className="nav-inner">
     <a href="/" className="nav-logo">
-      <img src="../assets/logo.svg" alt="FactorCloud" />
+      <img src="/images/logo.svg" alt="FactorCloud" />
     </a>
 
     <ul className="nav-links">
@@ -2851,44 +2881,37 @@ export default function Page() {
     <div className="container">
       <div className="hero-grid">
 
-        
         <div className="hero-copy">
-          <span className="hero-overline hero-anim" style={{animationDelay: "0ms", opacity: "1 !important"}}>Built by operators</span>
+          <span className="hero-overline hero-anim" style={{animationDelay: "0ms"}}>{c.hero.overline}</span>
           <h1 className="hero-h1">
-            <span className="h1-amber hero-anim" style={{opacity: "1 !important", animationDelay: "150ms"}}>Modern Factoring<br />Software</span> <span className="h1-white hero-anim" style={{opacity: "1 !important", animationDelay: "300ms"}}>That<br />Matches Payments<br />Automatically.</span>
+            <span className="h1-amber hero-anim" style={{animationDelay: "150ms", whiteSpace: "pre-line"}}>{c.hero.headlineAmber}</span>{" "}
+            <span className="h1-white hero-anim" style={{animationDelay: "300ms", whiteSpace: "pre-line"}}>{c.hero.headlineWhite}</span>
           </h1>
-          <p className="hero-sub hero-anim" style={{animationDelay: "450ms", opacity: "1 !important"}}>Dual-ledger precision. Free onboarding. 20+ integrations included. Built by a team that processed 60,000 invoices a month and needed a better solution.</p>
+          <p className="hero-sub hero-anim" style={{animationDelay: "450ms"}}>{c.hero.subheadline}</p>
           <ul className="hero-props">
-            <li className="hero-prop hero-anim" style={{animationDelay: "600ms", opacity: "1 !important"}}>
-              <span className="hero-prop-tick">✓</span>
-              Schedule creation runs automatically. Cash applies itself.
-            </li>
-            <li className="hero-prop hero-anim" style={{animationDelay: "660ms", opacity: "1 !important"}}>
-              <span className="hero-prop-tick">✓</span>
-              Clients, debtors, vendors -- one system, one source of truth.
-            </li>
-            <li className="hero-prop hero-anim" style={{animationDelay: "720ms", opacity: "1 !important"}}>
-              <span className="hero-prop-tick">✓</span>
-              Give clients a portal they'll actually use.
-            </li>
+            {c.hero.props.map((prop, i) => (
+              <li key={i} className="hero-prop hero-anim" style={{animationDelay: `${600 + i * 60}ms`}}>
+                <span className="hero-prop-tick">✓</span>
+                {prop}
+              </li>
+            ))}
           </ul>
-          <div className="hero-ctas hero-anim" style={{animationDelay: "820ms", opacity: "1 !important"}}>
-            <a href="/get-demo" className="btn-primary" id="hero-cta-btn">Get a Demo</a>
-            <a href="/features" className="btn-ghost">See the Platform</a>
+          <div className="hero-ctas hero-anim" style={{animationDelay: "820ms"}}>
+            <a href={c.hero.primaryCta.href} className="btn-primary" id="hero-cta-btn">{c.hero.primaryCta.label}</a>
+            <a href={c.hero.secondaryCta.href} className="btn-ghost">{c.hero.secondaryCta.label}</a>
           </div>
         </div>
 
-        
         <div className="hero-visual">
           <div className="dash-frame dash-float">
             <div className="dash-frame-bar">
               <span className="dash-dot"></span>
               <span className="dash-dot"></span>
               <span className="dash-dot"></span>
-              <span className="dash-frame-url">app.factorcloud.com</span>
+              <span className="dash-frame-url">{c.hero.dashboardUrl}</span>
             </div>
             <div className="dash-visual">
-              <img src="../assets/dash-2.png" alt="FactorCloud dashboard , Quick Peek invoice view" loading="eager" />
+              <img src={c.hero.dashboardImage} alt={c.hero.dashboardImageAlt} loading="eager" />
               <span className="dash-click-pulse" aria-hidden="true"></span>
               <svg className="dash-cursor" aria-hidden="true" viewBox="0 0 24 24">
                 <path d="M4 2 L4 22 L10 16 L13 22 L16 21 L13 15 L20 13 Z" fill="#fff" stroke="#0a0a08" strokeWidth="1.2" strokeLinejoin="round"></path>
@@ -2898,16 +2921,15 @@ export default function Page() {
         </div>
       </div>
 
-      
       <div className="hero-visual-mobile">
         <div className="dash-frame">
           <div className="dash-frame-bar">
             <span className="dash-dot"></span>
             <span className="dash-dot"></span>
             <span className="dash-dot"></span>
-            <span className="dash-frame-url">app.factorcloud.com</span>
+            <span className="dash-frame-url">{c.hero.dashboardUrl}</span>
           </div>
-          <img src="../assets/dash-2.png" alt="FactorCloud dashboard" loading="eager" />
+          <img src={c.hero.dashboardImage} alt={c.hero.dashboardImageAlt} loading="eager" />
         </div>
       </div>
     </div>
@@ -2922,36 +2944,22 @@ export default function Page() {
   <div className="container">
     <div className="stat-inner">
       <div className="stat-banner">
-        <div className="stat-number"><span id="stat-counter" data-target="94">94</span>%</div>
+        <div className="stat-number"><span id="stat-counter" data-target={c.stat.number}>{c.stat.number}</span>{c.stat.suffix}</div>
         <div className="stat-right">
-          <p className="stat-label">of teams that see FactorCloud make the switch.</p>
+          <p className="stat-label">{c.stat.label}</p>
           <div className="stat-marquee" aria-hidden="true">
             <div className="stat-marquee-row">
               <div className="stat-marquee-track">
-                <span className="stat-badge">Dual-Ledger</span>
-                <span className="stat-badge">Auto Cash Application</span>
-                <span className="stat-badge">Free Onboarding</span>
-                <span className="stat-badge">45+ Developers</span>
-                <span className="stat-badge">SOC2 Compliant</span>
-                <span className="stat-badge">Dual-Ledger</span>
-                <span className="stat-badge">Auto Cash Application</span>
-                <span className="stat-badge">Free Onboarding</span>
-                <span className="stat-badge">45+ Developers</span>
-                <span className="stat-badge">SOC2 Compliant</span>
+                {[...c.stat.badges, ...c.stat.badges].map((badge, i) => (
+                  <span key={`a-${i}`} className="stat-badge">{badge}</span>
+                ))}
               </div>
             </div>
             <div className="stat-marquee-row reverse">
               <div className="stat-marquee-track">
-                <span className="stat-badge">45+ Developers</span>
-                <span className="stat-badge">Free Onboarding</span>
-                <span className="stat-badge">Dual-Ledger</span>
-                <span className="stat-badge">SOC2 Compliant</span>
-                <span className="stat-badge">Auto Cash Application</span>
-                <span className="stat-badge">45+ Developers</span>
-                <span className="stat-badge">Free Onboarding</span>
-                <span className="stat-badge">Dual-Ledger</span>
-                <span className="stat-badge">SOC2 Compliant</span>
-                <span className="stat-badge">Auto Cash Application</span>
+                {[...c.stat.badges.slice().reverse(), ...c.stat.badges.slice().reverse()].map((badge, i) => (
+                  <span key={`b-${i}`} className="stat-badge">{badge}</span>
+                ))}
               </div>
             </div>
           </div>
@@ -2972,11 +2980,12 @@ export default function Page() {
     <div className="container">
       <div className="platform-row">
         <div className="platform-copy reveal">
-          <span className="overline">Automation</span>
-          <h2>Stop manually matching every payment</h2>
-          <p>FactorCloud automates schedule creation, payment application, and credit checks. Your team focuses on clients. The platform handles the rest.</p>
-          <p>Most factoring platforms automate schedule creation. FactorCloud automates schedule creation AND cash application. Your payments match themselves. Your team stops chasing pennies.</p>
-          <a href="/features/automation" className="platform-link">Explore Automation <span>→</span></a>
+          <span className="overline">{c.platformSections[0].overline}</span>
+          <h2>{c.platformSections[0].heading}</h2>
+          {c.platformSections[0].body.map((p, i) => <p key={i}>{p}</p>)}
+          {c.platformSections[0].link && (
+            <a href={c.platformSections[0].link!.href} className="platform-link">{c.platformSections[0].link!.label} <span>→</span></a>
+          )}
         </div>
         <div className="reveal">
           <div className="mockup">
@@ -3034,7 +3043,7 @@ export default function Page() {
               </div>
             </div>
           </div>
-          <p style={{fontFamily: "'Inter', sans-serif", fontSize: "10px", color: "var(--gray-3)", marginTop: "12px", textAlign: "center", letterSpacing: "0.04em"}}>Auto schedule creation saves thousands of hours annually across factors running on FactorCloud.</p>
+          {c.platformSections[0].footnote && <p style={{fontFamily: "'Inter', sans-serif", fontSize: "10px", color: "var(--gray-3)", marginTop: "12px", textAlign: "center", letterSpacing: "0.04em"}}>{c.platformSections[0].footnote}</p>}
         </div>
       </div>
     </div>
@@ -3045,10 +3054,12 @@ export default function Page() {
     <div className="container">
       <div className="platform-row reverse">
         <div className="platform-copy reveal">
-          <span className="overline">Cash Application</span>
-          <h2>Payments Match Themselves</h2>
-          <p>FactorCloud's automated cash application matches incoming payments to open invoices without human intervention. No lockbox imports. No manual reconciliation. The match just happens.</p>
-          <a href="/features/automation" className="platform-link">Explore Cash Application <span>→</span></a>
+          <span className="overline">{c.platformSections[1].overline}</span>
+          <h2>{c.platformSections[1].heading}</h2>
+          {c.platformSections[1].body.map((p, i) => <p key={i}>{p}</p>)}
+          {c.platformSections[1].link && (
+            <a href={c.platformSections[1].link!.href} className="platform-link">{c.platformSections[1].link!.label} <span>→</span></a>
+          )}
         </div>
         <div className="reveal">
           <div className="mockup" id="cash-match-mockup">
@@ -3243,10 +3254,12 @@ export default function Page() {
           </div>
         </div>
         <div className="platform-copy reveal">
-          <span className="overline">Client Management</span>
-          <h2>Your Entire Book of Business. One System.</h2>
-          <p>Clients, debtors, and vendors in one place. Full CRM-style tracking without the complexity. Factors have scaled their NFE by <span className="inline-counter" data-target="80" data-suffix="%">80%</span> on FactorCloud without adding headcount.</p>
-          <a href="/features/back-end" className="platform-link">Explore Client Management <span>→</span></a>
+          <span className="overline">{c.platformSections[2].overline}</span>
+          <h2 dangerouslySetInnerHTML={{ __html: c.platformSections[2].heading }} />
+          {c.platformSections[2].body.map((p, i) => <p key={i} dangerouslySetInnerHTML={{ __html: p }} />)}
+          {c.platformSections[2].link && (
+            <a href={c.platformSections[2].link!.href} className="platform-link">{c.platformSections[2].link!.label} <span>→</span></a>
+          )}
         </div>
       </div>
     </div>
@@ -3257,10 +3270,12 @@ export default function Page() {
     <div className="container">
       <div className="platform-row reverse">
         <div className="platform-copy reveal">
-          <span className="overline">Integrations</span>
-          <h2><span className="inline-counter" data-target="20" data-suffix="+">20+</span> Integrations. Zero Setup.</h2>
-          <p>From credit and underwriting to transportation data and accounting, every integration in FactorCloud works out of the box. No bolt-on modules. No professional services fees. Every integration ships included with your subscription.</p>
-          <a href="/integrations" className="platform-link">See All Integrations <span>→</span></a>
+          <span className="overline">{c.platformSections[3].overline}</span>
+          <h2 dangerouslySetInnerHTML={{ __html: c.platformSections[3].heading }} />
+          {c.platformSections[3].body.map((p, i) => <p key={i} dangerouslySetInnerHTML={{ __html: p }} />)}
+          {c.platformSections[3].link && (
+            <a href={c.platformSections[3].link!.href} className="platform-link">{c.platformSections[3].link!.label} <span>→</span></a>
+          )}
         </div>
         <div className="reveal">
           <div className="mockup">
@@ -3367,9 +3382,12 @@ export default function Page() {
           </div>
         </div>
         <div className="platform-copy reveal">
-          <span className="overline">Client Portal</span>
-          <h2>Give Your Clients a View They Actually Want to Use</h2>
-          <p>The FactorCloud client portal mirrors your back office exactly. Clients see what they need. They stop calling. Because the portal mirrors your back office, training takes minutes. Your account executives get their time back.</p>
+          <span className="overline">{c.platformSections[4].overline}</span>
+          <h2>{c.platformSections[4].heading}</h2>
+          {c.platformSections[4].body.map((p, i) => <p key={i}>{p}</p>)}
+          {c.platformSections[4].link && (
+            <a href={c.platformSections[4].link!.href} className="platform-link">{c.platformSections[4].link!.label} <span>→</span></a>
+          )}
         </div>
       </div>
     </div>
@@ -3380,9 +3398,12 @@ export default function Page() {
     <div className="container">
       <div className="platform-row reverse">
         <div className="platform-copy reveal">
-          <span className="overline">Accounting</span>
-          <h2>Dual-Ledger Precision. No Reconciliation Nightmares.</h2>
-          <p>FactorCloud records every transaction twice: debits and credits, always balanced. No month-end reconciliation scrambles. No penny-chasing across spreadsheets. Your auditors will thank you.</p>
+          <span className="overline">{c.platformSections[5].overline}</span>
+          <h2>{c.platformSections[5].heading}</h2>
+          {c.platformSections[5].body.map((p, i) => <p key={i}>{p}</p>)}
+          {c.platformSections[5].link && (
+            <a href={c.platformSections[5].link!.href} className="platform-link">{c.platformSections[5].link!.label} <span>→</span></a>
+          )}
         </div>
         <div className="reveal">
           <div className="mockup">
@@ -3428,7 +3449,7 @@ export default function Page() {
               </div>
             </div>
           </div>
-          <p style={{fontFamily: "'Inter', sans-serif", fontSize: "10px", color: "var(--gray-3)", marginTop: "12px", textAlign: "center", letterSpacing: "0.04em"}}>Single-ledger systems force you to reconcile manually. Dual-ledger means the math is always right and you can prove it to any auditor, any time.</p>
+          {c.platformSections[5].footnote && <p style={{fontFamily: "'Inter', sans-serif", fontSize: "10px", color: "var(--gray-3)", marginTop: "12px", textAlign: "center", letterSpacing: "0.04em"}}>{c.platformSections[5].footnote}</p>}
         </div>
       </div>
     </div>
@@ -3442,31 +3463,23 @@ export default function Page() {
 
 <section className="claude-spot">
   <div className="claude-spot-inner">
-    <span className="claude-spot-badge"><span className="new-tag">New</span> AI Inside FactorCloud</span>
-    <h2 style={{marginTop: "8px"}}>Meet <span className="amber-word">Claude</span>, Working Inside Your Factor</h2>
-    <p className="claude-spot-sub">Anthropic's Claude is built directly into FactorCloud. Ask questions in plain English and get answers grounded in your real ledger, schedule, and client data. No prompt engineering. No data leaves your tenant.</p>
+    <span className="claude-spot-badge"><span className="new-tag">{c.claude.newTag}</span> {c.claude.badge}</span>
+    <h2 style={{marginTop: "8px"}} dangerouslySetInnerHTML={{ __html: c.claude.heading }} />
+    <p className="claude-spot-sub">{c.claude.subheadline}</p>
 
     <div className="claude-uses">
-      <div className="claude-use">
-        <span className="claude-use-eyebrow">Collections</span>
-        <div className="claude-use-q">"Draft a follow-up to ACME for invoice 23412 at 45 days."</div>
-        <p className="claude-use-a">Claude pulls the debtor's history, payment behavior, and writes a follow-up email in your voice.</p>
-      </div>
-      <div className="claude-use">
-        <span className="claude-use-eyebrow">Account Summary</span>
-        <div className="claude-use-q">"Catch me up on the Triumph Carrier account."</div>
-        <p className="claude-use-a">A one-paragraph brief: open balance, recent activity, exceptions, and what needs attention next.</p>
-      </div>
-      <div className="claude-use">
-        <span className="claude-use-eyebrow">Reporting</span>
-        <div className="claude-use-q">"Which clients are pulling more than 90% of their line this month?"</div>
-        <p className="claude-use-a">Ad-hoc reporting without SQL or saved views. Answers in seconds, grounded in your live data.</p>
-      </div>
+      {c.claude.uses.map((use, i) => (
+        <div key={i} className="claude-use">
+          <span className="claude-use-eyebrow">{use.eyebrow}</span>
+          <div className="claude-use-q">&ldquo;{use.question}&rdquo;</div>
+          <p className="claude-use-a">{use.answer}</p>
+        </div>
+      ))}
     </div>
 
     <div className="claude-spot-ctas">
-      <a href="https://claude.com/product/claude-code" target="_blank" rel="noopener" className="btn-primary">Explore Claude</a>
-      <a href="/get-demo" className="btn-ghost">See It in a Demo</a>
+      <a href={c.claude.primaryCta.href} {...(c.claude.primaryCta.external ? { target: "_blank", rel: "noopener" } : {})} className="btn-primary">{c.claude.primaryCta.label}</a>
+      <a href={c.claude.secondaryCta.href} className="btn-ghost">{c.claude.secondaryCta.label}</a>
     </div>
   </div>
 </section>
@@ -3478,59 +3491,33 @@ export default function Page() {
 <section className="compare-section">
   <div className="container">
     <div className="section-header reveal">
-      <span className="overline">Why Switch</span>
-      <h2>The Difference Is Clear</h2>
+      <span className="overline">{c.compare.overline}</span>
+      <h2>{c.compare.heading}</h2>
     </div>
     <div className="comp-wrap">
       <div className="comp-grid" id="comp-grid">
-        
         <div className="comp-col-head comp-feat-head">
-          <div className="comp-col-head-label">Feature</div>
-          <div className="comp-col-head-title" style={{color: "var(--gray-2)"}}>Comparison</div>
+          <div className="comp-col-head-label">{c.compare.columns.feature.eyebrow}</div>
+          <div className="comp-col-head-title" style={{color: "var(--gray-2)"}}>{c.compare.columns.feature.label}</div>
         </div>
         <div className="comp-col-head comp-legacy-head">
-          <div className="comp-col-head-label">The old way</div>
-          <div className="comp-col-head-title" style={{color: "var(--red)"}}>Legacy Software</div>
-          <div className="comp-col-head-sub">Where most factors are stuck</div>
+          <div className="comp-col-head-label">{c.compare.columns.legacy.eyebrow}</div>
+          <div className="comp-col-head-title" style={{color: "var(--red)"}}>{c.compare.columns.legacy.label}</div>
+          <div className="comp-col-head-sub">{c.compare.columns.legacy.sub}</div>
         </div>
         <div className="comp-col-head comp-fc-head">
-          <div className="comp-col-head-label">Operators' choice</div>
-          <div className="comp-col-head-title" style={{color: "var(--amber)"}}>FactorCloud</div>
-          <div className="comp-col-head-sub">What modern looks like</div>
+          <div className="comp-col-head-label">{c.compare.columns.factorcloud.eyebrow}</div>
+          <div className="comp-col-head-title" style={{color: "var(--amber)"}}>{c.compare.columns.factorcloud.label}</div>
+          <div className="comp-col-head-sub">{c.compare.columns.factorcloud.sub}</div>
         </div>
 
-        
-        <div className="comp-row-feat">Funding Process</div>
-        <div className="comp-row-legacy"><span className="x-mark">✗</span> Manual PDF uploads, data entry, and verification</div>
-        <div className="comp-row-fc"><span className="check-mark">✓</span> Automated , AI-powered</div>
-
-        <div className="comp-row-feat">Ledger Accounting</div>
-        <div className="comp-row-legacy"><span className="x-mark">✗</span> Single-ledger. Month-end reconciliation required.</div>
-        <div className="comp-row-fc"><span className="check-mark">✓</span> Dual-ledger, always balanced</div>
-
-        <div className="comp-row-feat">Integration Ecosystem</div>
-        <div className="comp-row-legacy"><span className="x-mark">✗</span> Limited integrations. Professional services for custom connections.</div>
-        <div className="comp-row-fc"><span className="check-mark">✓</span> 20+ out-of-the-box</div>
-
-        <div className="comp-row-feat">Client Portal</div>
-        <div className="comp-row-legacy"><span className="x-mark">✗</span> No portal, or a basic view that generates more phone calls</div>
-        <div className="comp-row-fc"><span className="check-mark">✓</span> Full mirror-view portal</div>
-
-        <div className="comp-row-feat">User Interface</div>
-        <div className="comp-row-legacy"><span className="x-mark">✗</span> Desktop-first. Weeks of training for new hires.</div>
-        <div className="comp-row-fc"><span className="check-mark">✓</span> Modern, 80% faster onboarding</div>
-
-        <div className="comp-row-feat">Support Response</div>
-        <div className="comp-row-legacy"><span className="x-mark">✗</span> Ticket queue. Days or weeks for resolution.</div>
-        <div className="comp-row-fc"><span className="check-mark">✓</span> Real engineers, under 5-minute avg response</div>
-
-        <div className="comp-row-feat">Cash Application</div>
-        <div className="comp-row-legacy"><span className="x-mark">✗</span> Manual lockbox import and matching</div>
-        <div className="comp-row-fc"><span className="check-mark">✓</span> Automated. Payments match themselves.</div>
-
-        <div className="comp-row-feat">Migration Cost</div>
-        <div className="comp-row-legacy"><span className="x-mark">✗</span> Paid professional services</div>
-        <div className="comp-row-fc"><span className="check-mark">✓</span> Free. We handle everything.</div>
+        {c.compare.rows.map((row, i) => (
+          <Fragment key={i}>
+            <div className="comp-row-feat">{row.feature}</div>
+            <div className="comp-row-legacy"><span className="x-mark">✗</span> {row.legacy}</div>
+            <div className="comp-row-fc"><span className="check-mark">✓</span> {row.factorcloud}</div>
+          </Fragment>
+        ))}
       </div>
     </div>
   </div>
@@ -3543,26 +3530,18 @@ export default function Page() {
 <section className="steps-section">
   <div className="container">
     <div className="section-header reveal">
-      <span className="overline">Getting Started</span>
-      <h2>Getting Started Takes Three Steps</h2>
-      <p className="section-sub">No setup fees or surprise charges. We migrate your entire book at no cost, because if switching is expensive, you'll never switch.</p>
+      <span className="overline">{c.steps.overline}</span>
+      <h2>{c.steps.heading}</h2>
+      <p className="section-sub">{c.steps.subheadline}</p>
     </div>
     <div className="steps-row">
-      <div className="step reveal">
-        <span className="step-number">Step 01</span>
-        <div className="step-title">Schedule a Demo</div>
-        <p className="step-desc">See the platform running on your actual use case. Most demos last under an hour and answer every question your team has.</p>
-      </div>
-      <div className="step reveal" style={{transitionDelay: "0.1s"}}>
-        <span className="step-number">Step 02</span>
-        <div className="step-title">Onboard Your Book. Free.</div>
-        <p className="step-desc">Three-step setup with dedicated onboarding support at no cost. We migrate your data, configure the platform, and run it in parallel with your current software until you're ready.</p>
-      </div>
-      <div className="step reveal" style={{transitionDelay: "0.2s"}}>
-        <span className="step-number">Step 03</span>
-        <div className="step-title">Go Live. Days, Not Months.</div>
-        <p className="step-desc">Close business in your old software tonight. Open in FactorCloud tomorrow.</p>
-      </div>
+      {c.steps.items.map((step, i) => (
+        <div key={i} className="step reveal" style={i > 0 ? {transitionDelay: `${i * 0.1}s`} : undefined}>
+          <span className="step-number">{step.number}</span>
+          <div className="step-title">{step.title}</div>
+          <p className="step-desc">{step.body}</p>
+        </div>
+      ))}
     </div>
   </div>
 </section>
@@ -3574,64 +3553,19 @@ export default function Page() {
 <section className="faq-section">
   <div className="container" style={{maxWidth: "800px"}}>
     <div className="section-header reveal">
-      <span className="overline">Questions</span>
-      <h2>Common Questions</h2>
+      <span className="overline">{c.faq.overline}</span>
+      <h2>{c.faq.heading}</h2>
     </div>
     <div className="faq-list">
-      <div className="faq-item">
-        <div className="faq-q" tabIndex={0} role="button" aria-expanded="false">
-          What makes FactorCloud different?
-          <svg className="faq-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      {c.faq.items.map((item, i) => (
+        <div key={i} className="faq-item">
+          <div className="faq-q" tabIndex={0} role="button" aria-expanded="false">
+            {item.q}
+            <svg className="faq-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </div>
+          <div className="faq-a">{item.a}</div>
         </div>
-        <div className="faq-a">
-          Three things nobody else can say: automated cash application that matches payments without human intervention, dual-ledger accounting accurate to the penny on every transaction, and free onboarding where we migrate your entire book. FactorCloud was built by a team of operators who processed 60,000 invoices a month and the existing software couldn't keep up.
-        </div>
-      </div>
-      <div className="faq-item">
-        <div className="faq-q" tabIndex={0} role="button" aria-expanded="false">
-          How long does onboarding take?
-          <svg className="faq-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
-        </div>
-        <div className="faq-a">
-          Most teams are fully operational within days. Onboarding is free. We handle the migration, configuration, and parallel testing. We have never charged a setup fee.
-        </div>
-      </div>
-      <div className="faq-item">
-        <div className="faq-q" tabIndex={0} role="button" aria-expanded="false">
-          What integrations do you support?
-          <svg className="faq-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
-        </div>
-        <div className="faq-a">
-          QuickBooks, Bill360, ROX, Ansonia, Tank Payments, and 15 more. Open API for custom connections. No surcharges, no add-on tiers. Every integration is included with your subscription.
-        </div>
-      </div>
-      <div className="faq-item">
-        <div className="faq-q" tabIndex={0} role="button" aria-expanded="false">
-          How secure is FactorCloud?
-          <svg className="faq-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
-        </div>
-        <div className="faq-a">
-          FactorCloud is SOC2 compliant. Encrypted at rest and in transit. Every action logged, every change tracked.
-        </div>
-      </div>
-      <div className="faq-item">
-        <div className="faq-q" tabIndex={0} role="button" aria-expanded="false">
-          Can I see it before committing?
-          <svg className="faq-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
-        </div>
-        <div className="faq-a">
-          Yes. Schedule a demo and we'll show you the platform on a live environment in under an hour. Bring your team, bring your questions, bring a real use case. We'll walk through it.
-        </div>
-      </div>
-      <div className="faq-item">
-        <div className="faq-q" tabIndex={0} role="button" aria-expanded="false">
-          What types of factors use FactorCloud?
-          <svg className="faq-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
-        </div>
-        <div className="faq-a">
-          Transportation, staffing, construction, general factoring, freight brokers. We serve them all. Unlike platforms built for a single vertical, FactorCloud's configurable terms and workflows adapt to any factoring specialty.
-        </div>
-      </div>
+      ))}
     </div>
   </div>
 </section>
@@ -3643,21 +3577,20 @@ export default function Page() {
 <section className="demo-section">
   <div className="container">
     <div className="reveal">
-      <span className="overline">Ready to Start</span>
-      <h2 className="serif">Ready to See It in Action?</h2>
-      <p>Schedule a demo and see FactorCloud running on your actual use case. If you like what you see, we'll migrate your entire book. Free.</p>
+      <span className="overline">{c.demo.overline}</span>
+      <h2 className="serif">{c.demo.heading}</h2>
+      <p>{c.demo.body}</p>
       <div className="demo-trust">
-        <span className="trust-item">SOC2 Compliant</span>
-        <span className="trust-sep">·</span>
-        <span className="trust-item">45+ Developers</span>
-        <span className="trust-sep">·</span>
-        <span className="trust-item">94% Close Rate</span>
-        <span className="trust-sep">·</span>
-        <span className="trust-item">Atlanta, GA</span>
+        {c.demo.trustItems.map((item, i) => (
+          <Fragment key={i}>
+            {i > 0 && <span className="trust-sep">·</span>}
+            <span className="trust-item">{item}</span>
+          </Fragment>
+        ))}
       </div>
       <div className="demo-ctas">
-        <a href="/get-demo" className="btn-primary">Get a Demo</a>
-        <a href="/contact" className="btn-ghost">Talk to Sales</a>
+        <a href={c.demo.primaryCta.href} className="btn-primary">{c.demo.primaryCta.label}</a>
+        <a href={c.demo.secondaryCta.href} className="btn-ghost">{c.demo.secondaryCta.label}</a>
       </div>
     </div>
   </div>
@@ -3671,7 +3604,7 @@ export default function Page() {
   <div className="container">
     <div className="footer-grid">
       <div className="footer-brand">
-        <img src="../assets/logo.svg" alt="FactorCloud" loading="lazy" />
+        <img src="/images/logo.svg" alt="FactorCloud" loading="lazy" />
         <p>Dual-ledger precision, automated cash application, 20+ integrations. Built for factors who needed software that could keep up.</p>
       </div>
       <div>

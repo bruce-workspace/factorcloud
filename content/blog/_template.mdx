@@ -1,0 +1,67 @@
+---
+# ─── IDENTITY ────────────────────────────────────────────────
+title:       "Post title (≤ 60 chars for SEO)"
+slug:        post-title-kebab-case
+locale:      en          # "en" | "es" — the localized counterpart lives at content/blog/<locale>/<slug>.mdx
+status:      draft       # "draft" | "published" — drafts are not rendered in production
+date:        2026-05-15  # ISO 8601 (yyyy-mm-dd); when published
+updated:                 # ISO 8601; leave blank if unchanged
+
+# ─── AUTHOR ──────────────────────────────────────────────────
+author:
+  name:   Jane Doe
+  role:   Head of Operations
+  avatar: /images/team/jane.jpg     # optional
+  href:   /about/team#jane           # optional
+
+# ─── EDITORIAL ───────────────────────────────────────────────
+excerpt:     "One-sentence hook shown on listings and OG fallback (≤ 160 chars)."
+cover:       /images/blog/<slug>-cover.jpg     # 1600x900 recommended
+coverAlt:    "Descriptive alt text for accessibility and SEO."
+tags:        [factoring, operations]            # 2–5 tags; lowercase, kebab-case
+category:    operations                          # one of: operations | product | industry | guides
+readingTime: 5                                   # minutes, integer
+
+# ─── SEO OVERRIDES (optional — defaults pulled from above) ───
+seo:
+  title:       ""                                # blank → falls back to `title`
+  description: ""                                # blank → falls back to `excerpt`
+  ogImage:     ""                                # blank → falls back to `cover`
+  canonical:   ""                                # blank → built from /<locale>/blog/<slug>
+  robots:      { index: true, follow: true }
+
+# ─── CROSS-LOCALE LINK ───────────────────────────────────────
+alternate:
+  es: post-title-kebab-case-es                   # slug of the ES counterpart (or null if none yet)
+
+# ─── RELATED ─────────────────────────────────────────────────
+related: []                                       # array of slugs
+---
+
+# Post title
+
+Lead paragraph in plain Markdown. Avoid HTML; use Markdown for everything you can.
+
+## A subheading
+
+Body copy. Inline links use Markdown: [text](https://example.com).
+
+> Pull quote or callout.
+
+## Images
+
+![Alt text](/images/blog/<slug>-figure-1.jpg)
+
+## Lists
+
+- Bullet one
+- Bullet two
+
+1. Numbered one
+2. Numbered two
+
+## Code (if needed)
+
+```ts
+const x = 1
+```

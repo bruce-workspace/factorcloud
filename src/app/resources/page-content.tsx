@@ -1,7 +1,8 @@
 "use client";
-// AUTO-GENERATED from resources.html by scripts/migrate-html.mjs.
-// Hand-edits are fine; re-running the migrator will overwrite this file.
+// Copy sourced from /content/pages/{locale}/resources.mdx — edit there, not here.
 import Script from "next/script";
+import type { ResourcesFrontmatter } from "@/lib/content-types";
+import { ArticleIcon } from "./article-icons";
 
 const PAGE_CSS = `
     html, body { overflow-x: hidden; }
@@ -430,13 +431,13 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 `;
 
-export default function PageContent() {
+export default function PageContent({ content: c }: { content: ResourcesFrontmatter }) {
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: PAGE_CSS }} />
       <nav className="nav" id="main-nav">
   <div className="nav-inner">
-    <a href="/" className="nav-logo"><img src="../assets/logo.svg" alt="FactorCloud" /></a>
+    <a href="/" className="nav-logo"><img src="/images/logo.svg" alt="FactorCloud" /></a>
     <ul className="nav-links">
       <li>
         <a href="#" className="nav-link-toggle">Platform <svg className="chevron" viewBox="0 0 10 6"><polyline points="1 1 5 5 9 1"></polyline></svg></a>
@@ -480,92 +481,46 @@ export default function PageContent() {
 </div>
 <section className="page-hero">
   <div className="page-hero-glow"></div>
-  <div className="page-hero-inner" style={{opacity: "1 !important"}}>
-    <span className="page-eyebrow" style={{opacity: "1 !important"}}>Resources</span>
-    <h1 style={{opacity: "1 !important"}}>Insights for Modern Factors.</h1>
-    <p className="page-hero-sub" style={{opacity: "1 !important"}}>Industry analysis, platform tips, and news from the FactorCloud team. Everything you need to run a sharper operation.</p>
+  <div className="page-hero-inner">
+    <span className="page-eyebrow">{c.hero.eyebrow}</span>
+    <h1>{c.hero.headline}</h1>
+    <p className="page-hero-sub">{c.hero.subheadline}</p>
   </div>
 </section>
 
 <section style={{padding: "64px 0 96px", borderTop: "0.5px solid var(--border)"}} id="insights">
   <div className="container">
     <div className="filter-bar">
-      <button className="filter-btn active" onClick={(event) => { (new Function('event', `filterArticles(this,'all')`))(event); }}>All</button>
-      <button className="filter-btn" onClick={(event) => { (new Function('event', `filterArticles(this,'insights')`))(event); }}>Industry Insights</button>
-      <button className="filter-btn" onClick={(event) => { (new Function('event', `filterArticles(this,'tips')`))(event); }}>Tips</button>
-      <button className="filter-btn" onClick={(event) => { (new Function('event', `filterArticles(this,'press')`))(event); }}>Press Releases</button>
+      {c.filters.map((f, i) => (
+        <button
+          key={f.id}
+          className={i === 0 ? "filter-btn active" : "filter-btn"}
+          onClick={(event) => { (new Function('event', `filterArticles(this,'${f.id}')`))(event); }}
+        >{f.label}</button>
+      ))}
     </div>
     <div className="ig-grid-1" style={{gap: "24px"}} id="articles-grid">
-
-      <div className="article-card" data-cat="insights">
-        <div className="article-thumb"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#E8B547" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 3v18h18"></path><path d="M7 16v-3"></path><path d="M12 16v-7"></path><path d="M17 16v-5"></path></svg></div>
-        <div className="article-body">
-          <div className="article-category cat-insights">Industry Insights</div>
-          <div className="article-title">Why Factoring Software Is 15 Years Behind -- And What's Changing</div>
-          <div className="article-excerpt">The factoring industry has relied on the same software paradigms since the early 2000s. Here's why that's finally changing, and what modern looks like.</div>
-          <div className="article-meta">March 2025 · 8 min read</div>
+      {c.articles.map((art, i) => (
+        <div key={i} className="article-card" data-cat={art.category}>
+          <div className="article-thumb"><ArticleIcon name={art.icon} /></div>
+          <div className="article-body">
+            <div className={`article-category cat-${art.category}`}>{art.label}</div>
+            <div className="article-title">{art.title}</div>
+            <div className="article-excerpt">{art.excerpt}</div>
+            <div className="article-meta">{art.meta}</div>
+          </div>
         </div>
-      </div>
-
-      <div className="article-card" data-cat="tips">
-        <div className="article-thumb"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#E8B547" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg></div>
-        <div className="article-body">
-          <div className="article-category cat-tips">Tips</div>
-          <div className="article-title">5 Ways to Cut Manual Data Entry by 80% in Your Factoring Operation</div>
-          <div className="article-excerpt">AI-powered OCR is the biggest lever, but there are four other workflow changes that compound the effect. Here's the full playbook.</div>
-          <div className="article-meta">February 2025 · 6 min read</div>
-        </div>
-      </div>
-
-      <div className="article-card" data-cat="press">
-        <div className="article-thumb"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#E8B547" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="m3 11 18-5v12L3 14v-3z"></path><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"></path></svg></div>
-        <div className="article-body">
-          <div className="article-category cat-press">Press Release</div>
-          <div className="article-title">FactorCloud Achieves SOC2 Type II Certification</div>
-          <div className="article-excerpt">FactorCloud announces SOC2 Type II certification, reinforcing its commitment to security, availability, and data protection for factoring operations.</div>
-          <div className="article-meta">January 2025 · 3 min read</div>
-        </div>
-      </div>
-
-      <div className="article-card" data-cat="insights">
-        <div className="article-thumb"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#E8B547" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></div>
-        <div className="article-body">
-          <div className="article-category cat-insights">Industry Insights</div>
-          <div className="article-title">The Connected Factoring Stack: Why Integration Is the New Moat</div>
-          <div className="article-excerpt">The factors winning in 2025 aren't the ones with the lowest rates -- they're the ones with the most connected technology stack. Here's what that means.</div>
-          <div className="article-meta">December 2024 · 10 min read</div>
-        </div>
-      </div>
-
-      <div className="article-card" data-cat="tips">
-        <div className="article-thumb"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#E8B547" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><path d="M12 11h4"></path><path d="M12 16h4"></path><path d="M8 11h.01"></path><path d="M8 16h.01"></path></svg></div>
-        <div className="article-body">
-          <div className="article-category cat-tips">Tips</div>
-          <div className="article-title">How to Set Up Client Portal Onboarding That Actually Works</div>
-          <div className="article-excerpt">Most client portal implementations fail in the first 30 days because onboarding is an afterthought. Here's how to do it right from day one.</div>
-          <div className="article-meta">November 2024 · 5 min read</div>
-        </div>
-      </div>
-
-      <div className="article-card" data-cat="press">
-        <div className="article-thumb"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#E8B547" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path></svg></div>
-        <div className="article-body">
-          <div className="article-category cat-press">Press Release</div>
-          <div className="article-title">FactorCloud Launches Open API -- Connecting 20+ Integration Partners</div>
-          <div className="article-excerpt">FactorCloud announces the launch of its Open API, enabling enterprise customers to build custom integrations and connect with 20+ pre-built partners.</div>
-          <div className="article-meta">October 2024 · 3 min read</div>
-        </div>
-      </div>
+      ))}
     </div>
   </div>
 </section>
 
 <section className="cta-section" style={{background: "var(--bg-2)"}}>
   <div className="container">
-    <span className="page-eyebrow">See the Platform in Action</span>
-    <h2>Don't Just Read About It</h2>
-    <p>Book a demo and see how FactorCloud puts these principles into practice every day.</p>
-    <a href="/get-demo" className="btn-primary">Get a Demo</a>
+    <span className="page-eyebrow">{c.cta.eyebrow}</span>
+    <h2>{c.cta.heading}</h2>
+    <p>{c.cta.body}</p>
+    <a href={c.cta.primaryCta.href} className="btn-primary">{c.cta.primaryCta.label}</a>
   </div>
 </section>
 
@@ -574,7 +529,7 @@ export default function PageContent() {
   <div className="container">
     <div className="footer-grid">
       <div className="footer-brand">
-        <img src="../assets/logo.svg" alt="FactorCloud" />
+        <img src="/images/logo.svg" alt="FactorCloud" />
         <p>Dual-ledger precision, automated cash application, 20+ integrations. Built for factors who needed software that could keep up.</p>
       </div>
       <div>

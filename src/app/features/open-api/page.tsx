@@ -456,7 +456,7 @@ export default function Page() {
       <style dangerouslySetInnerHTML={{ __html: PAGE_CSS }} />
       <nav className="nav" id="main-nav">
   <div className="nav-inner">
-    <a href="/" className="nav-logo"><img src="../../assets/logo.svg" alt="FactorCloud" /></a>
+    <a href="/" className="nav-logo"><img src="/images/logo.svg" alt="FactorCloud" /></a>
     <ul className="nav-links">
       <li>
         <a href="#" className="nav-link-toggle">Platform <svg className="chevron" viewBox="0 0 10 6"><polyline points="1 1 5 5 9 1"></polyline></svg></a>
@@ -625,7 +625,7 @@ Authorization: Bearer <span className="tok-str">your_api_key</span>
   <div className="container">
     <div className="footer-grid">
       <div className="footer-brand">
-        <img src="../../assets/logo.svg" alt="FactorCloud" />
+        <img src="/images/logo.svg" alt="FactorCloud" />
         <p>Dual-ledger precision, automated cash application, 20+ integrations. Built for factors who needed software that could keep up.</p>
       </div>
       <div>

@@ -1,13 +1,18 @@
-// AUTO-GENERATED from resources.html by scripts/migrate-html.mjs.
-// Hand-edits are fine; re-running the migrator will overwrite this file.
+// Metadata sourced from /content/pages/{locale}/resources.mdx — edit there, not here.
 import type { Metadata } from "next";
 import PageContent from "./page-content";
+import { loadPage } from "@/lib/content";
+import { getMetadata } from "@/lib/seo";
+import type { ResourcesFrontmatter } from "@/lib/content-types";
 
-export const metadata: Metadata = {
-  title: "Resources , FactorCloud",
-  description: "Industry insights, tips, and press releases from the FactorCloud team. The factoring OS blog.",
-};
+const LOCALE = "en" as const;
+
+export function generateMetadata(): Metadata {
+  const { frontmatter } = loadPage<ResourcesFrontmatter>("resources", LOCALE);
+  return getMetadata({ page: "resources", locale: LOCALE, override: frontmatter.seo });
+}
 
 export default function Page() {
-  return <PageContent />;
+  const { frontmatter } = loadPage<ResourcesFrontmatter>("resources", LOCALE);
+  return <PageContent content={frontmatter} />;
 }

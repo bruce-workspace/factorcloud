@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { loadPage } from "@/lib/content";
+import { getMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Terms and Conditions",
-  description:
-    "FactorCloud Terms and Conditions. Terms governing your use of the FactorCloud platform.",
-};
+const LOCALE = "en" as const;
+
+export function generateMetadata(): Metadata {
+  const { frontmatter } = loadPage<{ seo?: { title?: string; description?: string; canonical?: string } }>("terms-and-conditions", LOCALE);
+  return getMetadata({ page: "terms-and-conditions", locale: LOCALE, override: frontmatter.seo });
+}
 
 const LEGAL_CSS = `
 .legal-hero {

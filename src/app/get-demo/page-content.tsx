@@ -1,7 +1,7 @@
 "use client";
-// AUTO-GENERATED from get-demo.html by scripts/migrate-html.mjs.
-// Hand-edits are fine; re-running the migrator will overwrite this file.
+// Copy sourced from /content/pages/{locale}/get-demo.mdx — edit there, not here.
 import Script from "next/script";
+import type { GetDemoFrontmatter } from "@/lib/content-types";
 
 const PAGE_CSS = `
     html, body { overflow-x: hidden; }
@@ -430,13 +430,14 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 `;
 
-export default function PageContent() {
+export default function PageContent({ content: c }: { content: GetDemoFrontmatter }) {
+  const L = c.form.labels;
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: PAGE_CSS }} />
       <nav className="nav" id="main-nav">
   <div className="nav-inner">
-    <a href="/" className="nav-logo"><img src="../assets/logo.svg" alt="FactorCloud" /></a>
+    <a href="/" className="nav-logo"><img src="/images/logo.svg" alt="FactorCloud" /></a>
     <ul className="nav-links">
       <li>
         <a href="#" className="nav-link-toggle">Platform <svg className="chevron" viewBox="0 0 10 6"><polyline points="1 1 5 5 9 1"></polyline></svg></a>
@@ -483,45 +484,38 @@ export default function PageContent() {
   <div className="container" style={{position: "relative", zIndex: "2"}}>
     <div className="ig-grid-1" style={{gap: "80px", alignItems: "start"}}>
       <div>
-        <span style={{fontFamily: "'JetBrains Mono', monospace", fontSize: "10px", fontWeight: "500", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--amber)", display: "block", marginBottom: "16px", opacity: "1 !important"}}>Get a Demo</span>
-        <h1 style={{fontFamily: "'Syne', sans-serif", fontSize: "clamp(40px,5.5vw,64px)", fontWeight: "400", letterSpacing: "-0.02em", lineHeight: "1.1", marginBottom: "20px", color: "var(--white)", opacity: "1 !important"}}>The Factoring OS Built for Scale.</h1>
-        <p style={{fontSize: "17px", color: "var(--gray-2)", lineHeight: "1.7", marginBottom: "32px", opacity: "1 !important"}}>Book a demo and see FactorCloud in action. Most teams are live within days of the call. 94% of teams that see FactorCloud make the switch.</p>
+        <span style={{fontFamily: "'JetBrains Mono', monospace", fontSize: "10px", fontWeight: "500", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--amber)", display: "block", marginBottom: "16px"}}>{c.hero.eyebrow}</span>
+        <h1 style={{fontFamily: "'Syne', sans-serif", fontSize: "clamp(40px,5.5vw,64px)", fontWeight: "400", letterSpacing: "-0.02em", lineHeight: "1.1", marginBottom: "20px", color: "var(--white)"}}>{c.hero.headline}</h1>
+        <p style={{fontSize: "17px", color: "var(--gray-2)", lineHeight: "1.7", marginBottom: "32px"}}>{c.hero.subheadline}</p>
         <ul className="feat-list" style={{marginTop: "0"}}>
-          <li><span className="feat-list-tick">✓</span>AI-powered OCR eliminates manual data entry</li>
-          <li><span className="feat-list-tick">✓</span>Dual-ledger precision accounting</li>
-          <li><span className="feat-list-tick">✓</span>20+ integrations included on every plan</li>
-          <li><span className="feat-list-tick">✓</span>Client portal live in days, not months</li>
-          <li><span className="feat-list-tick">✓</span>80% more NFE without adding headcount</li>
-          <li><span className="feat-list-tick">✓</span>SOC2 compliant, cloud-hosted, 45+ developers</li>
-          <li><span className="feat-list-tick">✓</span>Free onboarding on every plan</li>
+          {c.hero.features.map((f, i) => (
+            <li key={i}><span className="feat-list-tick">✓</span>{f}</li>
+          ))}
         </ul>
       </div>
       <div>
         <div className="viz-card" style={{padding: "40px"}}>
-          <h2 style={{fontFamily: "'Syne', sans-serif", fontSize: "26px", fontWeight: "700", marginBottom: "8px", color: "var(--white)"}}>Book Your Demo</h2>
-          <p style={{fontSize: "14px", color: "var(--gray-2)", marginBottom: "28px"}}>Fill out the form and we'll be in touch within one business day.</p>
+          <h2 style={{fontFamily: "'Syne', sans-serif", fontSize: "26px", fontWeight: "700", marginBottom: "8px", color: "var(--white)"}}>{c.form.heading}</h2>
+          <p style={{fontSize: "14px", color: "var(--gray-2)", marginBottom: "28px"}}>{c.form.subheading}</p>
           <form id="demo-form" onSubmit={(event) => { (new Function('event', `handleDemoSubmit(event)`))(event); }}>
             <div className="form-row">
-              <div className="form-group"><label htmlFor="firstName">First Name</label><input type="text" id="firstName" name="firstName" placeholder="John" required /></div>
-              <div className="form-group"><label htmlFor="lastName">Last Name</label><input type="text" id="lastName" name="lastName" placeholder="Smith" required /></div>
+              <div className="form-group"><label htmlFor="firstName">{L.firstName}</label><input type="text" id="firstName" name="firstName" placeholder={L.firstNamePlaceholder} required /></div>
+              <div className="form-group"><label htmlFor="lastName">{L.lastName}</label><input type="text" id="lastName" name="lastName" placeholder={L.lastNamePlaceholder} required /></div>
             </div>
-            <div className="form-group"><label htmlFor="company">Company</label><input type="text" id="company" name="company" placeholder="Your Factoring Company" required /></div>
-            <div className="form-group"><label htmlFor="email">Email</label><input type="email" id="email" name="email" placeholder="john@yourcompany.com" required /></div>
+            <div className="form-group"><label htmlFor="company">{L.company}</label><input type="text" id="company" name="company" placeholder={L.companyPlaceholder} required /></div>
+            <div className="form-group"><label htmlFor="email">{L.email}</label><input type="email" id="email" name="email" placeholder={L.emailPlaceholder} required /></div>
             <div className="form-group">
-              <label htmlFor="hearAbout">How did you hear about us?</label>
+              <label htmlFor="hearAbout">{L.hearAbout}</label>
               <select id="hearAbout" name="hearAbout">
-                <option value="">Select an option...</option>
-                <option value="referral">Referral / Word of mouth</option>
-                <option value="search">Google / Search</option>
-                <option value="linkedin">LinkedIn</option>
-                <option value="conference">Conference or Event</option>
-                <option value="partner">Partner / Integration</option>
-                <option value="other">Other</option>
+                <option value="">{L.hearAboutPlaceholder}</option>
+                {c.form.hearAboutOptions.map((o) => (
+                  <option key={o.value} value={o.value}>{o.label}</option>
+                ))}
               </select>
             </div>
-            <div className="form-group"><label htmlFor="comments">Comments</label><textarea id="comments" name="comments" placeholder="Tell us about your operation -- invoice volume, current software, what you're looking for..."></textarea></div>
-            <button type="submit" className="btn-primary" style={{width: "100%", justifyContent: "center", padding: "16px"}}>Book My Demo</button>
-            <p style={{textAlign: "center", marginTop: "12px", fontFamily: "'JetBrains Mono', monospace", fontSize: "11px", color: "var(--gray-3)"}}>No commitment. Most demos run 30 minutes.</p>
+            <div className="form-group"><label htmlFor="comments">{L.comments}</label><textarea id="comments" name="comments" placeholder={L.commentsPlaceholder}></textarea></div>
+            <button type="submit" className="btn-primary" style={{width: "100%", justifyContent: "center", padding: "16px"}}>{c.form.submitLabel}</button>
+            <p style={{textAlign: "center", marginTop: "12px", fontFamily: "'JetBrains Mono', monospace", fontSize: "11px", color: "var(--gray-3)"}}>{c.form.footnote}</p>
           </form>
         </div>
       </div>
@@ -532,45 +526,19 @@ export default function PageContent() {
 <section style={{padding: "80px 0", borderTop: "0.5px solid var(--border)"}}>
   <div className="container-sm">
     <div style={{textAlign: "center", marginBottom: "48px"}}>
-      <div style={{fontFamily: "'JetBrains Mono', monospace", fontSize: "10px", fontWeight: "500", letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--amber)", marginBottom: "12px"}}>FAQ</div>
-      <h2>Common Questions</h2>
+      <div style={{fontFamily: "'JetBrains Mono', monospace", fontSize: "10px", fontWeight: "500", letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--amber)", marginBottom: "12px"}}>{c.faq.eyebrow}</div>
+      <h2>{c.faq.heading}</h2>
     </div>
     <div>
-      <div className="faq-item">
-        <button className="faq-q" onClick={(event) => { (new Function('event', `this.classList.toggle('open')`))(event); }}>
-          What makes FactorCloud different from other factoring software?
-          <svg width="20" height="20" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
-        </button>
-        <div className="faq-a">FactorCloud was built by a factor -- someone who processed 60,000+ invoices a month and couldn't find software that actually worked. That origin shows in every feature. Dual-ledger precision accounting that's purpose-built for factoring. BrightBolt OCR that eliminates manual data entry. 20+ integrations that connect your entire stack. A client portal that's live in days. And an automation layer that lets you process 80% more net funding events without adding headcount. No other platform has all of that.</div>
-      </div>
-      <div className="faq-item">
-        <button className="faq-q" onClick={(event) => { (new Function('event', `this.classList.toggle('open')`))(event); }}>
-          What integrations does FactorCloud support?
-          <svg width="20" height="20" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
-        </button>
-        <div className="faq-a">FactorCloud has 20+ pre-built integrations including Claude (AI inside FactorCloud), Tank Payments (client payments & spend), Ansonia (commercial credit), QuickBooks (accounting sync), ROX (underwriting), Bank Shot (mobile check capture), Bill360 (AR automation), Lighthouz AI, Triumph, Peruse, Decipher, CargoNerd, FactorGenie, and BrightBolt (our built-in OCR engine). Enterprise plans include Open API access for custom integrations. All integrations are included on every plan, no additional fees.</div>
-      </div>
-      <div className="faq-item">
-        <button className="faq-q" onClick={(event) => { (new Function('event', `this.classList.toggle('open')`))(event); }}>
-          How secure is FactorCloud?
-          <svg width="20" height="20" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
-        </button>
-        <div className="faq-a">FactorCloud is SOC2 Type II certified -- independently audited against the highest security and availability standards. The platform is cloud-hosted on enterprise infrastructure with redundant availability zones, automated backups, and 24/7 security monitoring. Our 45+ person team includes dedicated security engineers. Every user action is logged in a tamper-evident audit trail. Data is encrypted at rest (AES-256) and in transit (TLS 1.3).</div>
-      </div>
-      <div className="faq-item">
-        <button className="faq-q" onClick={(event) => { (new Function('event', `this.classList.toggle('open')`))(event); }}>
-          How does the OCR automation work?
-          <svg width="20" height="20" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
-        </button>
-        <div className="faq-a">FactorCloud's built-in OCR engine reads invoice attachments automatically. When a client emails invoice attachments to their designated FactorCloud address, the system reads the attached PDFs and images, extracts the invoice data (number, amount, debtor, date), and automatically creates a complete funding schedule with the client's pre-configured terms applied. No manual data entry required at any step. Low-confidence extractions are flagged for human review. The result is a complete, ready-to-review funding schedule delivered in seconds from a client email.</div>
-      </div>
-      <div className="faq-item">
-        <button className="faq-q" onClick={(event) => { (new Function('event', `this.classList.toggle('open')`))(event); }}>
-          How long does it take to get clients up and running on the portal?
-          <svg width="20" height="20" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
-        </button>
-        <div className="faq-a">Most clients are operational on the FactorCloud portal within days of onboarding. The learning curve is minimal because the client portal is a mirror-view interface -- clients see the same UI as your account executives, scoped to their own data. If your team can use FactorCloud, your clients can use the portal. In practice, this cuts client training time by about 80% compared to legacy platforms with separate, simplified client interfaces.</div>
-      </div>
+      {c.faq.items.map((item, i) => (
+        <div key={i} className="faq-item">
+          <button className="faq-q" onClick={(event) => { (new Function('event', `this.classList.toggle('open')`))(event); }}>
+            {item.q}
+            <svg width="20" height="20" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div className="faq-a">{item.a}</div>
+        </div>
+      ))}
     </div>
   </div>
 </section>
@@ -580,7 +548,7 @@ export default function PageContent() {
   <div className="container">
     <div className="footer-grid">
       <div className="footer-brand">
-        <img src="../assets/logo.svg" alt="FactorCloud" />
+        <img src="/images/logo.svg" alt="FactorCloud" />
         <p>Dual-ledger precision, automated cash application, 20+ integrations. Built for factors who needed software that could keep up.</p>
       </div>
       <div>

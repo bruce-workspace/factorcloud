@@ -1,7 +1,7 @@
 "use client";
-// AUTO-GENERATED from contact.html by scripts/migrate-html.mjs.
-// Hand-edits are fine; re-running the migrator will overwrite this file.
+// Copy sourced from /content/pages/{locale}/contact.mdx — edit there, not here.
 import Script from "next/script";
+import type { ContactFrontmatter } from "@/lib/content-types";
 
 const PAGE_CSS = `
     html, body { overflow-x: hidden; }
@@ -430,13 +430,14 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 `;
 
-export default function PageContent() {
+export default function PageContent({ content: c }: { content: ContactFrontmatter }) {
+  const L = c.form.labels;
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: PAGE_CSS }} />
       <nav className="nav" id="main-nav">
   <div className="nav-inner">
-    <a href="/" className="nav-logo"><img src="../assets/logo.svg" alt="FactorCloud" /></a>
+    <a href="/" className="nav-logo"><img src="/images/logo.svg" alt="FactorCloud" /></a>
     <ul className="nav-links">
       <li>
         <a href="#" className="nav-link-toggle">Platform <svg className="chevron" viewBox="0 0 10 6"><polyline points="1 1 5 5 9 1"></polyline></svg></a>
@@ -480,9 +481,9 @@ export default function PageContent() {
 </div>
 <section className="page-hero">
   <div className="page-hero-glow"></div>
-  <div className="page-hero-inner" style={{opacity: "1 !important"}}>
-    <span className="page-eyebrow" style={{opacity: "1 !important"}}>Contact</span>
-    <h1 style={{opacity: "1 !important"}}>We'd Love to Hear from You.</h1>
+  <div className="page-hero-inner">
+    <span className="page-eyebrow">{c.hero.eyebrow}</span>
+    <h1>{c.hero.headline}</h1>
   </div>
 </section>
 
@@ -490,63 +491,61 @@ export default function PageContent() {
   <div className="container">
     <div className="ig-grid-1" style={{gap: "64px", alignItems: "start"}}>
       <div>
-        <h2 style={{fontFamily: "'Syne', sans-serif", fontSize: "28px", fontWeight: "400", marginBottom: "16px", color: "var(--white)"}}>Get in Touch</h2>
-        <p style={{color: "var(--gray-2)", lineHeight: "1.7", marginBottom: "32px"}}>Whether you're ready for a demo, have a support question, or want to talk about a partnership -- reach out. A real person will respond.</p>
+        <h2 style={{fontFamily: "'Syne', sans-serif", fontSize: "28px", fontWeight: "400", marginBottom: "16px", color: "var(--white)"}}>{c.info.heading}</h2>
+        <p style={{color: "var(--gray-2)", lineHeight: "1.7", marginBottom: "32px"}}>{c.info.body}</p>
 
-        <div className="contact-detail">
-          <div className="contact-detail-icon">📍</div>
-          <div>
-            <div className="contact-detail-label">Address</div>
-            <div className="contact-detail-val">3490 Piedmont Rd.<br />Suite 1350<br />Atlanta, GA 30305</div>
+        {c.info.details.map((d) => (
+          <div key={d.label} className="contact-detail">
+            <div className="contact-detail-icon">{d.icon}</div>
+            <div>
+              <div className="contact-detail-label">{d.label}</div>
+              <div className="contact-detail-val">
+                {d.href ? (
+                  <a href={d.href}>{d.value}</a>
+                ) : (
+                  d.value.split("\n").map((line, i, arr) => (
+                    <span key={i}>{line}{i < arr.length - 1 && <br />}</span>
+                  ))
+                )}
+                {d.linkLabel && d.linkHref && (
+                  <>
+                    <br />
+                    <a href={d.linkHref}>{d.linkLabel}</a>
+                  </>
+                )}
+              </div>
+            </div>
           </div>
-        </div>
-
-        <div className="contact-detail">
-          <div className="contact-detail-icon">✉️</div>
-          <div>
-            <div className="contact-detail-label">Email</div>
-            <div className="contact-detail-val"><a href="mailto:hello@factorcloud.com">hello@factorcloud.com</a></div>
-          </div>
-        </div>
-
-        <div className="contact-detail">
-          <div className="contact-detail-icon">🎯</div>
-          <div>
-            <div className="contact-detail-label">Demo</div>
-            <div className="contact-detail-val">Ready to see the platform?<br /><a href="/get-demo">Book a demo →</a></div>
-          </div>
-        </div>
+        ))}
 
         <div style={{marginTop: "40px", padding: "24px", background: "var(--bg-4)", border: "0.5px solid var(--border)"}}>
-          <div style={{fontSize: "13px", fontWeight: "600", color: "var(--gray-1)", marginBottom: "8px"}}>Response Time</div>
-          <div style={{fontSize: "13px", color: "var(--gray-2)", lineHeight: "1.6"}}>We respond to all inquiries within one business day. For urgent support, mention it in your message and we'll prioritize accordingly.</div>
+          <div style={{fontSize: "13px", fontWeight: "600", color: "var(--gray-1)", marginBottom: "8px"}}>{c.info.responseBox.title}</div>
+          <div style={{fontSize: "13px", color: "var(--gray-2)", lineHeight: "1.6"}}>{c.info.responseBox.body}</div>
         </div>
       </div>
 
       <div>
         <div className="viz-card" style={{padding: "40px"}}>
-          <h2 style={{fontFamily: "'Syne', sans-serif", fontSize: "26px", fontWeight: "700", marginBottom: "8px", color: "var(--white)"}}>Send a Message</h2>
-          <p style={{fontSize: "14px", color: "var(--gray-2)", marginBottom: "28px"}}>Fill out the form and we'll get back to you within one business day.</p>
+          <h2 style={{fontFamily: "'Syne', sans-serif", fontSize: "26px", fontWeight: "700", marginBottom: "8px", color: "var(--white)"}}>{c.form.heading}</h2>
+          <p style={{fontSize: "14px", color: "var(--gray-2)", marginBottom: "28px"}}>{c.form.subheading}</p>
           <form id="contact-form" onSubmit={(event) => { (new Function('event', `handleContactSubmit(event)`))(event); }}>
             <div className="form-row">
-              <div className="form-group"><label htmlFor="firstName">First Name</label><input type="text" id="firstName" name="firstName" placeholder="John" required /></div>
-              <div className="form-group"><label htmlFor="lastName">Last Name</label><input type="text" id="lastName" name="lastName" placeholder="Smith" required /></div>
+              <div className="form-group"><label htmlFor="firstName">{L.firstName}</label><input type="text" id="firstName" name="firstName" placeholder={L.firstNamePlaceholder} required /></div>
+              <div className="form-group"><label htmlFor="lastName">{L.lastName}</label><input type="text" id="lastName" name="lastName" placeholder={L.lastNamePlaceholder} required /></div>
             </div>
-            <div className="form-group"><label htmlFor="email">Email</label><input type="email" id="email" name="email" placeholder="john@yourcompany.com" required /></div>
-            <div className="form-group"><label htmlFor="company">Company</label><input type="text" id="company" name="company" placeholder="Your Company" /></div>
+            <div className="form-group"><label htmlFor="email">{L.email}</label><input type="email" id="email" name="email" placeholder={L.emailPlaceholder} required /></div>
+            <div className="form-group"><label htmlFor="company">{L.company}</label><input type="text" id="company" name="company" placeholder={L.companyPlaceholder} /></div>
             <div className="form-group">
-              <label htmlFor="subject">Subject</label>
+              <label htmlFor="subject">{L.subject}</label>
               <select id="subject" name="subject">
-                <option value="">Select a subject...</option>
-                <option value="demo">Request a Demo</option>
-                <option value="sales">Sales Question</option>
-                <option value="support">Support</option>
-                <option value="partnership">Partnership</option>
-                <option value="other">Other</option>
+                <option value="">{L.subjectPlaceholder}</option>
+                {c.form.subjects.map((s) => (
+                  <option key={s.value} value={s.value}>{s.label}</option>
+                ))}
               </select>
             </div>
-            <div className="form-group"><label htmlFor="message">Message</label><textarea id="message" name="message" placeholder="How can we help you?" required></textarea></div>
-            <button type="submit" className="btn-primary" style={{width: "100%", justifyContent: "center", padding: "16px"}}>Send Message</button>
+            <div className="form-group"><label htmlFor="message">{L.message}</label><textarea id="message" name="message" placeholder={L.messagePlaceholder} required></textarea></div>
+            <button type="submit" className="btn-primary" style={{width: "100%", justifyContent: "center", padding: "16px"}}>{c.form.submitLabel}</button>
           </form>
         </div>
       </div>
@@ -559,7 +558,7 @@ export default function PageContent() {
   <div className="container">
     <div className="footer-grid">
       <div className="footer-brand">
-        <img src="../assets/logo.svg" alt="FactorCloud" />
+        <img src="/images/logo.svg" alt="FactorCloud" />
         <p>Dual-ledger precision, automated cash application, 20+ integrations. Built for factors who needed software that could keep up.</p>
       </div>
       <div>

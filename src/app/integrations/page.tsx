@@ -1,11 +1,24 @@
-// AUTO-GENERATED from integrations/index.html by scripts/migrate-html.mjs.
-// Hand-edits are fine; re-running the migrator will overwrite this file.
+// Copy sourced from /content/pages/{locale}/integrations.mdx — edit there, not here.
 import type { Metadata } from "next";
 import Script from "next/script";
+import { loadPage } from "@/lib/content";
+import { getMetadata } from "@/lib/seo";
+import type { IntegrationsFrontmatter } from "@/lib/content-types";
 
-export const metadata: Metadata = {
-  title: "Integrations , FactorCloud",
-  description: "20+ integrations. Tank Payments, Ansonia, QuickBooks, ROX, BankShot, Bill360 and more. One connected factoring stack.",
+const LOCALE = "en" as const;
+
+export function generateMetadata(): Metadata {
+  const { frontmatter } = loadPage<IntegrationsFrontmatter>("integrations", LOCALE);
+  return getMetadata({ page: "integrations", locale: LOCALE, override: frontmatter.seo });
+}
+
+const BADGE_CLASS: Record<string, string> = {
+  ar: "badge-ar",
+  transportation: "badge-transport",
+  credit: "badge-credit",
+  payments: "badge-payments",
+  doc: "badge-doc",
+  accounting: "badge-account",
 };
 
 const PAGE_CSS = `
@@ -466,12 +479,13 @@ document.addEventListener('DOMContentLoaded', function() {
 `;
 
 export default function Page() {
+  const { frontmatter: c } = loadPage<IntegrationsFrontmatter>("integrations", LOCALE);
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: PAGE_CSS }} />
       <nav className="nav" id="main-nav">
   <div className="nav-inner">
-    <a href="/" className="nav-logo"><img src="../../assets/logo.svg" alt="FactorCloud" /></a>
+    <a href="/" className="nav-logo"><img src="/images/logo.svg" alt="FactorCloud" /></a>
     <ul className="nav-links">
       <li>
         <a href="#" className="nav-link-toggle">Platform <svg className="chevron" viewBox="0 0 10 6"><polyline points="1 1 5 5 9 1"></polyline></svg></a>
@@ -515,13 +529,13 @@ export default function Page() {
 </div>
 <section className="page-hero">
   <div className="page-hero-glow"></div>
-  <div className="page-hero-inner" style={{opacity: "1 !important"}}>
-    <span className="page-eyebrow" style={{opacity: "1 !important"}}>20+ Integrations</span>
-    <h1 style={{opacity: "1 !important"}}>FactorCloud Connects to Everything You Already Use</h1>
-    <p className="page-hero-sub" style={{opacity: "1 !important"}}>From credit and underwriting to transportation data and accounting, FactorCloud's open ecosystem puts the tools that matter directly in your workflow.</p>
+  <div className="page-hero-inner">
+    <span className="page-eyebrow">{c.hero.eyebrow}</span>
+    <h1>{c.hero.headline}</h1>
+    <p className="page-hero-sub">{c.hero.subheadline}</p>
     <div className="page-hero-ctas">
-      <a href="/get-demo" className="btn-primary">Get a Demo</a>
-      <a href="#integrations" className="btn-ghost">View All Integrations</a>
+      <a href={c.hero.primaryCta.href} className="btn-primary">{c.hero.primaryCta.label}</a>
+      <a href={c.hero.secondaryCta.href} className="btn-ghost">{c.hero.secondaryCta.label}</a>
     </div>
   </div>
 </section>
@@ -529,115 +543,22 @@ export default function Page() {
 <section style={{padding: "64px 0 96px", borderTop: "0.5px solid var(--border)"}} id="integrations">
   <div className="container">
     <div className="filter-bar" style={{marginBottom: "40px"}}>
-      <button className="filter-btn active" data-filter="all">All</button>
-      <button className="filter-btn" data-filter="accounting">Accounting</button>
-      <button className="filter-btn" data-filter="transportation">Transportation</button>
-      <button className="filter-btn" data-filter="credit">Credit & Underwriting</button>
-      <button className="filter-btn" data-filter="ar">AR Automation</button>
-      <button className="filter-btn" data-filter="payments">Payments</button>
-      <button className="filter-btn" data-filter="doc">Document & Compliance</button>
+      {c.filters.map((f, i) => (
+        <button key={f.id} className={i === 0 ? "filter-btn active" : "filter-btn"} data-filter={f.id}>{f.label}</button>
+      ))}
     </div>
 
     <div className="int-grid" id="partner-grid">
-
-      <div className="int-partner-card featured" data-category="ar">
-        <div className="int-avatar"><img src="/assets/integration-logos/claude.svg" alt="Claude" /></div>
-        <div className="int-partner-name">Claude</div>
-        <span className="int-partner-badge badge-ar">AI & Automation</span>
-        <div className="int-partner-desc">Anthropic's Claude inside FactorCloud. Draft collections, summarize accounts, and triage exceptions in plain English.</div>
-      </div>
-
-      <div className="int-partner-card" data-category="ar">
-        <div className="int-avatar int-avatar--sm"><img src="/assets/integration-logos/bill360.png" alt="Bill360" /></div>
-        <div className="int-partner-name">Bill360</div>
-        <span className="int-partner-badge badge-ar">AR Automation</span>
-        <div className="int-partner-desc">Digital invoicing and embedded payments. Get paid 36% faster, save 15 hrs/week.</div>
-      </div>
-
-      <div className="int-partner-card" data-category="ar">
-        <div className="int-avatar"><img src="/assets/integration-logos/lighthouz.png" alt="Lighthouz AI" /></div>
-        <div className="int-partner-name">Lighthouz AI</div>
-        <span className="int-partner-badge badge-ar">AR Automation</span>
-        <div className="int-partner-desc">AI agents for AP/AR. Improve cashflow and margins automatically.</div>
-      </div>
-
-      <div className="int-partner-card" data-category="ar">
-        <div className="int-avatar"><img src="/assets/integration-logos/brightbolt.png" alt="AI-Powered OCR" /></div>
-        <div className="int-partner-name">AI-Powered OCR</div>
-        <span className="int-partner-badge badge-ar">AR Automation</span>
-        <div className="int-partner-desc">FactorCloud's built-in OCR/automation engine. Built-in, no setup required.</div>
-      </div>
-
-      <div className="int-partner-card" data-category="ar">
-        <div className="int-avatar"><img src="/assets/integration-logos/factorgenie.png" alt="FactorGenie" /></div>
-        <div className="int-partner-name">FactorGenie</div>
-        <span className="int-partner-badge badge-ar">AR Automation</span>
-        <div className="int-partner-desc">White-labeled mobile client app for your clients.</div>
-      </div>
-
-      <div className="int-partner-card" data-category="accounting">
-        <div className="int-avatar"><img src="/assets/integration-logos/quickbooks.png" alt="QuickBooks" /></div>
-        <div className="int-partner-name">QuickBooks</div>
-        <span className="int-partner-badge badge-account">Accounting</span>
-        <div className="int-partner-desc">Full accounting sync , invoices, payments, and journal entries.</div>
-      </div>
-
-      <div className="int-partner-card" data-category="transportation">
-        <div className="int-avatar int-avatar--sm"><img src="/assets/integration-logos/triumph.png" alt="Triumph" /></div>
-        <div className="int-partner-name">Triumph</div>
-        <span className="int-partner-badge badge-transport">Transportation</span>
-        <div className="int-partner-desc">Transportation payments, factoring, intelligence, and banking.</div>
-      </div>
-
-      <div className="int-partner-card" data-category="transportation">
-        <div className="int-avatar"><img src="/assets/integration-logos/cargonerd.png" alt="CargoNerd" /></div>
-        <div className="int-partner-name">CargoNerd</div>
-        <span className="int-partner-badge badge-transport">Transportation</span>
-        <div className="int-partner-desc">Freight visibility, delivery confirmation, and fraud flagging.</div>
-      </div>
-
-      <div className="int-partner-card" data-category="credit">
-        <div className="int-avatar"><img src="/assets/integration-logos/decipher.png" alt="Decipher" /></div>
-        <div className="int-partner-name">Decipher</div>
-        <span className="int-partner-badge badge-credit">Credit & Underwriting</span>
-        <div className="int-partner-desc">Real-time credit insights and predictive risk analytics.</div>
-      </div>
-
-      <div className="int-partner-card" data-category="credit">
-        <div className="int-avatar"><img src="/assets/integration-logos/ansonia.png" alt="Ansonia" /></div>
-        <div className="int-partner-name">Ansonia</div>
-        <span className="int-partner-badge badge-credit">Credit & Underwriting</span>
-        <div className="int-partner-desc">Commercial credit reports, payment histories, and risk indicators.</div>
-      </div>
-
-      <div className="int-partner-card" data-category="credit">
-        <div className="int-avatar int-avatar--sm"><img src="/assets/integration-logos/rox.svg" alt="ROX" /></div>
-        <div className="int-partner-name">ROX</div>
-        <span className="int-partner-badge badge-credit">Credit & Underwriting</span>
-        <div className="int-partner-desc">Underwriting platform with credit checks and document collection.</div>
-      </div>
-
-      <div className="int-partner-card" data-category="payments">
-        <div className="int-avatar"><img src="/assets/integration-logos/bankshot.svg" alt="Bank Shot" /></div>
-        <div className="int-partner-name">Bank Shot</div>
-        <span className="int-partner-badge badge-payments">Payments</span>
-        <div className="int-partner-desc">Mobile check capture and deposit.</div>
-      </div>
-
-      <div className="int-partner-card" data-category="payments">
-        <div className="int-avatar"><img src="/assets/integration-logos/tank.svg" alt="Tank Payments" /></div>
-        <div className="int-partner-name">Tank Payments</div>
-        <span className="int-partner-badge badge-payments">Payments</span>
-        <div className="int-partner-desc">Client payments and spend management.</div>
-      </div>
-
-      <div className="int-partner-card" data-category="doc">
-        <div className="int-avatar"><img src="/assets/integration-logos/peruse.png" alt="Peruse" /></div>
-        <div className="int-partner-name">Peruse</div>
-        <span className="int-partner-badge badge-doc">Document & Compliance</span>
-        <div className="int-partner-desc">Pull UCCs, insurance certs, and verification docs directly into your workflow.</div>
-      </div>
-
+      {c.partners.map((p) => (
+        <div key={p.name} className={p.featured ? "int-partner-card featured" : "int-partner-card"} data-category={p.category}>
+          <div className={p.logoSize === "sm" ? "int-avatar int-avatar--sm" : "int-avatar"}>
+            <img src={p.logo} alt={p.name} />
+          </div>
+          <div className="int-partner-name">{p.name}</div>
+          <span className={`int-partner-badge ${BADGE_CLASS[p.category] ?? ""}`.trim()}>{p.badge}</span>
+          <div className="int-partner-desc">{p.description}</div>
+        </div>
+      ))}
     </div>
   </div>
 </section>
@@ -646,17 +567,15 @@ export default function Page() {
   <div className="container">
     <div className="ig-grid-1" style={{gap: "72px", alignItems: "center"}}>
       <div>
-        <span className="section-label">For Developers</span>
-        <h2 className="section-title">Build Your Own Integration</h2>
-        <p style={{color: "var(--gray-2)", lineHeight: "1.7", marginBottom: "24px"}}>FactorCloud's REST API lets you push and pull data from any system. Full documentation available for developers.</p>
+        <span className="section-label">{c.developers.eyebrow}</span>
+        <h2 className="section-title">{c.developers.heading}</h2>
+        <p style={{color: "var(--gray-2)", lineHeight: "1.7", marginBottom: "24px"}}>{c.developers.body}</p>
         <ul className="feat-list">
-          <li><span className="feat-list-tick">✓</span>RESTful JSON API with OAuth 2.0</li>
-          <li><span className="feat-list-tick">✓</span>Webhooks for real-time event delivery</li>
-          <li><span className="feat-list-tick">✓</span>Sandbox environment for testing</li>
-          <li><span className="feat-list-tick">✓</span>SDKs for Node, Python, and PHP</li>
-          <li><span className="feat-list-tick">✓</span>Rate limits designed for production workloads</li>
+          {c.developers.features.map((f, i) => (
+            <li key={i}><span className="feat-list-tick">✓</span>{f}</li>
+          ))}
         </ul>
-        <a href="/features/open-api" className="btn-primary" style={{marginTop: "24px"}}>View API Docs</a>
+        <a href={c.developers.cta.href} className="btn-primary" style={{marginTop: "24px"}}>{c.developers.cta.label}</a>
       </div>
       <div>
         <div className="code-block">
@@ -694,11 +613,11 @@ export default function Page() {
 
 <section className="cta-section" style={{background: "var(--bg-2)"}}>
   <div className="container">
-    <h2>The Full Ecosystem. One Platform.</h2>
-    <p>FactorCloud connects your entire workflow -- from invoice to payment, from client onboarding to collections.</p>
+    <h2>{c.cta.heading}</h2>
+    <p>{c.cta.body}</p>
     <div style={{display: "flex", gap: "12px", justifyContent: "center", flexWrap: "wrap"}}>
-      <a href="/get-demo" className="btn-primary">Schedule a Demo</a>
-      <a href="/features/open-api" className="btn-ghost">Explore the API</a>
+      <a href={c.cta.primaryCta.href} className="btn-primary">{c.cta.primaryCta.label}</a>
+      <a href={c.cta.secondaryCta.href} className="btn-ghost">{c.cta.secondaryCta.label}</a>
     </div>
   </div>
 </section>
@@ -708,7 +627,7 @@ export default function Page() {
   <div className="container">
     <div className="footer-grid">
       <div className="footer-brand">
-        <img src="../../assets/logo.svg" alt="FactorCloud" />
+        <img src="/images/logo.svg" alt="FactorCloud" />
         <p>Dual-ledger precision, automated cash application, 20+ integrations. Built for factors who needed software that could keep up.</p>
       </div>
       <div>

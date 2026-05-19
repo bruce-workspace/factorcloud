@@ -1,0 +1,190 @@
+---
+page: home
+slug: /
+locale: en
+status: published
+seo:
+  title: "FactorCloud , Factoring Software for Modern Operators"
+  description: "Dual-ledger precision, automated cash application, and 20+ integrations. The factoring platform operators built when they got tired of software holding them back."
+  canonical: https://factorcloud.com/
+
+hero:
+  overline: Built by operators
+  headlineAmber: "Modern Factoring\nSoftware"
+  headlineWhite: "That\nMatches Payments\nAutomatically."
+  subheadline: "Dual-ledger precision. Free onboarding. 20+ integrations included. Built by a team that processed 60,000 invoices a month and needed a better solution."
+  props:
+    - Schedule creation runs automatically. Cash applies itself.
+    - "Clients, debtors, vendors -- one system, one source of truth."
+    - Give clients a portal they'll actually use.
+  primaryCta:   { label: Get a Demo,       href: /get-demo }
+  secondaryCta: { label: See the Platform, href: /features }
+  dashboardUrl: app.factorcloud.com
+  dashboardImage: /images/dash-2.png
+  dashboardImageAlt: "FactorCloud dashboard , Quick Peek invoice view"
+
+stat:
+  number: 94
+  suffix: "%"
+  label: of teams that see FactorCloud make the switch.
+  badges:
+    - Dual-Ledger
+    - Auto Cash Application
+    - Free Onboarding
+    - 45+ Developers
+    - SOC2 Compliant
+
+platformSections:
+  - id: automation
+    layout: standard
+    overline: Automation
+    heading: Stop manually matching every payment
+    body:
+      - "FactorCloud automates schedule creation, payment application, and credit checks. Your team focuses on clients. The platform handles the rest."
+      - "Most factoring platforms automate schedule creation. FactorCloud automates schedule creation AND cash application. Your payments match themselves. Your team stops chasing pennies."
+    link: { label: Explore Automation, href: /features/automation }
+    footnote: Auto schedule creation saves thousands of hours annually across factors running on FactorCloud.
+    mockup: schedule-flow
+
+  - id: cash-app
+    layout: reverse
+    overline: Cash Application
+    heading: Payments Match Themselves
+    body:
+      - "FactorCloud's automated cash application matches incoming payments to open invoices without human intervention. No lockbox imports. No manual reconciliation. The match just happens."
+    link: { label: Explore Cash Application, href: /features/automation }
+    mockup: cash-match
+
+  - id: client-mgmt
+    layout: reverse
+    overline: Client Management
+    headingPrefix: Your Entire Book of Business.
+    heading: Your Entire Book of Business. One System.
+    body:
+      - "Clients, debtors, and vendors in one place. Full CRM-style tracking without the complexity. Factors have scaled their NFE by <span class=\"inline-counter\" data-target=\"80\" data-suffix=\"%\">80%</span> on FactorCloud without adding headcount."
+    link: { label: Explore Client Management, href: /features/back-end }
+    mockup: book-of-business
+
+  - id: integrations
+    layout: reverse
+    overline: Integrations
+    heading: "<span class=\"inline-counter\" data-target=\"20\" data-suffix=\"+\">20+</span> Integrations. Zero Setup."
+    body:
+      - "From credit and underwriting to transportation data and accounting, every integration in FactorCloud works out of the box. No bolt-on modules. No professional services fees. Every integration ships included with your subscription."
+    link: { label: See All Integrations, href: /integrations }
+    mockup: integrations-grid
+
+  - id: client-portal
+    layout: reverse
+    overline: Client Portal
+    heading: Give Your Clients a View They Actually Want to Use
+    body:
+      - "The FactorCloud client portal mirrors your back office exactly. Clients see what they need. They stop calling. Because the portal mirrors your back office, training takes minutes. Your account executives get their time back."
+    mockup: client-portal
+
+  - id: accounting
+    layout: reverse
+    overline: Accounting
+    heading: Dual-Ledger Precision. No Reconciliation Nightmares.
+    body:
+      - "FactorCloud records every transaction twice: debits and credits, always balanced. No month-end reconciliation scrambles. No penny-chasing across spreadsheets. Your auditors will thank you."
+    footnote: Single-ledger systems force you to reconcile manually. Dual-ledger means the math is always right and you can prove it to any auditor, any time.
+    mockup: ledger
+
+claude:
+  badge: AI Inside FactorCloud
+  newTag: New
+  heading: "Meet <span class=\"amber-word\">Claude</span>, Working Inside Your Factor"
+  subheadline: "Anthropic's Claude is built directly into FactorCloud. Ask questions in plain English and get answers grounded in your real ledger, schedule, and client data. No prompt engineering. No data leaves your tenant."
+  uses:
+    - eyebrow: Collections
+      question: "Draft a follow-up to ACME for invoice 23412 at 45 days."
+      answer: "Claude pulls the debtor's history, payment behavior, and writes a follow-up email in your voice."
+    - eyebrow: Account Summary
+      question: "Catch me up on the Triumph Carrier account."
+      answer: "A one-paragraph brief: open balance, recent activity, exceptions, and what needs attention next."
+    - eyebrow: Reporting
+      question: "Which clients are pulling more than 90% of their line this month?"
+      answer: "Ad-hoc reporting without SQL or saved views. Answers in seconds, grounded in your live data."
+  primaryCta:   { label: Explore Claude,    href: "https://claude.com/product/claude-code", external: true }
+  secondaryCta: { label: See It in a Demo,  href: /get-demo }
+
+compare:
+  overline: Why Switch
+  heading: The Difference Is Clear
+  columns:
+    feature:     { eyebrow: Feature,             label: Comparison }
+    legacy:      { eyebrow: The old way,         label: Legacy Software, sub: Where most factors are stuck }
+    factorcloud: { eyebrow: "Operators' choice", label: FactorCloud,     sub: What modern looks like }
+  rows:
+    - feature: Funding Process
+      legacy: "Manual PDF uploads, data entry, and verification"
+      factorcloud: "Automated , AI-powered"
+    - feature: Ledger Accounting
+      legacy: "Single-ledger. Month-end reconciliation required."
+      factorcloud: "Dual-ledger, always balanced"
+    - feature: Integration Ecosystem
+      legacy: "Limited integrations. Professional services for custom connections."
+      factorcloud: "20+ out-of-the-box"
+    - feature: Client Portal
+      legacy: "No portal, or a basic view that generates more phone calls"
+      factorcloud: "Full mirror-view portal"
+    - feature: User Interface
+      legacy: "Desktop-first. Weeks of training for new hires."
+      factorcloud: "Modern, 80% faster onboarding"
+    - feature: Support Response
+      legacy: "Ticket queue. Days or weeks for resolution."
+      factorcloud: "Real engineers, under 5-minute avg response"
+    - feature: Cash Application
+      legacy: "Manual lockbox import and matching"
+      factorcloud: "Automated. Payments match themselves."
+    - feature: Migration Cost
+      legacy: "Paid professional services"
+      factorcloud: "Free. We handle everything."
+
+steps:
+  overline: Getting Started
+  heading: Getting Started Takes Three Steps
+  subheadline: "No setup fees or surprise charges. We migrate your entire book at no cost, because if switching is expensive, you'll never switch."
+  items:
+    - number: Step 01
+      title: Schedule a Demo
+      body: "See the platform running on your actual use case. Most demos last under an hour and answer every question your team has."
+    - number: Step 02
+      title: Onboard Your Book. Free.
+      body: "Three-step setup with dedicated onboarding support at no cost. We migrate your data, configure the platform, and run it in parallel with your current software until you're ready."
+    - number: Step 03
+      title: Go Live. Days, Not Months.
+      body: "Close business in your old software tonight. Open in FactorCloud tomorrow."
+
+faq:
+  overline: Questions
+  heading: Common Questions
+  items:
+    - q: What makes FactorCloud different?
+      a: "Three things nobody else can say: automated cash application that matches payments without human intervention, dual-ledger accounting accurate to the penny on every transaction, and free onboarding where we migrate your entire book. FactorCloud was built by a team of operators who processed 60,000 invoices a month and the existing software couldn't keep up."
+    - q: How long does onboarding take?
+      a: "Most teams are fully operational within days. Onboarding is free. We handle the migration, configuration, and parallel testing. We have never charged a setup fee."
+    - q: What integrations do you support?
+      a: "QuickBooks, Bill360, ROX, Ansonia, Tank Payments, and 15 more. Open API for custom connections. No surcharges, no add-on tiers. Every integration is included with your subscription."
+    - q: How secure is FactorCloud?
+      a: "FactorCloud is SOC2 compliant. Encrypted at rest and in transit. Every action logged, every change tracked."
+    - q: Can I see it before committing?
+      a: "Yes. Schedule a demo and we'll show you the platform on a live environment in under an hour. Bring your team, bring your questions, bring a real use case. We'll walk through it."
+    - q: What types of factors use FactorCloud?
+      a: "Transportation, staffing, construction, general factoring, freight brokers. We serve them all. Unlike platforms built for a single vertical, FactorCloud's configurable terms and workflows adapt to any factoring specialty."
+
+demo:
+  overline: Ready to Start
+  heading: Ready to See It in Action?
+  body: "Schedule a demo and see FactorCloud running on your actual use case. If you like what you see, we'll migrate your entire book. Free."
+  trustItems:
+    - SOC2 Compliant
+    - 45+ Developers
+    - 94% Close Rate
+    - Atlanta, GA
+  primaryCta:   { label: Get a Demo,    href: /get-demo }
+  secondaryCta: { label: Talk to Sales, href: /contact }
+---
+
+{/* Visual mockups (dashboard, schedule flow, cash-match, book-of-business, integrations grid, client-portal, ledger) stay in code under /src/app/page.tsx. The frontmatter above controls all editable copy. */}

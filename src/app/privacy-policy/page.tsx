@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { loadPage } from "@/lib/content";
+import { getMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Privacy Policy",
-  description:
-    "FactorCloud Privacy Policy. How we collect, use, and protect your information.",
-};
+const LOCALE = "en" as const;
+
+export function generateMetadata(): Metadata {
+  const { frontmatter } = loadPage<{ seo?: { title?: string; description?: string; canonical?: string } }>("privacy-policy", LOCALE);
+  return getMetadata({ page: "privacy-policy", locale: LOCALE, override: frontmatter.seo });
+}
 
 const LEGAL_CSS = `
 .legal-hero {

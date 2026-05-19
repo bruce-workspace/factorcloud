@@ -1,12 +1,16 @@
-// AUTO-GENERATED from features/index.html by scripts/migrate-html.mjs.
-// Hand-edits are fine; re-running the migrator will overwrite this file.
+// Copy sourced from /content/pages/{locale}/features.mdx — edit there, not here.
 import type { Metadata } from "next";
 import Script from "next/script";
+import { loadPage } from "@/lib/content";
+import { getMetadata } from "@/lib/seo";
+import type { FeaturesFrontmatter } from "@/lib/content-types";
 
-export const metadata: Metadata = {
-  title: "Features , FactorCloud Factoring Software",
-  description: "FactorCloud combines automation, back-office management, and a client-facing portal into one platform , built by a team that processed 60,000 invoices a month and needed software that could keep up.",
-};
+const LOCALE = "en" as const;
+
+export function generateMetadata(): Metadata {
+  const { frontmatter } = loadPage<FeaturesFrontmatter>("features", LOCALE);
+  return getMetadata({ page: "features", locale: LOCALE, override: frontmatter.seo });
+}
 
 const PAGE_CSS = `
     html, body { overflow-x: hidden; }
@@ -446,12 +450,13 @@ document.addEventListener('DOMContentLoaded', function() {
 `;
 
 export default function Page() {
+  const { frontmatter: c } = loadPage<FeaturesFrontmatter>("features", LOCALE);
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: PAGE_CSS }} />
       <nav className="nav" id="main-nav">
   <div className="nav-inner">
-    <a href="/" className="nav-logo"><img src="../../assets/logo.svg" alt="FactorCloud" /></a>
+    <a href="/" className="nav-logo"><img src="/images/logo.svg" alt="FactorCloud" /></a>
     <ul className="nav-links">
       <li>
         <a href="#" className="nav-link-toggle">Platform <svg className="chevron" viewBox="0 0 10 6"><polyline points="1 1 5 5 9 1"></polyline></svg></a>
@@ -495,33 +500,36 @@ export default function Page() {
 </div>
 <section className="page-hero">
   <div className="page-hero-glow"></div>
-  <div className="page-hero-inner" style={{opacity: "1 !important"}}>
-    <span className="page-eyebrow" style={{opacity: "1 !important"}}>Purpose-Built for Factors</span>
-    <h1 style={{opacity: "1 !important"}}>Every Feature Your Back Office Needs. Nothing It Doesn't.</h1>
-    <p className="page-hero-sub" style={{opacity: "1 !important"}}>FactorCloud combines automation, back-office management, and a client-facing portal into one platform , built by a team that processed 60,000 invoices a month and needed software that could keep up.</p>
+  <div className="page-hero-inner">
+    <span className="page-eyebrow">{c.hero.eyebrow}</span>
+    <h1>{c.hero.headline}</h1>
+    <p className="page-hero-sub">{c.hero.subheadline}</p>
     <div className="page-hero-ctas">
-      <a href="/get-demo" className="btn-primary">Get a Demo</a>
-      <a href="#modules" className="btn-ghost">Explore Features</a>
+      <a href={c.hero.primaryCta.href} className="btn-primary">{c.hero.primaryCta.label}</a>
+      <a href={c.hero.secondaryCta.href} className="btn-ghost">{c.hero.secondaryCta.label}</a>
     </div>
   </div>
 </section>
 <section style={{padding: "80px 0 100px", borderTop: "0.5px solid var(--border)"}} id="modules">
   <div className="container">
     <div className="modules-grid">
-      <a href="/features/automation" className="module-card"><div className="module-num">01</div><div className="module-icon">⚡</div><h2>Automation</h2><p>Automate terms, schedules, and credit. Let BrightBolt do the work.</p><span className="module-link">Explore Automation →</span></a>
-      <a href="/features/tracking" className="module-card"><div className="module-num">02</div><div className="module-icon">🗂</div><h2>Back-Office Management</h2><p>Clients, debtors, and vendors managed in one central system.</p><span className="module-link">Explore Back Office →</span></a>
-      <a href="/features/back-end" className="module-card"><div className="module-num">03</div><div className="module-icon">📊</div><h2>Back-End Operations</h2><p>Reporting, collections, and payments with full visibility.</p><span className="module-link">Explore Operations →</span></a>
-      <a href="/features/client-portal" className="module-card"><div className="module-num">04</div><div className="module-icon">🖥</div><h2>Client Portal</h2><p>A mirror-view portal your clients can actually use.</p><span className="module-link">Explore Portal →</span></a>
-      <a href="/features/ocr-automation" className="module-card"><div className="module-num">05</div><div className="module-icon">🤖</div><h2>OCR Automation</h2><p>AI-powered OCR reads documents so your team doesn't have to.</p><span className="module-link">Explore OCR →</span></a>
-      <a href="/features/open-api" className="module-card"><div className="module-num">06</div><div className="module-icon">🔗</div><h2>Open API</h2><p>Connect any tool. Pull or push data from anywhere.</p><span className="module-link">Explore API →</span></a>
+      {c.modules.map((m) => (
+        <a key={m.num} href={m.href} className="module-card">
+          <div className="module-num">{m.num}</div>
+          <div className="module-icon">{m.icon}</div>
+          <h2>{m.title}</h2>
+          <p>{m.body}</p>
+          <span className="module-link">{m.linkLabel} →</span>
+        </a>
+      ))}
     </div>
   </div>
 </section>
 <section style={{padding: "100px 0", textAlign: "center", background: "var(--bg-3)", borderTop: "0.5px solid var(--border)", borderBottom: "0.5px solid var(--border)"}}>
   <div className="container">
-    <span style={{fontFamily: "'Syne', sans-serif", fontSize: "clamp(72px,12vw,140px)", fontWeight: "400", color: "var(--amber)", lineHeight: "1", letterSpacing: "-0.04em", display: "block"}}>94%</span>
-    <p style={{fontSize: "20px", color: "var(--gray-2)", marginTop: "16px", maxWidth: "420px", marginLeft: "auto", marginRight: "auto", lineHeight: "1.5"}}>of teams that see FactorCloud make the switch.</p>
-    <div style={{marginTop: "40px"}}><a href="/get-demo" className="btn-primary">See It for Yourself</a></div>
+    <span style={{fontFamily: "'Syne', sans-serif", fontSize: "clamp(72px,12vw,140px)", fontWeight: "400", color: "var(--amber)", lineHeight: "1", letterSpacing: "-0.04em", display: "block"}}>{c.stat.number}</span>
+    <p style={{fontSize: "20px", color: "var(--gray-2)", marginTop: "16px", maxWidth: "420px", marginLeft: "auto", marginRight: "auto", lineHeight: "1.5"}}>{c.stat.label}</p>
+    <div style={{marginTop: "40px"}}><a href={c.stat.cta.href} className="btn-primary">{c.stat.cta.label}</a></div>
   </div>
 </section>
 
@@ -529,7 +537,7 @@ export default function Page() {
   <div className="container">
     <div className="footer-grid">
       <div className="footer-brand">
-        <img src="../../assets/logo.svg" alt="FactorCloud" />
+        <img src="/images/logo.svg" alt="FactorCloud" />
         <p>Dual-ledger precision, automated cash application, 20+ integrations. Built for factors who needed software that could keep up.</p>
       </div>
       <div>

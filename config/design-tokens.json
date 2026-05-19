@@ -1,0 +1,125 @@
+{
+  "$schema": "./design-tokens.schema.json",
+  "_description": "Single source of truth for FactorCloud brand. Edit values here; code consumes via /src/lib/tokens.ts. Do NOT add new top-level groups without a developer.",
+
+  "color": {
+    "background": {
+      "base":     "#07070A",
+      "deep":     "#030305",
+      "raised":   "#121216",
+      "elevated": "#1A1A1E",
+      "overlay":  "#22222A"
+    },
+    "brand": {
+      "amber":        "#FFC84A",
+      "amberBright":  "#FFD868",
+      "amberDim":     "rgba(255,200,74,0.22)",
+      "amberFaint":   "rgba(255,200,74,0.08)",
+      "amberHover":   "#C49A35"
+    },
+    "text": {
+      "white":  "#FFFFFF",
+      "gray1":  "#F0E8D8",
+      "gray2":  "#D4C9B2",
+      "gray3":  "#9E937B",
+      "onBrand":"#0A0A08"
+    },
+    "border": {
+      "default": "rgba(255,200,74,0.18)",
+      "dim":     "rgba(255,200,74,0.10)",
+      "navIdle": "rgba(212,168,67,0.12)",
+      "navHover":"rgba(212,168,67,0.15)"
+    },
+    "status": {
+      "success": "#27AE60",
+      "danger":  "#C0392B"
+    }
+  },
+
+  "typography": {
+    "fontFamily": {
+      "display": "'Syne', sans-serif",
+      "body":    "'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
+      "mono":    "'Geist Mono', ui-monospace, monospace",
+      "serif":   "'Instrument Serif', Georgia, serif"
+    },
+    "size": {
+      "body":     "15px",
+      "overline": "10px",
+      "h3":       "17px",
+      "h2":       "clamp(34px, 4vw, 50px)",
+      "h1":       "clamp(48px, 6vw, 80px)"
+    },
+    "weight": {
+      "regular":  400,
+      "medium":   500,
+      "semibold": 600,
+      "bold":     700
+    },
+    "lineHeight": {
+      "tight":   1.1,
+      "snug":    1.35,
+      "normal":  1.7,
+      "relaxed": 1.75
+    },
+    "letterSpacing": {
+      "tight":  "-0.01em",
+      "normal": "0",
+      "wide":   "0.06em",
+      "wider":  "0.14em"
+    }
+  },
+
+  "spacing": {
+    "containerMaxWidth": "1360px",
+    "containerPaddingX": "24px",
+    "navHeight":         "64px",
+    "scale": {
+      "0":  "0",
+      "1":  "4px",
+      "2":  "8px",
+      "3":  "12px",
+      "4":  "16px",
+      "5":  "24px",
+      "6":  "32px",
+      "7":  "48px",
+      "8":  "64px",
+      "9":  "96px",
+      "10": "160px"
+    }
+  },
+
+  "radius": {
+    "none":  "0",
+    "sm":    "2px",
+    "md":    "4px",
+    "lg":    "8px",
+    "pill":  "9999px"
+  },
+
+  "shadow": {
+    "dropdown": "0 24px 48px rgba(0,0,0,0.7)",
+    "card":     "0 8px 24px rgba(0,0,0,0.5)"
+  },
+
+  "motion": {
+    "duration": {
+      "fast":   "120ms",
+      "base":   "150ms",
+      "smooth": "200ms",
+      "slow":   "300ms"
+    },
+    "easing": {
+      "out":    "cubic-bezier(0.2, 0.7, 0.2, 1)",
+      "inOut":  "cubic-bezier(0.4, 0, 0.2, 1)"
+    }
+  },
+
+  "breakpoint": {
+    "sm":  "640px",
+    "md":  "768px",
+    "lg":  "1024px",
+    "xl":  "1280px",
+    "2xl": "1536px"
+  }
+}

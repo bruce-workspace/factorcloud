@@ -1,13 +1,18 @@
-// AUTO-GENERATED from contact.html by scripts/migrate-html.mjs.
-// Hand-edits are fine; re-running the migrator will overwrite this file.
+// Metadata sourced from /content/pages/{locale}/contact.mdx — edit there, not here.
 import type { Metadata } from "next";
 import PageContent from "./page-content";
+import { loadPage } from "@/lib/content";
+import { getMetadata } from "@/lib/seo";
+import type { ContactFrontmatter } from "@/lib/content-types";
 
-export const metadata: Metadata = {
-  title: "Contact , FactorCloud",
-  description: "Get in touch with FactorCloud. 3490 Piedmont Rd. Suite 1350, Atlanta, GA 30305. hello@factorcloud.com.",
-};
+const LOCALE = "en" as const;
+
+export function generateMetadata(): Metadata {
+  const { frontmatter } = loadPage<ContactFrontmatter>("contact", LOCALE);
+  return getMetadata({ page: "contact", locale: LOCALE, override: frontmatter.seo });
+}
 
 export default function Page() {
-  return <PageContent />;
+  const { frontmatter } = loadPage<ContactFrontmatter>("contact", LOCALE);
+  return <PageContent content={frontmatter} />;
 }

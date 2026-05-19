@@ -1,0 +1,116 @@
+{
+  "$schema": "./seo.schema.json",
+  "site": {
+    "name": "FactorCloud",
+    "url": "https://factorcloud.com",
+    "defaultLocale": "en",
+    "locales": ["en", "es"],
+    "twitter": "@factorcloud",
+    "favicon": "/images/favicon.png",
+    "appleTouchIcon": "/images/webclip.png"
+  },
+
+  "defaults": {
+    "en": {
+      "titleTemplate": "%s | FactorCloud",
+      "defaultTitle": "FactorCloud, Factoring Software for Modern Operators",
+      "description": "Dual-ledger precision, automated cash application, and 20+ integrations. The factoring platform operators built when they got tired of software holding them back.",
+      "ogImage": "/images/og/og-default-en.png",
+      "ogImageAlt": "FactorCloud — Factoring Software for Modern Operators"
+    },
+    "es": {
+      "titleTemplate": "%s | FactorCloud",
+      "defaultTitle": "FactorCloud, Software de Factoraje para Operadores Modernos",
+      "description": "Precisión de doble libro mayor, aplicación de efectivo automatizada y más de 20 integraciones. La plataforma de factoraje que los operadores construyeron cuando se cansaron del software que los frenaba.",
+      "ogImage": "/images/og/og-default-es.png",
+      "ogImageAlt": "FactorCloud — Software de Factoraje para Operadores Modernos"
+    }
+  },
+
+  "hreflang": {
+    "en": "https://factorcloud.com",
+    "es": "https://factorcloud.com/es",
+    "x-default": "https://factorcloud.com"
+  },
+
+  "organization": {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "FactorCloud",
+    "url": "https://factorcloud.com",
+    "logo": "https://factorcloud.com/images/logo.svg",
+    "sameAs": [
+      "https://www.linkedin.com/company/factorcloud",
+      "https://twitter.com/factorcloud"
+    ],
+    "contactPoint": [
+      {
+        "@type": "ContactPoint",
+        "contactType": "sales",
+        "email": "sales@factorcloud.com",
+        "areaServed": ["US", "MX"],
+        "availableLanguage": ["en", "es"]
+      }
+    ]
+  },
+
+  "robots": {
+    "index": true,
+    "follow": true,
+    "googleBot": {
+      "index": true,
+      "follow": true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1
+    }
+  },
+
+  "verification": {
+    "google": "",
+    "bing": ""
+  },
+
+  "pages": {
+    "home": {
+      "en": { "title": "FactorCloud, Factoring Software for Modern Operators", "description": "Dual-ledger precision, automated cash application, and 20+ integrations." },
+      "es": { "title": "FactorCloud, Software de Factoraje para Operadores Modernos", "description": "Precisión de doble libro mayor, aplicación de efectivo automatizada y más de 20 integraciones." }
+    },
+    "features": {
+      "en": { "title": "Features", "description": "Everything modern factoring operators need: dual-ledger accounting, automated cash app, OCR, open API, and a client portal." },
+      "es": { "title": "Funcionalidades", "description": "Todo lo que los operadores modernos de factoraje necesitan: doble libro mayor, aplicación de efectivo automatizada, OCR, API abierta y portal de clientes." }
+    },
+    "pricing": {
+      "en": { "title": "Pricing", "description": "Transparent pricing built for modern factoring operators." },
+      "es": { "title": "Precios", "description": "Precios transparentes diseñados para operadores modernos de factoraje." }
+    },
+    "about": {
+      "en": { "title": "About", "description": "Why FactorCloud exists, who builds it, and what we believe." },
+      "es": { "title": "Acerca de", "description": "Por qué existe FactorCloud, quiénes lo construyen y en qué creemos." }
+    },
+    "integrations": {
+      "en": { "title": "Integrations", "description": "20+ integrations: QuickBooks, Triumph, Tank, Bank Shot, Ansonia and more." },
+      "es": { "title": "Integraciones", "description": "Más de 20 integraciones: QuickBooks, Triumph, Tank, Bank Shot, Ansonia y más." }
+    },
+    "contact": {
+      "en": { "title": "Contact", "description": "Talk to the FactorCloud team." },
+      "es": { "title": "Contacto", "description": "Habla con el equipo de FactorCloud." }
+    },
+    "resources": {
+      "en": { "title": "Resources", "description": "Blog, podcasts, and guides for factoring operators." },
+      "es": { "title": "Recursos", "description": "Blog, podcasts y guías para operadores de factoraje." }
+    },
+    "get-demo": {
+      "en": { "title": "Get a Demo", "description": "Book a live walkthrough with the FactorCloud team.", "robots": { "index": false } },
+      "es": { "title": "Solicita una demo", "description": "Agenda un recorrido en vivo con el equipo de FactorCloud.", "robots": { "index": false } }
+    },
+    "privacy-policy": {
+      "en": { "title": "Privacy Policy", "description": "How FactorCloud handles your data." },
+      "es": { "title": "Aviso de Privacidad", "description": "Cómo FactorCloud maneja tus datos." }
+    },
+    "terms-and-conditions": {
+      "en": { "title": "Terms & Conditions", "description": "FactorCloud terms of service." },
+      "es": { "title": "Términos y Condiciones", "description": "Términos del servicio de FactorCloud." }
+    }
+  }
+}

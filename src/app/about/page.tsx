@@ -1,12 +1,17 @@
-// AUTO-GENERATED from about/index.html by scripts/migrate-html.mjs.
-// Hand-edits are fine; re-running the migrator will overwrite this file.
+// Copy sourced from /content/pages/{locale}/about.mdx — edit there, not here.
 import type { Metadata } from "next";
 import Script from "next/script";
+import { loadPage } from "@/lib/content";
+import { getMetadata } from "@/lib/seo";
+import type { AboutFrontmatter } from "@/lib/content-types";
+import { AboutIcon } from "./about-icons";
 
-export const metadata: Metadata = {
-  title: "About , FactorCloud",
-  description: "FactorCloud is the factoring platform built by operators who ran a factor processing 60K+ invoices a month and got tired of the software holding them back. SOC2 compliant. 45+ developers. Atlanta, GA.",
-};
+const LOCALE = "en" as const;
+
+export function generateMetadata(): Metadata {
+  const { frontmatter } = loadPage<AboutFrontmatter>("about", LOCALE);
+  return getMetadata({ page: "about", locale: LOCALE, override: frontmatter.seo });
+}
 
 const PAGE_CSS = `
     html, body { overflow-x: hidden; }
@@ -454,12 +459,13 @@ document.addEventListener('DOMContentLoaded', function() {
 `;
 
 export default function Page() {
+  const { frontmatter: c } = loadPage<AboutFrontmatter>("about", LOCALE);
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: PAGE_CSS }} />
       <nav className="nav" id="main-nav">
   <div className="nav-inner">
-    <a href="/" className="nav-logo"><img src="../../assets/logo.svg" alt="FactorCloud" /></a>
+    <a href="/" className="nav-logo"><img src="/images/logo.svg" alt="FactorCloud" /></a>
     <ul className="nav-links">
       <li>
         <a href="#" className="nav-link-toggle">Platform <svg className="chevron" viewBox="0 0 10 6"><polyline points="1 1 5 5 9 1"></polyline></svg></a>
@@ -503,13 +509,13 @@ export default function Page() {
 </div>
 <section className="page-hero">
   <div className="page-hero-glow"></div>
-  <div className="page-hero-inner" style={{opacity: "1 !important"}}>
-    <span className="page-eyebrow" style={{opacity: "1 !important"}}>About FactorCloud</span>
-    <h1 style={{opacity: "1 !important"}}>The Factoring Platform Operators Built for Themselves.</h1>
-    <p className="page-hero-sub" style={{opacity: "1 !important"}}>We started where you are. We built what we needed. Then we made it available to every factor who deserved better software.</p>
+  <div className="page-hero-inner">
+    <span className="page-eyebrow">{c.hero.eyebrow}</span>
+    <h1>{c.hero.headline}</h1>
+    <p className="page-hero-sub">{c.hero.subheadline}</p>
     <div className="page-hero-ctas">
-      <a href="/about/our-story" className="btn-primary">Our Story</a>
-      <a href="/get-demo" className="btn-ghost">Get a Demo</a>
+      <a href={c.hero.primaryCta.href} className="btn-primary">{c.hero.primaryCta.label}</a>
+      <a href={c.hero.secondaryCta.href} className="btn-ghost">{c.hero.secondaryCta.label}</a>
     </div>
   </div>
 </section>
@@ -517,10 +523,12 @@ export default function Page() {
 <section style={{padding: "80px 0", borderTop: "0.5px solid var(--border)", background: "var(--bg-3)"}}>
   <div className="container">
     <div className="ig-grid-1" style={{gap: "24px", textAlign: "center"}}>
-      <div><span style={{fontFamily: "'Syne', sans-serif", fontSize: "clamp(40px,5vw,64px)", color: "var(--amber)", lineHeight: "1", display: "block"}}>2014</span><div style={{fontSize: "14px", color: "var(--gray-2)", marginTop: "8px"}}>Founded</div></div>
-      <div><span style={{fontFamily: "'Syne', sans-serif", fontSize: "clamp(40px,5vw,64px)", color: "var(--amber)", lineHeight: "1", display: "block"}}>45+</span><div style={{fontSize: "14px", color: "var(--gray-2)", marginTop: "8px"}}>Developers</div></div>
-      <div><span style={{fontFamily: "'Syne', sans-serif", fontSize: "clamp(40px,5vw,64px)", color: "var(--amber)", lineHeight: "1", display: "block"}}>60K+</span><div style={{fontSize: "14px", color: "var(--gray-2)", marginTop: "8px"}}>Invoices/month processed on FactorCloud</div></div>
-      <div><span style={{fontFamily: "'Syne', sans-serif", fontSize: "clamp(40px,5vw,64px)", color: "var(--amber)", lineHeight: "1", display: "block"}}>80%</span><div style={{fontSize: "14px", color: "var(--gray-2)", marginTop: "8px"}}>More NFE without adding headcount</div></div>
+      {c.stats.map((s, i) => (
+        <div key={i}>
+          <span style={{fontFamily: "'Syne', sans-serif", fontSize: "clamp(40px,5vw,64px)", color: "var(--amber)", lineHeight: "1", display: "block"}}>{s.number}</span>
+          <div style={{fontSize: "14px", color: "var(--gray-2)", marginTop: "8px"}}>{s.label}</div>
+        </div>
+      ))}
     </div>
   </div>
 </section>
@@ -528,54 +536,30 @@ export default function Page() {
 <section style={{padding: "80px 0", borderTop: "0.5px solid var(--border)"}}>
   <div className="container">
     <div style={{textAlign: "center", marginBottom: "48px"}}>
-      <div style={{fontFamily: "'JetBrains Mono', monospace", fontSize: "10px", fontWeight: "500", letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--amber)", marginBottom: "12px"}}>Explore</div>
-      <h2>Who We Are</h2>
+      <div style={{fontFamily: "'JetBrains Mono', monospace", fontSize: "10px", fontWeight: "500", letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--amber)", marginBottom: "12px"}}>{c.sections.eyebrow}</div>
+      <h2>{c.sections.heading}</h2>
     </div>
     <div className="ig-grid-2" style={{gap: "24px"}}>
-      <a href="/about/our-story" className="about-nav-card">
-        <div className="about-nav-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
-        </div>
-        <h3>Our Story</h3>
-        <p>Built by a team running a factoring operation processing 60K+ invoices a month, launched in 2014, and refined by a decade of real-world factoring experience. This is where FactorCloud came from.</p>
-        <div className="about-nav-link">Read our story →</div>
-      </a>
-      <a href="/about/team" className="about-nav-card">
-        <div className="about-nav-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-        </div>
-        <h3>Team</h3>
-        <p>45+ developers, operators, and factoring veterans. A team that doesn't just build software -- they understand what it means to run a factoring operation.</p>
-        <div className="about-nav-link">Meet the team →</div>
-      </a>
-      <a href="/about/values" className="about-nav-card">
-        <div className="about-nav-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-        </div>
-        <h3>Values</h3>
-        <p>Innovation, accountability, commitment, teamwork, ownership, and customer first. Not buzzwords. Principles we built FactorCloud around -- and operate by every day.</p>
-        <div className="about-nav-link">Our values →</div>
-      </a>
-      <a href="/about/security" className="about-nav-card">
-        <div className="about-nav-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-        </div>
-        <h3>Security</h3>
-        <p>SOC2 Type II certified. Cloud-hosted. 45+ developers focused on platform security and continuous monitoring. Your data is as protected as we can make it.</p>
-        <div className="about-nav-link">Security details →</div>
-      </a>
+      {c.sections.cards.map((card) => (
+        <a key={card.title} href={card.href} className="about-nav-card">
+          <div className="about-nav-icon"><AboutIcon name={card.icon} /></div>
+          <h3>{card.title}</h3>
+          <p>{card.body}</p>
+          <div className="about-nav-link">{card.linkLabel} →</div>
+        </a>
+      ))}
     </div>
   </div>
 </section>
 
 <section className="cta-section" style={{background: "var(--bg-2)"}}>
   <div className="container">
-    <span className="page-eyebrow">Ready to See the Platform?</span>
-    <h2>Software Built by People Who've Done Your Job</h2>
-    <p>That experience is in every feature. See it in a demo.</p>
+    <span className="page-eyebrow">{c.cta.eyebrow}</span>
+    <h2>{c.cta.heading}</h2>
+    <p>{c.cta.body}</p>
     <div style={{display: "flex", gap: "12px", justifyContent: "center", flexWrap: "wrap"}}>
-      <a href="/get-demo" className="btn-primary">Get a Demo</a>
-      <a href="/contact" className="btn-ghost">Contact Us</a>
+      <a href={c.cta.primaryCta.href} className="btn-primary">{c.cta.primaryCta.label}</a>
+      <a href={c.cta.secondaryCta.href} className="btn-ghost">{c.cta.secondaryCta.label}</a>
     </div>
   </div>
 </section>
@@ -584,7 +568,7 @@ export default function Page() {
   <div className="container">
     <div className="footer-grid">
       <div className="footer-brand">
-        <img src="../../assets/logo.svg" alt="FactorCloud" />
+        <img src="/images/logo.svg" alt="FactorCloud" />
         <p>Dual-ledger precision, automated cash application, 20+ integrations. Built for factors who needed software that could keep up.</p>
       </div>
       <div>

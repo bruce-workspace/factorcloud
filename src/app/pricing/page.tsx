@@ -1,12 +1,19 @@
 // AUTO-GENERATED from pricing.html by scripts/migrate-html.mjs.
 // Hand-edits are fine; re-running the migrator will overwrite this file.
+// Copy is now sourced from /content/pages/{locale}/pricing.mdx — edit there, not here.
 import type { Metadata } from "next";
 import Script from "next/script";
+import { loadPage } from "@/lib/content";
+import { getMetadata } from "@/lib/seo";
+import type { PricingFrontmatter } from "@/lib/content-types";
+import { WhyIcon } from "./why-icons";
 
-export const metadata: Metadata = {
-  title: "Pricing , FactorCloud",
-  description: "Standard and Enterprise plans. Unlimited clients, invoices, portals. Flat per-user pricing. Free onboarding. No hidden fees.",
-};
+const LOCALE = "en" as const;
+
+export function generateMetadata(): Metadata {
+  const { frontmatter } = loadPage<PricingFrontmatter>("pricing", LOCALE);
+  return getMetadata({ page: "pricing", locale: LOCALE, override: frontmatter.seo });
+}
 
 const PAGE_CSS = `
     html, body { overflow-x: hidden; }
@@ -441,7 +448,7 @@ export default function Page() {
       <style dangerouslySetInnerHTML={{ __html: PAGE_CSS }} />
       <nav className="nav" id="main-nav">
   <div className="nav-inner">
-    <a href="/" className="nav-logo"><img src="../assets/logo.svg" alt="FactorCloud" /></a>
+    <a href="/" className="nav-logo"><img src="/images/logo.svg" alt="FactorCloud" /></a>
     <ul className="nav-links">
       <li>
         <a href="#" className="nav-link-toggle">Platform <svg className="chevron" viewBox="0 0 10 6"><polyline points="1 1 5 5 9 1"></polyline></svg></a>
@@ -483,167 +490,123 @@ export default function Page() {
   <a href="/about" className="mobile-nav-link">About</a>
   <div className="mobile-nav-cta"><a href="/get-demo" className="btn-primary" style={{width: "100%", justifyContent: "center"}}>Get a Demo</a></div>
 </div>
-<section className="page-hero">
-  <div className="page-hero-glow"></div>
-  <div className="page-hero-inner" style={{opacity: "1 !important"}}>
-    <span className="page-eyebrow" style={{opacity: "1 !important"}}>Pricing</span>
-    <h1 style={{opacity: "1 !important"}}>Simple Pricing. No Surprises.</h1>
-    <p className="page-hero-sub" style={{opacity: "1 !important"}}>Unlimited clients. Unlimited invoices. Unlimited portals. Flat per-user pricing with everything included. No modules to buy, no integrations to unlock, no onboarding fees.</p>
-  </div>
-</section>
+{(() => {
+  const { frontmatter: c } = loadPage<PricingFrontmatter>("pricing", LOCALE);
+  return (
+    <>
+      <section className="page-hero">
+        <div className="page-hero-glow"></div>
+        <div className="page-hero-inner">
+          <span className="page-eyebrow">{c.hero.eyebrow}</span>
+          <h1>{c.hero.headline}</h1>
+          <p className="page-hero-sub">{c.hero.subheadline}</p>
+        </div>
+      </section>
 
-<section style={{padding: "80px 0", borderTop: "0.5px solid var(--border)"}}>
-  <div className="container">
-    <div className="plans-grid">
-      <div className="plan-card">
-        <div className="plan-name">Standard</div>
-        <div className="plan-tagline">Everything a growing factoring operation needs to run at scale. Unlimited from day one.</div>
-        <div className="plan-price">
-          <div className="plan-price-main">Per User</div>
-          <div className="plan-price-detail">Flat per-user fee · Starts at 2 users<br />Free onboarding included</div>
-        </div>
-        <ul className="plan-features">
-          <li className="section-lbl">Core Platform</li>
-          <li>Unlimited clients</li>
-          <li>Unlimited invoices</li>
-          <li>Unlimited client portals</li>
-          <li>Dual-ledger accounting engine</li>
-          <li>4-dozen exportable reports</li>
-          <li className="section-lbl">Automation</li>
-          <li>AI-powered OCR automation</li>
-          <li>Automated schedule creation</li>
-          <li>Automated payment matching</li>
-          <li>Configurable terms templates</li>
-          <li className="section-lbl">Integrations and Support</li>
-          <li>All integrations included</li>
-          <li>Free onboarding</li>
-          <li>Standard support</li>
-        </ul>
-        <a href="/get-demo" className="btn-ghost" style={{width: "100%", justifyContent: "center"}}>Get a Demo</a>
-      </div>
+      <section style={{padding: "80px 0", borderTop: "0.5px solid var(--border)"}}>
+        <div className="container">
+          <div className="plans-grid">
+            {c.plans.map((plan) => (
+              <div key={plan.id} className={plan.featured ? "plan-card featured" : "plan-card"}>
+                {plan.badge && <div className="plan-badge">{plan.badge}</div>}
+                <div className="plan-name">{plan.name}</div>
+                <div className="plan-tagline">{plan.tagline}</div>
+                <div className="plan-price">
+                  <div className="plan-price-main">{plan.priceMain}</div>
+                  <div className="plan-price-detail" dangerouslySetInnerHTML={{ __html: plan.priceDetail }} />
+                </div>
+                <ul className="plan-features">
+                  {plan.featureGroups.flatMap((group) => [
+                    <li key={`lbl-${plan.id}-${group.label}`} className="section-lbl">{group.label}</li>,
+                    ...group.items.map((item) => (
+                      <li key={`${plan.id}-${item}`}>{item}</li>
+                    )),
+                  ])}
+                </ul>
+                <a
+                  href={plan.cta.href}
+                  className={plan.cta.variant === "primary" ? "btn-primary" : "btn-ghost"}
+                  style={{ width: "100%", justifyContent: "center" }}
+                >
+                  {plan.cta.label}
+                </a>
+              </div>
+            ))}
+          </div>
 
-      <div className="plan-card featured">
-        <div className="plan-badge">Most Popular for Scale</div>
-        <div className="plan-name">Enterprise</div>
-        <div className="plan-tagline">Everything in Standard, plus API access, custom integrations, flexible user packages, and enterprise SLAs.</div>
-        <div className="plan-price">
-          <div className="plan-price-main">Custom</div>
-          <div className="plan-price-detail">Flexible user packages available<br />Contact us for pricing</div>
+          <div>
+            <div style={{textAlign: "center", marginBottom: "40px"}}>
+              <div style={{fontFamily: "'JetBrains Mono', monospace", fontSize: "10px", fontWeight: "500", letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--amber)", marginBottom: "12px"}}>{c.compare.eyebrow}</div>
+              <h2>{c.compare.heading}</h2>
+            </div>
+            <div className="viz-card" style={{overflow: "hidden"}}>
+              <table className="compare-table">
+                <thead>
+                  <tr>
+                    <th style={{width: "40%"}}>Feature</th>
+                    {c.compare.columns.map((col) => (
+                      <th key={col.id} style={col.accent ? {color: "var(--amber)"} : undefined}>{col.label}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {c.compare.groups.flatMap((group) => [
+                    <tr key={`group-${group.label}`} className="cat-row">
+                      <td colSpan={c.compare.columns.length + 1}>{group.label}</td>
+                    </tr>,
+                    ...group.rows.map((row) => (
+                      <tr key={`${group.label}-${row.feature}`}>
+                        <td>{row.feature}</td>
+                        <td>{row.standard ? <span className="chk">✓</span> : <span className="dsh">,</span>}</td>
+                        <td>{row.enterprise ? <span className="chk">✓</span> : <span className="dsh">,</span>}</td>
+                      </tr>
+                    )),
+                  ])}
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
-        <ul className="plan-features">
-          <li className="section-lbl">Everything in Standard, plus:</li>
-          <li>Open API access</li>
-          <li>Custom integrations</li>
-          <li>Flexible user packages</li>
-          <li>Enterprise SLAs</li>
-          <li>Dedicated account manager</li>
-          <li className="section-lbl">Premium Support</li>
-          <li>Priority support queue</li>
-          <li>Direct engineering escalation</li>
-          <li>Custom onboarding program</li>
-          <li>Quarterly business reviews</li>
-          <li className="section-lbl">Compliance</li>
-          <li>SOC2 compliance documentation</li>
-          <li>Custom data retention policies</li>
-          <li>Advanced audit logging</li>
-        </ul>
-        <a href="/get-demo" className="btn-primary" style={{width: "100%", justifyContent: "center"}}>Contact for Pricing</a>
-      </div>
-    </div>
+      </section>
 
-    <div>
-      <div style={{textAlign: "center", marginBottom: "40px"}}>
-        <div style={{fontFamily: "'JetBrains Mono', monospace", fontSize: "10px", fontWeight: "500", letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--amber)", marginBottom: "12px"}}>Compare Plans</div>
-        <h2>Side by Side</h2>
-      </div>
-      <div className="viz-card" style={{overflow: "hidden"}}>
-        <table className="compare-table">
-          <thead>
-            <tr>
-              <th style={{width: "40%"}}>Feature</th>
-              <th>Standard</th>
-              <th style={{color: "var(--amber)"}}>Enterprise</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr className="cat-row"><td colSpan={3}>Platform</td></tr>
-            <tr><td>Unlimited clients</td><td><span className="chk">✓</span></td><td><span className="chk">✓</span></td></tr>
-            <tr><td>Unlimited invoices</td><td><span className="chk">✓</span></td><td><span className="chk">✓</span></td></tr>
-            <tr><td>Unlimited client portals</td><td><span className="chk">✓</span></td><td><span className="chk">✓</span></td></tr>
-            <tr><td>Dual-ledger accounting</td><td><span className="chk">✓</span></td><td><span className="chk">✓</span></td></tr>
-            <tr className="cat-row"><td colSpan={3}>Automation</td></tr>
-            <tr><td>AI-Powered OCR</td><td><span className="chk">✓</span></td><td><span className="chk">✓</span></td></tr>
-            <tr><td>All integrations</td><td><span className="chk">✓</span></td><td><span className="chk">✓</span></td></tr>
-            <tr><td>Free onboarding</td><td><span className="chk">✓</span></td><td><span className="chk">✓</span></td></tr>
-            <tr className="cat-row"><td colSpan={3}>Enterprise</td></tr>
-            <tr><td>Open API access</td><td><span className="dsh">,</span></td><td><span className="chk">✓</span></td></tr>
-            <tr><td>Custom integrations</td><td><span className="dsh">,</span></td><td><span className="chk">✓</span></td></tr>
-            <tr><td>Flexible user packages</td><td><span className="dsh">,</span></td><td><span className="chk">✓</span></td></tr>
-            <tr><td>Enterprise SLA</td><td><span className="dsh">,</span></td><td><span className="chk">✓</span></td></tr>
-            <tr><td>Dedicated account manager</td><td><span className="dsh">,</span></td><td><span className="chk">✓</span></td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-</section>
+      <section style={{padding: "96px 0", borderTop: "0.5px solid var(--border)", background: "var(--bg-3)"}}>
+        <div className="container">
+          <div style={{textAlign: "center", marginBottom: "64px"}}>
+            <div style={{fontFamily: "'JetBrains Mono', monospace", fontSize: "10px", fontWeight: "500", letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--amber)", marginBottom: "12px"}}>{c.why.eyebrow}</div>
+            <h2 style={{maxWidth: "760px", margin: "0 auto"}}>{c.why.heading}</h2>
+          </div>
+          <div className="why-grid">
+            {c.why.cards.map((card) => (
+              <div key={card.title} className="why-card">
+                <div className="why-icon" aria-hidden="true"><WhyIcon name={card.icon} /></div>
+                <h3 className="why-title">{card.title}</h3>
+                <p className="why-desc">{card.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-<section style={{padding: "96px 0", borderTop: "0.5px solid var(--border)", background: "var(--bg-3)"}}>
-  <div className="container">
-    <div style={{textAlign: "center", marginBottom: "64px"}}>
-      <div style={{fontFamily: "'JetBrains Mono', monospace", fontSize: "10px", fontWeight: "500", letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--amber)", marginBottom: "12px"}}>Why FactorCloud</div>
-      <h2 style={{maxWidth: "760px", margin: "0 auto"}}>Why Teams Choose FactorCloud</h2>
-    </div>
-    <div className="why-grid">
-      <div className="why-card">
-        <div className="why-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><circle cx="7.5" cy="15.5" r="5.5"></circle><path d="m21 2-9.6 9.6"></path><path d="m15.5 7.5 3 3L22 7l-3-3"></path></svg>
+      <section className="cta-section" style={{background: "var(--bg-2)"}}>
+        <div className="container">
+          <span className="page-eyebrow">{c.cta.eyebrow}</span>
+          <h2>{c.cta.heading}</h2>
+          <p>{c.cta.body}</p>
+          <div style={{display: "flex", gap: "12px", justifyContent: "center", flexWrap: "wrap"}}>
+            <a href={c.cta.primaryCta.href} className="btn-primary">{c.cta.primaryCta.label}</a>
+            <a href={c.cta.secondaryCta.href} className="btn-ghost">{c.cta.secondaryCta.label}</a>
+          </div>
         </div>
-        <h3 className="why-title">Full access, every plan.</h3>
-        <p className="why-desc">No stripped-down "lite" version , everyone gets the same powerful platform.</p>
-      </div>
-      <div className="why-card">
-        <div className="why-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M16 16.5c2 0 4-2 4-2l-4-7-4 7s2 2 4 2z"></path><path d="M8 16.5c2 0 4-2 4-2L8 7.5l-4 7s2 2 4 2z"></path><path d="M7 21h10"></path><path d="M12 3v18"></path><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"></path></svg>
-        </div>
-        <h3 className="why-title">Predictable pricing.</h3>
-        <p className="why-desc">One base plan, flat user add-ons, and no hidden fees.</p>
-      </div>
-      <div className="why-card">
-        <div className="why-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="m11 17 2 2a1 1 0 1 0 3-3"></path><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4"></path><path d="m21 3 1 11h-2"></path><path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3"></path><path d="M3 4h8"></path></svg>
-        </div>
-        <h3 className="why-title">Free onboarding.</h3>
-        <p className="why-desc">We handle migration, setup, and training.</p>
-      </div>
-      <div className="why-card">
-        <div className="why-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline><polyline points="16 7 22 7 22 13"></polyline></svg>
-        </div>
-        <h3 className="why-title">Scales with you.</h3>
-        <p className="why-desc">From two users to hundreds, FactorCloud grows with your business.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section className="cta-section" style={{background: "var(--bg-2)"}}>
-  <div className="container">
-    <span className="page-eyebrow">Ready to Start?</span>
-    <h2>See FactorCloud Before You Commit</h2>
-    <p>94% of teams that see FactorCloud make the switch. Book a demo and see why.</p>
-    <div style={{display: "flex", gap: "12px", justifyContent: "center", flexWrap: "wrap"}}>
-      <a href="/get-demo" className="btn-primary">Get a Demo</a>
-      <a href="/contact" className="btn-ghost">Talk to Sales</a>
-    </div>
-  </div>
-</section>
+      </section>
+    </>
+  );
+})()}
 
 <footer className="footer">
   <div className="container">
     <div className="footer-grid">
       <div className="footer-brand">
-        <img src="../assets/logo.svg" alt="FactorCloud" />
+        <img src="/images/logo.svg" alt="FactorCloud" />
         <p>Dual-ledger precision, automated cash application, 20+ integrations. Built for factors who needed software that could keep up.</p>
       </div>
       <div>

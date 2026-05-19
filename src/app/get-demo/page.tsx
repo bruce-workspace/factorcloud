@@ -1,13 +1,18 @@
-// AUTO-GENERATED from get-demo.html by scripts/migrate-html.mjs.
-// Hand-edits are fine; re-running the migrator will overwrite this file.
+// Metadata sourced from /content/pages/{locale}/get-demo.mdx — edit there, not here.
 import type { Metadata } from "next";
 import PageContent from "./page-content";
+import { loadPage } from "@/lib/content";
+import { getMetadata } from "@/lib/seo";
+import type { GetDemoFrontmatter } from "@/lib/content-types";
 
-export const metadata: Metadata = {
-  title: "Get a Demo , FactorCloud",
-  description: "The Factoring OS Built for Scale. Book a demo and see FactorCloud in action. Most teams are live within days of the call.",
-};
+const LOCALE = "en" as const;
+
+export function generateMetadata(): Metadata {
+  const { frontmatter } = loadPage<GetDemoFrontmatter>("get-demo", LOCALE);
+  return getMetadata({ page: "get-demo", locale: LOCALE, override: frontmatter.seo });
+}
 
 export default function Page() {
-  return <PageContent />;
+  const { frontmatter } = loadPage<GetDemoFrontmatter>("get-demo", LOCALE);
+  return <PageContent content={frontmatter} />;
 }
