@@ -234,21 +234,13 @@ section { padding: 96px 0; }
 .nav-logo {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-family: 'Geist', sans-serif;
-  font-size: 16px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  color: var(--white);
   flex-shrink: 0;
+  line-height: 0;
 }
-.nav-logo-mark {
-  width: 34px; height: 34px;
-  background: var(--cta);
-  border-radius: 8px;
-  display: flex; align-items: center; justify-content: center;
+.nav-logo-img {
+  height: 28px;
+  width: auto;
 }
-.nav-logo-mark svg { width: 16px; height: 16px; fill: white; }
 
 .nav-links {
   display: flex;

@@ -2813,7 +2813,7 @@ export default function Page() {
       <nav className="nav" id="main-nav">
   <div className="nav-inner">
     <a href="/" className="nav-logo">
-      <img src="/images/logo.svg" alt="FactorCloud" />
+      <img src="/images/logo-nav.svg" alt="FactorCloud" />
     </a>
 
     <ul className="nav-links">
@@ -3604,7 +3604,7 @@ export default function Page() {
   <div className="container">
     <div className="footer-grid">
       <div className="footer-brand">
-        <img src="/images/logo.svg" alt="FactorCloud" loading="lazy" />
+        <img src="/images/logo-nav.svg" alt="FactorCloud" loading="lazy" />
         <p>Dual-ledger precision, automated cash application, 20+ integrations. Built for factors who needed software that could keep up.</p>
       </div>
       <div>

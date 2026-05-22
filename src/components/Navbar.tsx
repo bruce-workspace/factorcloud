@@ -1,17 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-
-const LogoMark = () => (
-  <svg viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
-    <path
-      d="M9 2L2 6v6l7 4 7-4V6L9 2zm0 2.4l4.6 2.7L9 9.8 4.4 7.1 9 4.4zM3.6 8.1l4.8 2.8v4.7L3.6 12.8V8.1zm5.8 7.5v-4.7l4.8-2.8v4.7l-4.8 2.8z"
-      fill="white"
-    />
-  </svg>
-);
 
 const Chevron = () => (
   <svg className="nav-chevron" viewBox="0 0 10 6">
@@ -44,11 +36,15 @@ export default function Navbar() {
   return (
     <nav className="site-nav">
       <div className="nav-inner">
-        <Link href="/" className="nav-logo">
-          <div className="nav-logo-mark">
-            <LogoMark />
-          </div>
-          FactorCloud
+        <Link href="/" className="nav-logo" aria-label="FactorCloud home">
+          <Image
+            src="/images/logo-nav.svg"
+            alt="FactorCloud"
+            width={751}
+            height={120}
+            priority
+            className="nav-logo-img"
+          />
         </Link>
         <ul className="nav-links">
           <li className="nav-item">
