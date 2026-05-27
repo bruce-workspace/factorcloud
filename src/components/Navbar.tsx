@@ -214,6 +214,11 @@ export default function Navbar() {
             </NavLink>
           </li>
           <li className="nav-item">
+            <NavLink href="/blog" active={pathname}>
+              Blog
+            </NavLink>
+          </li>
+          <li className="nav-item">
             <button aria-haspopup="true">
               About
               <Chevron />
@@ -294,6 +299,7 @@ export default function Navbar() {
         <div className="mobile-section-label">Company</div>
         <Link href="/pricing">Pricing</Link>
         <Link href="/resources">Resources</Link>
+        <Link href="/blog">Blog</Link>
         <Link href="/about/our-story">About</Link>
         <Link href="/contact">Contact</Link>
         <Link href="/get-demo" className="btn-primary">

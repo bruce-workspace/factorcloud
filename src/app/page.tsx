@@ -2834,6 +2834,7 @@ export default function Page() {
       <li><a href="/integrations">Integrations</a></li>
       <li><a href="/pricing">Pricing</a></li>
       <li><a href="/resources">Resources</a></li>
+      <li><a href="/blog">Blog</a></li>
       <li><a href="/about">About</a></li>
     </ul>
 
@@ -2865,6 +2866,7 @@ export default function Page() {
   <a href="/integrations" className="mobile-nav-link">Integrations</a>
   <a href="/pricing" className="mobile-nav-link">Pricing</a>
   <a href="/resources" className="mobile-nav-link">Resources</a>
+  <a href="/blog" className="mobile-nav-link">Blog</a>
   <a href="/about" className="mobile-nav-link">About</a>
   <div className="mobile-nav-cta">
     <a href="/get-demo" className="btn-primary" style={{width: "100%", justifyContent: "center"}}>Get a Demo</a>
