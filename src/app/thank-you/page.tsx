@@ -1,5 +1,11 @@
-"use client";
+import type { Metadata } from "next";
 import Script from "next/script";
+
+export const metadata: Metadata = {
+  title: "Thank You",
+  description: "Thanks for reaching out. Our team will be in touch shortly.",
+  robots: { index: false, follow: false },
+};
 
 const PAGE_CSS = `
     html, body { overflow-x: hidden; }
@@ -13,16 +19,11 @@ const PAGE_CSS = `
     }
     html { scroll-behavior: smooth; }
     body { background:var(--bg); color:var(--white); font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif; font-size:15px; line-height:1.7; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
-    .serif { font-family:'Syne', sans-serif; }
-    .mono  { font-family:'JetBrains Mono', monospace; }
     h1,h2,h3 { font-weight:400; }
     h1 { font-family:'Syne', sans-serif; }
     h2 { font-family:'Syne', sans-serif; font-weight:700; font-size:clamp(34px,4vw,50px); letter-spacing:-0.01em; line-height:1.1; color:var(--white); }
-    h3 { font-size:17px; font-weight:600; font-family:'Inter', sans-serif; line-height:1.35; }
     p  { color:var(--gray-2); line-height:1.75; }
     .container { max-width:1360px; margin:0 auto; padding:0 24px; }
-    .container-sm { max-width:760px; margin:0 auto; padding:0 24px; }
-    hr { border:none; border-top:0.5px solid var(--border); }
     a { text-decoration:none; }
 
     /* BUTTONS */
@@ -80,28 +81,16 @@ const PAGE_CSS = `
     .mobile-nav-link { display:block; font-family:'JetBrains Mono', monospace; font-size:11px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--gray-2); text-decoration:none; padding:14px 0; border-bottom:0.5px solid var(--border-dim); }
     .mobile-nav-cta { margin-top:24px; }
 
-    /* PAGE HERO */
-    .page-hero { padding:140px 0 80px; text-align:center; position:relative; overflow:hidden; }
-    .page-hero::before { content:''; position:absolute; inset:0; background-image:linear-gradient(rgba(212,168,67,0.025) 1px,transparent 1px); background-size:100% 48px; pointer-events:none; mask-image:radial-gradient(ellipse 90% 80% at 50% 40%,black 0%,transparent 100%); -webkit-mask-image:radial-gradient(ellipse 90% 80% at 50% 40%,black 0%,transparent 100%); }
-    .page-hero-glow { position:absolute; top:0; left:50%; transform:translateX(-50%); width:800px; height:400px; background:radial-gradient(ellipse at center,rgba(212,168,67,0.045) 0%,transparent 65%); pointer-events:none; }
-
-    /* FEAT LIST */
-    .feat-list { list-style:none; margin:20px 0; }
-    .feat-list li { display:flex; align-items:center; gap:14px; font-size:14px; font-weight:400; color:var(--gray-1); padding:12px 0; border-bottom:0.5px solid var(--border-dim); }
-    .feat-list li:last-child { border-bottom:none; }
-    .feat-list-tick { font-family:'JetBrains Mono', monospace; color:var(--amber); font-size:11px; flex-shrink:0; width:14px; }
-
-    /* VIZ CARD */
-    .viz-card { background:var(--bg-4); border:0.5px solid rgba(212,168,67,0.25); border-radius:2px; overflow:hidden; box-shadow:0 0 0 0.5px rgba(212,168,67,0.08),0 24px 48px rgba(0,0,0,0.6); }
-
-    /* FORMS */
-    .form-group { display:flex; flex-direction:column; gap:6px; margin-bottom:16px; }
-    .form-group label { font-family:'JetBrains Mono', monospace; font-size:10px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--gray-2); }
-    .form-group input,.form-group select,.form-group textarea { background:var(--bg-4); border:0.5px solid var(--border); padding:12px 14px; font-size:14px; color:var(--white); font-family:'Inter', sans-serif; outline:none; border-radius:2px; transition:border-color 0.15s; }
-    .form-group input:focus,.form-group select:focus,.form-group textarea:focus { border-color:rgba(212,168,67,0.4); }
-    .form-group textarea { resize:vertical; min-height:110px; }
-    .form-group select option { background:var(--bg-4); }
-    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+    /* THANK YOU HERO */
+    .ty-hero { min-height:100vh; display:flex; align-items:center; justify-content:center; text-align:center; position:relative; overflow:hidden; padding:120px 0 80px; }
+    .ty-hero::before { content:''; position:absolute; inset:0; background-image:linear-gradient(rgba(212,168,67,0.025) 1px,transparent 1px); background-size:100% 48px; pointer-events:none; mask-image:radial-gradient(ellipse 90% 80% at 50% 40%,black 0%,transparent 100%); -webkit-mask-image:radial-gradient(ellipse 90% 80% at 50% 40%,black 0%,transparent 100%); }
+    .ty-glow { position:absolute; top:30%; left:50%; transform:translate(-50%,-50%); width:760px; height:420px; background:radial-gradient(ellipse at center,rgba(212,168,67,0.07) 0%,transparent 65%); pointer-events:none; }
+    .ty-inner { position:relative; z-index:2; max-width:880px; margin:0 auto; padding:0 24px; }
+    .ty-check { width:72px; height:72px; margin:0 auto 32px; border-radius:50%; background:rgba(39,174,96,0.08); border:0.5px solid rgba(39,174,96,0.3); display:flex; align-items:center; justify-content:center; }
+    .ty-eyebrow { font-family:'JetBrains Mono', monospace; font-size:10px; font-weight:500; letter-spacing:0.16em; text-transform:uppercase; color:var(--amber); display:block; margin-bottom:20px; }
+    .ty-hero h1 { font-family:'Syne', sans-serif; font-size:clamp(34px,5vw,56px); font-weight:700; letter-spacing:-0.02em; line-height:1.12; margin-bottom:24px; color:var(--white); }
+    .ty-sub { font-size:18px; color:var(--gray-2); line-height:1.75; max-width:520px; margin:0 auto 40px; }
+    .ty-ctas { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
 
     /* FOOTER */
     .footer { background:var(--bg-2); border-top:0.5px solid var(--border); padding:64px 0 40px; }
@@ -130,24 +119,14 @@ const PAGE_CSS = `
       .nav-hamburger { display:flex; }
       .nav-demo { display:none; }
       .footer-grid { grid-template-columns:1fr 1fr; gap:32px; }
-      .form-row { grid-template-columns:1fr; }
     }
     @media (max-width:640px) {
       .footer-grid { grid-template-columns:1fr; }
       .footer-bottom { flex-direction:column; gap:16px; text-align:center; }
     }
-
-    .demo-grid { display:grid; grid-template-columns:1fr 1fr; }
-    @media (max-width:640px) { .demo-grid { grid-template-columns:1fr; } }
-
-    /* Auto scroll reveal */
-    .fade-in { opacity: 0; transform: translateY(28px); transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1), transform 0.85s cubic-bezier(0.22, 1, 0.36, 1); will-change: opacity, transform; }
-    .fade-in.visible { opacity: 1; transform: translateY(0); }
-    @media (prefers-reduced-motion: reduce) { .fade-in { opacity: 1 !important; transform: none !important; transition: none !important; } }
   `;
 const PAGE_JS = `
 document.addEventListener('DOMContentLoaded', function() {
-
   var nav=document.getElementById('main-nav');
   window.addEventListener('scroll',function(){nav.classList.toggle('scrolled',window.scrollY>60);},{passive:true});
   document.querySelectorAll('.nav-link-toggle').forEach(function(link){
@@ -172,56 +151,10 @@ document.addEventListener('DOMContentLoaded', function() {
       this.classList.toggle('open');if(sub)sub.classList.toggle('open');
     });
   });
-
-  // Scroll-triggered reveals
-  (function(){
-    var targets = document.querySelectorAll('section, .page-hero, .viz-card, .feat-list > li');
-    var tagged = [];
-    targets.forEach(function(el, i){
-      if (i === 0 && el.matches('.page-hero, section:first-of-type')) return;
-      el.classList.add('fade-in');
-      tagged.push(el);
-    });
-    if (!('IntersectionObserver' in window)) {
-      tagged.forEach(function(el){ el.classList.add('visible'); });
-      return;
-    }
-    var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(entry){
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          io.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-    tagged.forEach(function(el){ io.observe(el); });
-  })();
-
 });
 `;
 
-const HEAR_ABOUT_OPTIONS = [
-  { value: "search", label: "Search engine" },
-  { value: "referral", label: "Referral" },
-  { value: "social", label: "Social media" },
-  { value: "event", label: "Event or conference" },
-  { value: "other", label: "Other" },
-];
-
-const CONTACT_REASONS = [
-  "A direct line to the team that ran a factoring operation first",
-  "Answers on pricing, onboarding, and migration from your current system",
-  "A walkthrough of BrightBolt, dual-ledger accounting, and the client portal",
-  "Help connecting any of our 20+ pre-built integrations",
-  "A response within one business day",
-];
-
-export default function PageContent() {
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    window.location.href = "/thank-you";
-  }
-
+export default function Page() {
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: PAGE_CSS }} />
@@ -271,46 +204,18 @@ export default function PageContent() {
   <a href="/about" className="mobile-nav-link">About</a>
   <div className="mobile-nav-cta"><a href="/get-demo" className="btn-primary" style={{width: "100%", justifyContent: "center"}}>Get a Demo</a></div>
 </div>
-<section style={{padding: "140px 0 80px", position: "relative", overflow: "hidden"}}>
-  <div style={{position: "absolute", inset: "0", backgroundImage: "linear-gradient(rgba(212,168,67,0.025) 1px,transparent 1px)", backgroundSize: "100% 48px", pointerEvents: "none", maskImage: "radial-gradient(ellipse 90% 80% at 50% 40%,black 0%,transparent 100%)", WebkitMaskImage: "radial-gradient(ellipse 90% 80% at 50% 40%,black 0%,transparent 100%)"}}></div>
-  <div className="container" style={{position: "relative", zIndex: "2"}}>
-    <div className="demo-grid" style={{gap: "80px", alignItems: "start"}}>
-      <div>
-        <span style={{fontFamily: "'JetBrains Mono', monospace", fontSize: "10px", fontWeight: "500", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--amber)", display: "block", marginBottom: "16px"}}>Contact Us</span>
-        <h1 style={{fontFamily: "'Syne', sans-serif", fontSize: "clamp(40px,5.5vw,64px)", fontWeight: "400", letterSpacing: "-0.02em", lineHeight: "1.1", marginBottom: "20px", color: "var(--white)"}}>Get in touch.</h1>
-        <p style={{fontSize: "17px", color: "var(--gray-2)", lineHeight: "1.7", marginBottom: "32px"}}>Questions about FactorCloud, pricing, migration, or a specific workflow. Tell us what you need and the right person on our team will get back to you.</p>
-        <ul className="feat-list" style={{marginTop: "0"}}>
-          {CONTACT_REASONS.map((f, i) => (
-            <li key={i}><span className="feat-list-tick">✓</span>{f}</li>
-          ))}
-        </ul>
-      </div>
-      <div>
-        <div className="viz-card" style={{padding: "40px"}}>
-          <h2 style={{fontFamily: "'Syne', sans-serif", fontSize: "26px", fontWeight: "700", marginBottom: "8px", color: "var(--white)"}}>Send us a message</h2>
-          <p style={{fontSize: "14px", color: "var(--gray-2)", marginBottom: "28px"}}>Fill in the details below and we will get back to you within one business day.</p>
-          <form id="demo-form" onSubmit={handleSubmit}>
-            <div className="form-row">
-              <div className="form-group"><label htmlFor="firstName">First Name</label><input type="text" id="firstName" name="firstName" placeholder="Jane" required /></div>
-              <div className="form-group"><label htmlFor="lastName">Last Name</label><input type="text" id="lastName" name="lastName" placeholder="Doe" required /></div>
-            </div>
-            <div className="form-group"><label htmlFor="company">Company</label><input type="text" id="company" name="company" placeholder="Your factoring company" required /></div>
-            <div className="form-group"><label htmlFor="email">Work Email</label><input type="email" id="email" name="email" placeholder="jane@company.com" required /></div>
-            <div className="form-group">
-              <label htmlFor="hearAbout">How did you hear about us?</label>
-              <select id="hearAbout" name="hearAbout" defaultValue="">
-                <option value="">Select an option</option>
-                {HEAR_ABOUT_OPTIONS.map((o) => (
-                  <option key={o.value} value={o.value}>{o.label}</option>
-                ))}
-              </select>
-            </div>
-            <div className="form-group"><label htmlFor="comments">How can we help?</label><textarea id="comments" name="comments" placeholder="Tell us about your operation, current software, or what you need." required></textarea></div>
-            <button type="submit" className="btn-primary" style={{width: "100%", justifyContent: "center", padding: "16px"}}>Send Message</button>
-            <p style={{textAlign: "center", marginTop: "12px", fontFamily: "'JetBrains Mono', monospace", fontSize: "11px", color: "var(--gray-3)"}}>We respond within one business day.</p>
-          </form>
-        </div>
-      </div>
+<section className="ty-hero">
+  <div className="ty-glow"></div>
+  <div className="ty-inner">
+    <div className="ty-check">
+      <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#27AE60" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+    </div>
+    <span className="ty-eyebrow">Thank You</span>
+    <h1>Thanks.<br />We have your request.</h1>
+    <p className="ty-sub">Our team will reach out within one business day to set up your FactorCloud demo. While you wait, take a closer look at how the platform works.</p>
+    <div className="ty-ctas">
+      <a href="/features/automation" className="btn-primary">Explore the Platform</a>
+      <a href="/" className="btn-ghost">Back to Home</a>
     </div>
   </div>
 </section>
@@ -375,7 +280,7 @@ export default function PageContent() {
     </div>
   </div>
 </footer>
-      <Script id="page-contact" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: PAGE_JS }} />
+      <Script id="page-thank-you" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: PAGE_JS }} />
     </>
   );
 }
