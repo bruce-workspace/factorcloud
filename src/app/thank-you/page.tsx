@@ -92,6 +92,33 @@ const PAGE_CSS = `
     .ty-sub { font-size:18px; color:var(--gray-2); line-height:1.75; max-width:520px; margin:0 auto 40px; }
     .ty-ctas { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
 
+    /* STAT BANNER (from home) */
+    .stat-section { background:var(--bg-2); padding:60px 0; border-top:0.5px solid var(--border-dim); border-bottom:0.5px solid var(--border-dim); }
+    .stat-inner { display:block; }
+    .stat-banner { display:flex; align-items:center; justify-content:center; gap:48px; padding:40px 56px; border-radius:14px; border:1px solid rgba(255,255,255,0.08); background:rgba(255,255,255,0.015); box-shadow:0 0 0 0 rgba(255,255,255,0); margin:0 auto; max-width:1024px; animation:statBannerPulse 3.6s ease-in-out infinite; }
+    @keyframes statBannerPulse {
+      0%, 100% { border-color:rgba(255,255,255,0.08); box-shadow:0 0 0 0 rgba(255,255,255,0); }
+      50%      { border-color:rgba(255,255,255,0.5); box-shadow:0 0 32px rgba(255,255,255,0.14); }
+    }
+    .stat-number { font-family:'Inter', sans-serif; font-size:clamp(88px,14vw,180px); color:var(--amber); line-height:0.9; letter-spacing:-0.04em; font-weight:600; white-space:nowrap; flex-shrink:0; }
+    .stat-right { display:flex; flex-direction:column; gap:20px; flex:1; min-width:0; }
+    .stat-label { font-family:'Syne', sans-serif; font-size:clamp(22px,2.6vw,34px); color:var(--gray-1); font-weight:400; letter-spacing:-0.01em; line-height:1.22; margin:0; }
+    @media (max-width:820px) {
+      .stat-banner { flex-direction:column; align-items:flex-start; gap:16px; padding:22px 14px; text-align:left; }
+      .stat-number { font-size:clamp(120px,32vw,160px); line-height:0.88; }
+      .stat-right { align-items:flex-start; width:100%; gap:18px; }
+      .stat-label { font-size:24px; line-height:1.22; letter-spacing:-0.015em; max-width:none; }
+    }
+    .stat-marquee { display:flex; flex-direction:column; gap:10px; width:100%; overflow:hidden; -webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 8%,#000 92%,transparent 100%); mask-image:linear-gradient(90deg,transparent 0%,#000 8%,#000 92%,transparent 100%); }
+    .stat-marquee-row { display:flex; overflow:hidden; }
+    .stat-marquee-track { display:inline-flex; flex-shrink:0; gap:10px; padding-right:10px; white-space:nowrap; animation:marqueeLeft 36s linear infinite; }
+    .stat-marquee-row.reverse .stat-marquee-track { animation:marqueeRight 36s linear infinite; }
+    .stat-marquee .stat-badge { flex-shrink:0; }
+    @keyframes marqueeLeft  { from { transform:translateX(0); } to { transform:translateX(-50%); } }
+    @keyframes marqueeRight { from { transform:translateX(-50%); } to { transform:translateX(0); } }
+    .stat-badge { font-family:'Inter', sans-serif; font-size:11px; font-weight:600; letter-spacing:0.05em; text-transform:uppercase; color:var(--amber); padding:8px 16px; border:1px solid rgba(212,168,67,0.3); border-radius:2px; background:rgba(212,168,67,0.06); transition:background 0.2s,border-color 0.2s; }
+    .stat-badge:hover { background:rgba(212,168,67,0.12); border-color:rgba(212,168,67,0.5); }
+
     /* FOOTER */
     .footer { background:var(--bg-2); border-top:0.5px solid var(--border); padding:64px 0 40px; }
     .footer-grid { display:grid; grid-template-columns:2fr 1fr 1fr 1fr 1fr; gap:40px; margin-bottom:48px; }
@@ -216,6 +243,49 @@ export default function Page() {
     <div className="ty-ctas">
       <a href="/features/automation" className="btn-primary">Explore the Platform</a>
       <a href="/" className="btn-ghost">Back to Home</a>
+    </div>
+  </div>
+</section>
+
+<section className="stat-section">
+  <div className="container">
+    <div className="stat-inner">
+      <div className="stat-banner">
+        <div className="stat-number">94%</div>
+        <div className="stat-right">
+          <p className="stat-label">of teams that see FactorCloud make the switch.</p>
+          <div className="stat-marquee" aria-hidden="true">
+            <div className="stat-marquee-row">
+              <div className="stat-marquee-track">
+                <span className="stat-badge">Dual-Ledger</span>
+                <span className="stat-badge">Auto Cash Application</span>
+                <span className="stat-badge">Free Onboarding</span>
+                <span className="stat-badge">45+ Developers</span>
+                <span className="stat-badge">SOC2 Compliant</span>
+                <span className="stat-badge">Dual-Ledger</span>
+                <span className="stat-badge">Auto Cash Application</span>
+                <span className="stat-badge">Free Onboarding</span>
+                <span className="stat-badge">45+ Developers</span>
+                <span className="stat-badge">SOC2 Compliant</span>
+              </div>
+            </div>
+            <div className="stat-marquee-row reverse">
+              <div className="stat-marquee-track">
+                <span className="stat-badge">SOC2 Compliant</span>
+                <span className="stat-badge">45+ Developers</span>
+                <span className="stat-badge">Free Onboarding</span>
+                <span className="stat-badge">Auto Cash Application</span>
+                <span className="stat-badge">Dual-Ledger</span>
+                <span className="stat-badge">SOC2 Compliant</span>
+                <span className="stat-badge">45+ Developers</span>
+                <span className="stat-badge">Free Onboarding</span>
+                <span className="stat-badge">Auto Cash Application</span>
+                <span className="stat-badge">Dual-Ledger</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
