@@ -302,16 +302,24 @@ section { padding: 96px 0; }
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
+  /* opacity intentionally excluded from transition: combining it with a simultaneous
+     visibility hidden→visible flip leaves the opacity stuck at 0 in some Chromium states.
+     Visibility flips discretely; transform handles the slide. */
+  transition: transform 0.18s ease;
   backdrop-filter: blur(20px);
   box-shadow: 0 8px 32px rgba(0,0,0,0.24);
 }
 .nav-item:hover .nav-dropdown,
-.nav-item:focus-within .nav-dropdown {
+.nav-item:focus-within .nav-dropdown,
+.nav-links > li.open .nav-dropdown {
   opacity: 1;
   visibility: visible;
   pointer-events: all;
   transform: translateX(-50%) translateY(0);
+}
+/* Page-level navbars render <li> without .nav-item and position the dropdown left-anchored. */
+.nav-links > li.open .nav-dropdown {
+  transform: translateY(0);
 }
 
 /* Mega dropdown for integrations */

@@ -177,17 +177,20 @@ const PAGE_CSS = `
 
     .nav-dropdown {
       position: absolute; top: calc(100% + 8px); left: 0;
-      background: var(--bg-3);
-      border: 0.5px solid var(--border);
-      border-radius: 2px;
-      padding: 8px;
+      background: var(--bg-3) !important;
+      border: 0.5px solid var(--border) !important;
+      border-radius: 2px !important;
+      padding: 8px !important;
       min-width: 220px;
       opacity: 0; pointer-events: none;
+      visibility: hidden;
       transform: translateY(-6px);
-      transition: opacity 0.15s, transform 0.15s;
+      transition: transform 0.15s !important;
       box-shadow: 0 24px 48px rgba(0,0,0,0.7);
+      backdrop-filter: none !important;
+      left: 0 !important;
     }
-    .nav-links > li.open .nav-dropdown { opacity: 1; pointer-events: auto; transform: translateY(0); }
+    .nav-links > li.open .nav-dropdown { opacity: 1 !important; pointer-events: auto !important; visibility: visible !important; transform: translateY(0) !important; }
     .nav-dropdown a {
       display: flex; align-items: center; gap: 10px;
       font-family: 'Inter', sans-serif;
@@ -508,10 +511,10 @@ const PAGE_CSS = `
     }
 
     .stat-banner {
-      display: flex;
+      display: grid;
+      grid-template-columns: auto 1fr;
       align-items: center;
-      justify-content: center;
-      gap: 48px;
+      gap: 56px;
       padding: 40px 56px;
       border-radius: 14px;
       border: 1px solid rgba(255,255,255,0.08);
@@ -1772,8 +1775,24 @@ const PAGE_CSS = `
     .btn-primary {
       position: relative;
     }
+    .btn-primary:hover {
+      box-shadow: 0 8px 24px rgba(255,200,74,0.28);
+    }
+    .btn-ghost:hover {
+      box-shadow: 0 8px 24px rgba(255,200,74,0.18);
+    }
     .btn-primary:active { transform: translateY(0) scale(0.97); }
     .btn-ghost:active   { transform: translateY(0) scale(0.97); }
+
+    /* Override globals.css blue ::after line on homepage steps , use amber on-brand */
+    .steps-section .step:not(:last-child)::after {
+      background: linear-gradient(to bottom, var(--amber), transparent) !important;
+    }
+
+    /* Client Portal h2 , force 2 lines (5 + 5 words via <br>) by shrinking font enough to fit each half in column width */
+    h2.client-portal-h2 {
+      font-size: clamp(28px, 3vw, 40px);
+    }
 
     /* ─── RESPONSIVE ─────────────────────────────────────── */
     @media (max-width: 1024px) {
@@ -2108,7 +2127,13 @@ const PAGE_CSS = `
     .badge-red { background: rgba(192,57,43,0.1); color: var(--red); border: 0.5px solid rgba(192,57,43,0.25); }
   `;
 const PAGE_JS = `
-document.addEventListener('DOMContentLoaded', function() {
+(function runPageInit() {
+  // Script loads with strategy="afterInteractive", which fires after DOMContentLoaded —
+  // listening for it would silently miss the event and leave all .reveal elements at opacity:0.
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', runPageInit, { once: true });
+    return;
+  }
 
   // ─── NAV SCROLL ──────────────────────────────────────────
   var nav = document.getElementById('main-nav');
@@ -2195,10 +2220,13 @@ document.addEventListener('DOMContentLoaded', function() {
   } else {
     revealEls.forEach(function(el) { el.classList.add('visible'); });
   }
-  // Fallback: reveal all after 400ms
+  // Fallback: reveal all after 250ms, clearing any stagger delay so they snap in.
   setTimeout(function() {
-    document.querySelectorAll('.reveal:not(.visible)').forEach(function(el) { el.classList.add('visible'); });
-  }, 400);
+    document.querySelectorAll('.reveal:not(.visible)').forEach(function(el) {
+      el.style.transitionDelay = '0ms';
+      el.classList.add('visible');
+    });
+  }, 250);
 
   // ─── FAQ ACCORDION ───────────────────────────────────────
   document.querySelectorAll('.faq-q').forEach(function(q) {
@@ -2779,7 +2807,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }, 8000);
 
-}); // end DOMContentLoaded
+})(); // end runPageInit
 `;
 
 export default function Page() {
@@ -2978,7 +3006,7 @@ export default function Page() {
 <div className="platform-wrap">
 
   
-  <section className="platform-section platform-section--stack">
+  <section className="platform-section">
     <div className="container">
       <div className="platform-row">
         <div className="platform-copy reveal">
@@ -3385,7 +3413,7 @@ export default function Page() {
         </div>
         <div className="platform-copy reveal">
           <span className="overline">{c.platformSections[4].overline}</span>
-          <h2>{c.platformSections[4].heading}</h2>
+          <h2 className="client-portal-h2" dangerouslySetInnerHTML={{ __html: c.platformSections[4].heading }} />
           {c.platformSections[4].body.map((p, i) => <p key={i}>{p}</p>)}
           {c.platformSections[4].link && (
             <a href={c.platformSections[4].link!.href} className="platform-link">{c.platformSections[4].link!.label} <span>→</span></a>

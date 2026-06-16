@@ -64,7 +64,7 @@ const PAGE_CSS = `
     .nav-links > li > a:hover { color:var(--white); background:rgba(212,168,67,0.04); }
     .nav-links > li > a .chevron { width:10px; height:10px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; transition:transform 0.2s; }
     .nav-links > li.open > a .chevron { transform:rotate(180deg); }
-    .nav-dropdown { position:absolute; top:calc(100% + 8px); left:0; background:var(--bg-3); border:0.5px solid var(--border); border-radius:2px; padding:8px; min-width:220px; opacity:0; pointer-events:none; transform:translateY(-6px); transition:opacity 0.15s,transform 0.15s; box-shadow:0 24px 48px rgba(0,0,0,0.7); }
+    .nav-dropdown { position:absolute; top:calc(100% + 8px); left:0; background:var(--bg-3); border:0.5px solid var(--border); border-radius:2px; padding:8px; min-width:220px; opacity:0; pointer-events:none; transform:translateY(-6px); transition:transform 0.15s; box-shadow:0 24px 48px rgba(0,0,0,0.7); }
     .nav-links > li.open .nav-dropdown { opacity:1; pointer-events:auto; transform:translateY(0); }
     .nav-dropdown a { display:flex; align-items:center; gap:10px; font-family:'JetBrains Mono', monospace; font-size:11px; font-weight:400; letter-spacing:0.04em; color:var(--gray-2); text-decoration:none; padding:9px 12px; border-radius:2px; transition:background 0.12s,color 0.12s; }
     .nav-dropdown a:hover { background:rgba(212,168,67,0.06); color:var(--white); }
@@ -391,7 +391,7 @@ const PAGE_CSS = `
     @media (prefers-reduced-motion: reduce) { .fade-in { opacity: 1 !important; transform: none !important; transition: none !important; } }
   `;
 const PAGE_JS = `
-document.addEventListener('DOMContentLoaded', function() {
+(function(fn){if(document.readyState!=='loading')fn();else document.addEventListener('DOMContentLoaded',fn);})(function() {
 
   var nav=document.getElementById('main-nav');
   window.addEventListener('scroll',function(){nav.classList.toggle('scrolled',window.scrollY>60);},{passive:true});
@@ -576,7 +576,7 @@ export default function Page() {
 
 <section style={{padding: "100px 0", textAlign: "center", background: "var(--bg-3)", borderTop: "0.5px solid var(--border)", borderBottom: "0.5px solid var(--border)"}}>
   <div className="container">
-    <p style={{fontFamily: "'Syne', sans-serif", fontSize: "clamp(22px,3.5vw,38px)", fontWeight: "400", color: "var(--white)", lineHeight: "1.4", maxWidth: "680px", margin: "0 auto 32px"}}>The average factor processes <span style={{color: "var(--amber)"}}>hundreds of invoices per week</span>. FactorCloud eliminates the data entry for every single one.</p>
+    <p style={{fontFamily: "'Syne', sans-serif", fontSize: "clamp(22px,3.2vw,34px)", fontWeight: "700", color: "var(--white)", lineHeight: "1.35", maxWidth: "900px", margin: "0 auto 32px"}}>The average factor processes <span style={{color: "var(--amber)"}}>hundreds of invoices per week</span>. FactorCloud eliminates the data entry for every single one.</p>
     <a href="/get-demo" className="btn-primary">See BrightBolt Live</a>
   </div>
 </section>

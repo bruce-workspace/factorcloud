@@ -64,7 +64,7 @@ const PAGE_CSS = `
     .nav-links > li > a:hover { color:var(--white); background:rgba(212,168,67,0.04); }
     .nav-links > li > a .chevron { width:10px; height:10px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; transition:transform 0.2s; }
     .nav-links > li.open > a .chevron { transform:rotate(180deg); }
-    .nav-dropdown { position:absolute; top:calc(100% + 8px); left:0; background:var(--bg-3); border:0.5px solid var(--border); border-radius:2px; padding:8px; min-width:220px; opacity:0; pointer-events:none; transform:translateY(-6px); transition:opacity 0.15s,transform 0.15s; box-shadow:0 24px 48px rgba(0,0,0,0.7); }
+    .nav-dropdown { position:absolute; top:calc(100% + 8px); left:0; background:var(--bg-3); border:0.5px solid var(--border); border-radius:2px; padding:8px; min-width:220px; opacity:0; pointer-events:none; transform:translateY(-6px); transition:transform 0.15s; box-shadow:0 24px 48px rgba(0,0,0,0.7); }
     .nav-links > li.open .nav-dropdown { opacity:1; pointer-events:auto; transform:translateY(0); }
     .nav-dropdown a { display:flex; align-items:center; gap:10px; font-family:'JetBrains Mono', monospace; font-size:11px; font-weight:400; letter-spacing:0.04em; color:var(--gray-2); text-decoration:none; padding:9px 12px; border-radius:2px; transition:background 0.12s,color 0.12s; }
     .nav-dropdown a:hover { background:rgba(212,168,67,0.06); color:var(--white); }
@@ -92,7 +92,7 @@ const PAGE_CSS = `
     .page-hero { padding:140px 0 80px; text-align:center; position:relative; overflow:hidden; }
     .page-hero::before { content:''; position:absolute; inset:0; background-image:linear-gradient(rgba(212,168,67,0.025) 1px,transparent 1px); background-size:100% 48px; pointer-events:none; mask-image:radial-gradient(ellipse 90% 80% at 50% 40%,black 0%,transparent 100%); -webkit-mask-image:radial-gradient(ellipse 90% 80% at 50% 40%,black 0%,transparent 100%); }
     .page-hero-glow { position:absolute; top:0; left:50%; transform:translateX(-50%); width:800px; height:400px; background:radial-gradient(ellipse at center,rgba(212,168,67,0.045) 0%,transparent 65%); pointer-events:none; }
-    .page-hero-inner { position:relative; z-index:2; max-width:760px; margin:0 auto; padding:0 24px; }
+    .page-hero-inner { position:relative; z-index:2; max-width:980px; margin:0 auto; padding:0 24px; }
     .page-eyebrow { font-family:'JetBrains Mono', monospace; font-size:10px; font-weight:500; letter-spacing:0.16em; text-transform:uppercase; color:var(--amber); display:block; margin-bottom:20px; }
     .page-hero h1 { font-family:'Syne', sans-serif; font-size:clamp(40px,6vw,72px); font-weight:700; letter-spacing:-0.02em; line-height:1.08; margin-bottom:24px; color:var(--white); opacity:1 !important; }
     .page-hero-sub { font-size:18px; color:var(--gray-2); line-height:1.75; max-width:600px; margin:0 auto 36px; opacity:1 !important; }
@@ -396,7 +396,7 @@ const PAGE_CSS = `
     @media (prefers-reduced-motion: reduce) { .fade-in { opacity: 1 !important; transform: none !important; transition: none !important; } }
   `;
 const PAGE_JS = `
-document.addEventListener('DOMContentLoaded', function() {
+(function(fn){if(document.readyState!=='loading')fn();else document.addEventListener('DOMContentLoaded',fn);})(function() {
 
   var nav=document.getElementById('main-nav');
   window.addEventListener('scroll',function(){nav.classList.toggle('scrolled',window.scrollY>60);},{passive:true});
@@ -504,7 +504,7 @@ export default function Page() {
   <div className="page-hero-glow"></div>
   <div className="page-hero-inner" style={{opacity: "1 !important"}}>
     <span className="page-eyebrow" style={{opacity: "1 !important"}}>Open API</span>
-    <h1 style={{opacity: "1 !important"}}>Build Anything on Top of FactorCloud.</h1>
+    <h1 style={{opacity: "1 !important"}}>Build Anything on<br/>Top of FactorCloud.</h1>
     <p className="page-hero-sub" style={{opacity: "1 !important"}}>Our REST API gives you full push/pull access to your FactorCloud data. 20+ integration partners already connected. Build the custom integrations your operation needs.</p>
     <div className="page-hero-ctas">
       <a href="/get-demo" className="btn-primary">Get API Access</a>
