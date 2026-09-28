@@ -481,7 +481,7 @@ export default function Page() {
   <div className="page-hero-glow"></div>
   <div className="page-hero-inner" style={{opacity: "1 !important"}}>
     <span className="page-eyebrow" style={{opacity: "1 !important"}}>Integration</span>
-    <div style={{marginBottom: "16px", opacity: "1 !important", lineHeight: "0"}}><svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#E8B547" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"></rect><line x1="2" x2="22" y1="10" y2="10"></line></svg></div>
+    <div style={{marginBottom: "16px", opacity: "1 !important", lineHeight: "0", display: "flex", justifyContent: "center"}}><svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#E8B547" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"></rect><line x1="2" x2="22" y1="10" y2="10"></line></svg></div>
     <h1 style={{opacity: "1 !important"}}>Tank</h1>
     <p className="page-hero-sub" style={{opacity: "1 !important"}}>Client payments and spend management.</p>
     <div className="page-hero-ctas"><a href="/get-demo" className="btn-primary">See It in Action</a></div>
@@ -510,7 +510,7 @@ export default function Page() {
       </div>
       <div>
         <div className="int-card" style={{textAlign: "center"}}>
-          <div style={{marginBottom: "20px", lineHeight: "0"}}><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#E8B547" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"></rect><line x1="2" x2="22" y1="10" y2="10"></line></svg></div>
+          <div style={{marginBottom: "20px", lineHeight: "0", display: "flex", justifyContent: "center"}}><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#E8B547" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"></rect><line x1="2" x2="22" y1="10" y2="10"></line></svg></div>
           <div style={{fontFamily: "'Syne', sans-serif", fontSize: "32px", fontWeight: "700", marginBottom: "12px", color: "var(--white)"}}>Tank</div>
           <div style={{fontSize: "14px", color: "var(--gray-2)", lineHeight: "1.6", marginBottom: "24px"}}>Client payments and spend management.</div>
           <div style={{textAlign: "center", marginBottom: "24px"}}>

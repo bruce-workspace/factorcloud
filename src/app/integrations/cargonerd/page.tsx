@@ -481,7 +481,7 @@ export default function Page() {
   <div className="page-hero-glow"></div>
   <div className="page-hero-inner" style={{opacity: "1 !important"}}>
     <span className="page-eyebrow" style={{opacity: "1 !important"}}>Integration</span>
-    <div style={{marginBottom: "16px", opacity: "1 !important", lineHeight: "0"}}><svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#E8B547" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 18H3c-.6 0-1-.4-1-1V7c0-.6.4-1 1-1h10c.6 0 1 .4 1 1v11"></path><path d="M14 9h4l4 4v4c0 .6-.4 1-1 1h-2"></path><circle cx="7" cy="18" r="2"></circle><circle cx="17" cy="18" r="2"></circle></svg></div>
+    <div style={{marginBottom: "16px", opacity: "1 !important", lineHeight: "0", display: "flex", justifyContent: "center"}}><svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#E8B547" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 18H3c-.6 0-1-.4-1-1V7c0-.6.4-1 1-1h10c.6 0 1 .4 1 1v11"></path><path d="M14 9h4l4 4v4c0 .6-.4 1-1 1h-2"></path><circle cx="7" cy="18" r="2"></circle><circle cx="17" cy="18" r="2"></circle></svg></div>
     <h1 style={{opacity: "1 !important"}}>CargoNerd</h1>
     <p className="page-hero-sub" style={{opacity: "1 !important"}}>Freight visibility, delivery confirmation, and fraud flagging.</p>
     <div className="page-hero-ctas"><a href="/get-demo" className="btn-primary">See It in Action</a></div>
@@ -510,7 +510,7 @@ export default function Page() {
       </div>
       <div>
         <div className="int-card" style={{textAlign: "center"}}>
-          <div style={{marginBottom: "20px", lineHeight: "0"}}><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#E8B547" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 18H3c-.6 0-1-.4-1-1V7c0-.6.4-1 1-1h10c.6 0 1 .4 1 1v11"></path><path d="M14 9h4l4 4v4c0 .6-.4 1-1 1h-2"></path><circle cx="7" cy="18" r="2"></circle><circle cx="17" cy="18" r="2"></circle></svg></div>
+          <div style={{marginBottom: "20px", lineHeight: "0", display: "flex", justifyContent: "center"}}><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#E8B547" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 18H3c-.6 0-1-.4-1-1V7c0-.6.4-1 1-1h10c.6 0 1 .4 1 1v11"></path><path d="M14 9h4l4 4v4c0 .6-.4 1-1 1h-2"></path><circle cx="7" cy="18" r="2"></circle><circle cx="17" cy="18" r="2"></circle></svg></div>
           <div style={{fontFamily: "'Syne', sans-serif", fontSize: "32px", fontWeight: "700", marginBottom: "12px", color: "var(--white)"}}>CargoNerd</div>
           <div style={{fontSize: "14px", color: "var(--gray-2)", lineHeight: "1.6", marginBottom: "24px"}}>Freight visibility, delivery confirmation, and fraud flagging.</div>
           <div style={{textAlign: "center", marginBottom: "24px"}}>
