@@ -31,6 +31,7 @@ const ROUTES: string[] = [
   "/integrations/claude",
   "/integrations/decipher",
   "/integrations/factorgenie",
+  "/integrations/iridium-credit",
   "/integrations/lighthouz",
   "/integrations/lighthouz-ai",
   "/integrations/peruse",

@@ -481,7 +481,7 @@ export default function Page() {
   <div className="page-hero-glow"></div>
   <div className="page-hero-inner" style={{opacity: "1 !important"}}>
     <span className="page-eyebrow" style={{opacity: "1 !important"}}>Integration</span>
-    <div style={{marginBottom: "16px", opacity: "1 !important", lineHeight: "0"}}><svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#E8B547" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9.3 6.2 8 10h8l-1.3-3.8a2 2 0 0 0-1.9-1.2h-2.2a2 2 0 0 0-1.9 1.2z"></path><path d="m7.3 13-2 6h13.4l-2-6z"></path><path d="M2 21h20"></path></svg></div>
+    <div style={{marginBottom: "16px", opacity: "1 !important", lineHeight: "0", display: "flex", justifyContent: "center"}}><svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#E8B547" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9.3 6.2 8 10h8l-1.3-3.8a2 2 0 0 0-1.9-1.2h-2.2a2 2 0 0 0-1.9 1.2z"></path><path d="m7.3 13-2 6h13.4l-2-6z"></path><path d="M2 21h20"></path></svg></div>
     <h1 style={{opacity: "1 !important"}}>Triumph</h1>
     <p className="page-hero-sub" style={{opacity: "1 !important"}}>Transportation payments, factoring, intelligence, and banking.</p>
     <div className="page-hero-ctas"><a href="/get-demo" className="btn-primary">See It in Action</a></div>
@@ -510,7 +510,7 @@ export default function Page() {
       </div>
       <div>
         <div className="int-card" style={{textAlign: "center"}}>
-          <div style={{marginBottom: "20px", lineHeight: "0"}}><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#E8B547" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9.3 6.2 8 10h8l-1.3-3.8a2 2 0 0 0-1.9-1.2h-2.2a2 2 0 0 0-1.9 1.2z"></path><path d="m7.3 13-2 6h13.4l-2-6z"></path><path d="M2 21h20"></path></svg></div>
+          <div style={{marginBottom: "20px", lineHeight: "0", display: "flex", justifyContent: "center"}}><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#E8B547" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9.3 6.2 8 10h8l-1.3-3.8a2 2 0 0 0-1.9-1.2h-2.2a2 2 0 0 0-1.9 1.2z"></path><path d="m7.3 13-2 6h13.4l-2-6z"></path><path d="M2 21h20"></path></svg></div>
           <div style={{fontFamily: "'Syne', sans-serif", fontSize: "32px", fontWeight: "700", marginBottom: "12px", color: "var(--white)"}}>Triumph</div>
           <div style={{fontSize: "14px", color: "var(--gray-2)", lineHeight: "1.6", marginBottom: "24px"}}>Transportation payments, factoring, intelligence, and banking.</div>
           <div style={{textAlign: "center", marginBottom: "24px"}}>

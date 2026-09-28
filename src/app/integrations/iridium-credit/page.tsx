@@ -1,11 +1,9 @@
-// AUTO-GENERATED from integrations/bill360.html by scripts/migrate-html.mjs.
-// Hand-edits are fine; re-running the migrator will overwrite this file.
 import type { Metadata } from "next";
 import Script from "next/script";
 
 export const metadata: Metadata = {
-  title: "Bill360 Integration , FactorCloud",
-  description: "AR automation, digital invoicing, and embedded payments. Get paid 36% faster. Save 15 hours per week.",
+  title: "Iridium Credit Integration | FactorCloud",
+  description: "Invoice verification before funding, then collections and cash posting, written back to FactorCloud.",
 };
 
 const PAGE_CSS = `
@@ -481,9 +479,9 @@ export default function Page() {
   <div className="page-hero-glow"></div>
   <div className="page-hero-inner" style={{opacity: "1 !important"}}>
     <span className="page-eyebrow" style={{opacity: "1 !important"}}>Integration</span>
-    <div style={{marginBottom: "16px", opacity: "1 !important", lineHeight: "0", display: "flex", justifyContent: "center"}}><svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#E8B547" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"></path><path d="M12 18V6"></path></svg></div>
-    <h1 style={{opacity: "1 !important"}}>Bill360</h1>
-    <p className="page-hero-sub" style={{opacity: "1 !important"}}>AR automation, digital invoicing, and embedded payments. Get paid 36% faster. Save 15 hours per week.</p>
+    <div style={{marginBottom: "16px", opacity: "1 !important", lineHeight: "0", display: "flex", justifyContent: "center"}}><svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#E8B547" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><polyline points="9 15 11 17 15 13"></polyline></svg></div>
+    <h1 style={{opacity: "1 !important", display: "flex", alignItems: "center", justifyContent: "center", gap: "0.4em"}}><img src="/images/integration-logos/iridium-credit-mark-white.svg" alt="" aria-hidden="true" width={80} height={80} style={{width: "0.8em", height: "0.8em", flex: "none"}} />Iridium Credit</h1>
+    <p className="page-hero-sub" style={{opacity: "1 !important"}}>Invoice verification before funding, then collections and cash posting, written back to FactorCloud.</p>
     <div className="page-hero-ctas"><a href="/get-demo" className="btn-primary">See It in Action</a></div>
   </div>
 </section>
@@ -491,35 +489,35 @@ export default function Page() {
 <section style={{padding: "80px 0", borderTop: "0.5px solid var(--border)"}}>
   <div className="container">
     <div className="ig-grid-1" style={{gap: "24px", marginBottom: "64px", textAlign: "center", background: "var(--bg-3)", border: "0.5px solid var(--border)", padding: "48px 32px"}}>
-      <div><span style={{fontFamily: "'Syne', sans-serif", fontSize: "clamp(32px,4vw,52px)", color: "var(--amber)", lineHeight: "1", display: "block"}}>36%</span><div style={{fontSize: "13px", color: "var(--gray-2)", marginTop: "8px"}}>Faster payment</div></div>
-      <div><span style={{fontFamily: "'Syne', sans-serif", fontSize: "clamp(32px,4vw,52px)", color: "var(--amber)", lineHeight: "1", display: "block"}}>15 hrs</span><div style={{fontSize: "13px", color: "var(--gray-2)", marginTop: "8px"}}>Saved per week</div></div>
-      <div><span style={{fontFamily: "'Syne', sans-serif", fontSize: "clamp(32px,4vw,52px)", color: "var(--amber)", lineHeight: "1", display: "block"}}>Digital</span><div style={{fontSize: "13px", color: "var(--gray-2)", marginTop: "8px"}}>Invoicing</div></div>
+      <div><span style={{fontFamily: "'Syne', sans-serif", fontSize: "clamp(32px,4vw,52px)", color: "var(--amber)", lineHeight: "1", display: "block"}}>Every</span><div style={{fontSize: "13px", color: "var(--gray-2)", marginTop: "8px"}}>Invoice checked</div></div>
+      <div><span style={{fontFamily: "'Syne', sans-serif", fontSize: "clamp(32px,4vw,52px)", color: "var(--amber)", lineHeight: "1", display: "block"}}>Signed</span><div style={{fontSize: "13px", color: "var(--gray-2)", marginTop: "8px"}}>Debtor confirmations</div></div>
+      <div><span style={{fontFamily: "'Syne', sans-serif", fontSize: "clamp(32px,4vw,52px)", color: "var(--amber)", lineHeight: "1", display: "block"}}>Two-way</span><div style={{fontSize: "13px", color: "var(--gray-2)", marginTop: "8px"}}>FactorCloud sync</div></div>
     </div>
     <div className="int-detail-grid">
       <div>
-        <span className="section-label">Bill360 + FactorCloud</span>
-        <h2 className="section-title">AR Automation That Pays You Faster.</h2>
-        <p style={{color: "var(--gray-2)", lineHeight: "1.7", marginBottom: "24px"}}>Bill360 brings digital invoicing and embedded payments into your factoring workflow. Clients pay faster, your AR is automated, and you save 15 hours per week on manual follow-up. All synced directly into FactorCloud.</p>
-        <ul className="feat-list"><li><span className="feat-list-tick">✓</span>Digital invoicing with embedded payment options</li>
-<li><span className="feat-list-tick">✓</span>Automated AR follow-up and reminders</li>
-<li><span className="feat-list-tick">✓</span>36% faster payment collection</li>
-<li><span className="feat-list-tick">✓</span>Save 15 hours per week on manual work</li>
-<li><span className="feat-list-tick">✓</span>Real-time sync with FactorCloud ledger</li>
-<li><span className="feat-list-tick">✓</span>Client-friendly payment portal</li></ul>
+        <span className="section-label">Iridium Credit + FactorCloud</span>
+        <h2 className="section-title">Checked Before You Fund. Followed Through to Paid.</h2>
+        <p style={{color: "var(--gray-2)", lineHeight: "1.7", marginBottom: "24px"}}>Iridium Credit picks up each invoice from FactorCloud, checks it against its backup, and asks the debtor contact on file to confirm it before you fund. After funding, it follows up by email and automated calls, then posts each payment with its remittance attached. Exceptions go to your team.</p>
+        <ul className="feat-list"><li><span className="feat-list-tick">✓</span>Field-level matching to BOLs, PODs, POs, and timesheets</li>
+<li><span className="feat-list-tick">✓</span>Lookalike-domain, duplicate, and altered-PDF checks</li>
+<li><span className="feat-list-tick">✓</span>Typed-name signature, IP, and location on every confirmation</li>
+<li><span className="feat-list-tick">✓</span>Promises, disputes, and callbacks on the FactorCloud invoice</li>
+<li><span className="feat-list-tick">✓</span>Remittances pulled from inboxes, portals, and check images</li>
+<li><span className="feat-list-tick">✓</span>Short pays, partials, and overpays posted to FactorCloud</li></ul>
         <a href="/get-demo" className="btn-primary" style={{marginTop: "24px"}}>Get a Demo</a>
       </div>
       <div>
         <div className="int-card" style={{textAlign: "center"}}>
-          <div style={{marginBottom: "20px", lineHeight: "0", display: "flex", justifyContent: "center"}}><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#E8B547" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"></path><path d="M12 18V6"></path></svg></div>
-          <div style={{fontFamily: "'Syne', sans-serif", fontSize: "32px", fontWeight: "700", marginBottom: "12px", color: "var(--white)"}}>Bill360</div>
-          <div style={{fontSize: "14px", color: "var(--gray-2)", lineHeight: "1.6", marginBottom: "24px"}}>AR automation, digital invoicing, and embedded payments. Get paid 36% faster. Save 15 hours per week.</div>
+          <div style={{marginBottom: "20px", lineHeight: "0", display: "flex", justifyContent: "center"}}><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#E8B547" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><polyline points="9 15 11 17 15 13"></polyline></svg></div>
+          <div style={{fontFamily: "'Syne', sans-serif", fontSize: "32px", fontWeight: "700", marginBottom: "12px", color: "var(--white)", display: "flex", alignItems: "center", justifyContent: "center", gap: "0.4em"}}><img src="/images/integration-logos/iridium-credit-mark-white.svg" alt="" aria-hidden="true" width={80} height={80} style={{width: "0.8em", height: "0.8em", flex: "none"}} />Iridium Credit</div>
+          <div style={{fontSize: "14px", color: "var(--gray-2)", lineHeight: "1.6", marginBottom: "24px"}}>Invoice verification before funding, then collections and cash posting, written back to FactorCloud.</div>
           <div style={{textAlign: "center", marginBottom: "24px"}}>
             <span className="int-active-badge"><span className="int-active-dot"></span>Active Integration</span>
           </div>
           <div style={{background: "var(--bg-3)", border: "0.5px solid var(--border)", padding: "20px", textAlign: "left"}}>
             <div style={{fontFamily: "'JetBrains Mono', monospace", fontSize: "9px", fontWeight: "600", letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--gray-3)", marginBottom: "14px"}}>Integration Details</div>
             <div className="data-row"><span className="data-row-label">Type</span><span className="data-row-value">Native API</span></div>
-            <div className="data-row"><span className="data-row-label">Setup</span><span className="data-row-value">Included on all plans</span></div>
+            <div className="data-row"><span className="data-row-label">Setup</span><span className="data-row-value">Available on all plans</span></div>
             <div className="data-row"><span className="data-row-label">Category</span><span className="data-row-value">AR Automation</span></div>
             <div className="data-row"><span className="data-row-label">Support</span><span className="data-row-value green">Fully supported</span></div>
           </div>
@@ -532,8 +530,8 @@ export default function Page() {
 <section className="cta-section" style={{background: "var(--bg-2)"}}>
   <div className="container">
     <span className="page-eyebrow">Ready to Connect?</span>
-    <h2>Bill360 + FactorCloud</h2>
-    <p>See how the Bill360 integration works in a live FactorCloud demo.</p>
+    <h2>Iridium Credit + FactorCloud</h2>
+    <p>See how the Iridium Credit integration works in a live FactorCloud demo.</p>
     <div style={{display: "flex", gap: "12px", justifyContent: "center", flexWrap: "wrap"}}>
       <a href="/get-demo" className="btn-primary">Get a Demo</a>
       <a href="/integrations" className="btn-ghost">All Integrations</a>
@@ -601,7 +599,7 @@ export default function Page() {
     </div>
   </div>
 </footer>
-      <Script id="page-integrations-bill360" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: PAGE_JS }} />
+      <Script id="page-integrations-iridium-credit" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: PAGE_JS }} />
     </>
   );
 }
